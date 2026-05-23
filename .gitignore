@@ -1,0 +1,25 @@
+## Visual Studio / Rider
+.vs/
+.idea/
+*.DotSettings.user
+*.sln.DotSettings.user
+
+## Build
+bin/
+obj/
+
+## NuGet packages
+packages/
+*.nupkg
+
+## User-specific files
+*.user
+*.suo
+*.sln.docstates
+
+## Project-specific
+BookOfHoursTesting/
+
+## OS files
+Thumbs.db
+.DS_Store

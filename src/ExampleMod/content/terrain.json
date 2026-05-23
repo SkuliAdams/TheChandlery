@@ -1,0 +1,34 @@
+{
+  "terrain": [
+    {
+      "id": "example_room",
+      "label": "Example Room",
+      "preface": "A mysterious chamber",
+      "startdescription": "Something interesting happens here.",
+      "desc": "Full description of the example room.",
+      "posx": 800,
+      "posy": 400,
+      "width": 150,
+      "height": 200,
+      "sprite": "sprites/rooms/example_room",
+      "startsopen": false,
+      "startsunsealed": false,
+      "connectedto": {
+        "gatehouse": "1"
+      }
+    },
+    {
+      "id": "example_hall",
+      "label": "Example Hall",
+      "posx": 1000,
+      "posy": 400,
+      "width": 200,
+      "height": 150,
+      "startsopen": true,
+      "startsunsealed": true,
+      "connectedto": {
+        "example_room": "1"
+      }
+    }
+  ]
+}
