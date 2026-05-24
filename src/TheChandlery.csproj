@@ -7,13 +7,15 @@
         <AssemblyName>Chandlery</AssemblyName>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <LangVersion>latest</LangVersion>
+        <BOHGamePath>$(BOHGamePath)</BOHGamePath>
+        <BOHModsPath>$(BOHModsPath)</BOHModsPath>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
         <Optimize>false</Optimize>
-        <OutDir>C:\Users\jonat\AppData\LocalLow\Weather Factory\Book of Hours\mods\Chandlery\dll</OutDir>
+        <OutDir>$(BOHModsPath)\Chandlery\dll</OutDir>
     </PropertyGroup>
 
     <Target Name="DeployExampleMod" AfterTargets="AfterBuild" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
@@ -32,31 +34,31 @@
         <PackageReference Include="Lib.Harmony" Version="2.4.2" />
         <Reference Include="System" />
         <Reference Include="UnityEngine">
-            <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Book of Hours\bh_Data\Managed\UnityEngine.dll</HintPath>
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Book of Hours\bh_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
-            <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Book of Hours\bh_Data\Managed\UnityEngine.UI.dll</HintPath>
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.UI.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.ImageConversionModule">
-            <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Book of Hours\bh_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UIModule">
-            <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Book of Hours\bh_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.UIModule.dll</HintPath>
         </Reference>
         <Reference Include="SecretHistories.Main">
-            <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Book of Hours\bh_Data\Managed\SecretHistories.Main.dll</HintPath>
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\SecretHistories.Main.dll</HintPath>
         </Reference>
         <Reference Include="SecretHistories.Enums">
-            <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Book of Hours\bh_Data\Managed\SecretHistories.Enums.dll</HintPath>
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\SecretHistories.Enums.dll</HintPath>
         </Reference>
         <Reference Include="SecretHistories.Interfaces">
-            <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Book of Hours\bh_Data\Managed\SecretHistories.Interfaces.dll</HintPath>
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\SecretHistories.Interfaces.dll</HintPath>
         </Reference>
         <Reference Include="Newtonsoft.Json">
-            <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Book of Hours\bh_Data\Managed\Newtonsoft.Json.dll</HintPath>
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\Newtonsoft.Json.dll</HintPath>
         </Reference>
     </ItemGroup>
 </Project>
