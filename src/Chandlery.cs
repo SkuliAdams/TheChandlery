@@ -14,8 +14,8 @@ public static class Chandlery
         Debug.Log("Chandlery: Initialising...");
 
         Wheel.Enact(_harmony);
-        Lionsmith.Enact(_harmony);
         Flowermaker.Enact(_harmony);
+        //Lionsmith.Enact(_harmony);
 
         Debug.Log("Chandlery: Ready");
     }
