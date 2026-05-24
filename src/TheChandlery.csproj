@@ -12,11 +12,18 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
         <Optimize>false</Optimize>
         <OutDir>$(BOHModsPath)\Chandlery\dll</OutDir>
     </PropertyGroup>
+
+    <Target Name="CleanupOutput" AfterTargets="AfterBuild" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+        <ItemGroup>
+            <_ExtraFiles Include="$(OutDir)*.dll" Exclude="$(OutDir)Chandlery.dll;$(OutDir)0Harmony.dll" />
+        </ItemGroup>
+        <Delete Files="@(_ExtraFiles)" />
+    </Target>
 
     <Target Name="DeployExampleMod" AfterTargets="AfterBuild" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
         <PropertyGroup>
@@ -30,35 +37,48 @@
         <Copy SourceFiles="@(_ExampleModFiles)" DestinationFiles="@(_ExampleModFiles->'$(ExampleModTargetDir)%(RecursiveDir)%(Filename)%(Extension)')" />
     </Target>
 
+    <ItemGroup Condition="'$(ExcludeLionsmith)' == 'true'">
+        <Compile Remove="Lionsmith\**\*.cs" />
+    </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.4.2" />
         <Reference Include="System" />
         <Reference Include="UnityEngine">
             <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
             <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="UnityEngine.UI">
             <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.UI.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="UnityEngine.ImageConversionModule">
             <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="UnityEngine.UIModule">
             <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="SecretHistories.Main">
             <HintPath>$(BOHGamePath)\bh_Data\Managed\SecretHistories.Main.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="SecretHistories.Enums">
             <HintPath>$(BOHGamePath)\bh_Data\Managed\SecretHistories.Enums.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="SecretHistories.Interfaces">
             <HintPath>$(BOHGamePath)\bh_Data\Managed\SecretHistories.Interfaces.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="Newtonsoft.Json">
             <HintPath>$(BOHGamePath)\bh_Data\Managed\Newtonsoft.Json.dll</HintPath>
+            <Private>false</Private>
         </Reference>
     </ItemGroup>
 </Project>
