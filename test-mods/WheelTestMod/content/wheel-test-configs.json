@@ -1,0 +1,23 @@
+{
+  "wheel_test_configs": [
+    {
+      "id": "wheel.test.config.difficulty",
+      "settingname": "Difficulty Multiplier",
+      "numericvalue": 1.5,
+      "params": {
+        "easy": "0.75",
+        "normal": "1.0",
+        "hard": "1.5"
+      }
+    },
+    {
+      "id": "wheel.test.config.rewards",
+      "settingname": "Reward Scaling",
+      "numericvalue": 2.0,
+      "params": {
+        "base": "10",
+        "per_aspect": "5"
+      }
+    }
+  ]
+}

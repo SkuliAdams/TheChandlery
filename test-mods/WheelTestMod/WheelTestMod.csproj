@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <OutputType>Library</OutputType>
+        <RootNamespace>WheelTestMod</RootNamespace>
+        <AssemblyName>WheelTestMod</AssemblyName>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <LangVersion>latest</LangVersion>
+        <BOHGamePath>$(BOHGamePath)</BOHGamePath>
+        <BOHModsPath>$(BOHModsPath)</BOHModsPath>
+        <ChandleryProjectDir>$(MSBuildProjectDirectory)\..\..\src</ChandleryProjectDir>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
+        <Optimize>false</Optimize>
+        <OutDir>$(BOHModsPath)\WheelTestMod\dll</OutDir>
+    </PropertyGroup>
+
+    <Target Name="DeployTestModContent" AfterTargets="AfterBuild" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+        <PropertyGroup>
+            <TargetModDir>$([MSBuild]::EnsureTrailingSlash('$(BOHModsPath)\WheelTestMod'))</TargetModDir>
+        </PropertyGroup>
+        <ItemGroup>
+            <_ExtraFiles Include="$(OutDir)*.dll" Exclude="$(OutDir)WheelTestMod.dll;$(OutDir)Chandlery.dll;$(OutDir)0Harmony.dll" />
+        </ItemGroup>
+        <Delete Files="@(_ExtraFiles)" />
+        <Copy SourceFiles="$(MSBuildProjectDirectory)\synopsis.json" DestinationFolder="$(TargetModDir)" Condition="!Exists('$(TargetModDir)synopsis.json')" />
+        <Copy SourceFiles="$(MSBuildProjectDirectory)\cover.png" DestinationFolder="$(TargetModDir)" Condition="!Exists('$(TargetModDir)cover.png')" />
+        <ItemGroup>
+            <_ContentFiles Include="$(MSBuildProjectDirectory)\content\**\*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(_ContentFiles)" DestinationFiles="@(_ContentFiles->'$(TargetModDir)%(RecursiveDir)%(Filename)%(Extension)')" />
+    </Target>
+
+    <ItemGroup>
+        <PackageReference Include="Lib.Harmony" Version="2.4.2" />
+        <Reference Include="System" />
+        <Reference Include="UnityEngine">
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="SecretHistories.Main">
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\SecretHistories.Main.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="SecretHistories.Enums">
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\SecretHistories.Enums.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="SecretHistories.Interfaces">
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\SecretHistories.Interfaces.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\Newtonsoft.Json.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <ProjectReference Include="$(ChandleryProjectDir)\TheChandlery.csproj">
+            <Private>true</Private>
+        </ProjectReference>
+    </ItemGroup>
+</Project>

@@ -1,0 +1,20 @@
+{
+  "elements": [
+    {
+      "id": "wheel.test.element.base_entity",
+      "label": "Wheel Test: Base Entity",
+      "description": "Base entity with a custom property value.",
+      "aspects": { "testaspect": 1 },
+      "wheelteststring": "inherited value",
+      "wheeltestint": 999
+    },
+    {
+      "id": "wheel.test.element.derived_entity",
+      "label": "Wheel Test: Derived Entity",
+      "description": "Derived entity that should inherit custom properties from base.",
+      "extends": "wheel.test.element.base_entity",
+      "aspects": { "testaspect": 2 },
+      "wheelteststring": "overridden value"
+    }
+  ]
+}

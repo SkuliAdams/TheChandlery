@@ -1,0 +1,34 @@
+{
+  "elements": [
+    {
+      "id": "wheel.test.element.basic",
+      "label": "Wheel Test: Basic Element",
+      "description": "A basic element with Wheel custom properties set.",
+      "aspects": { "testaspect": 1 },
+      "wheelteststring": "hello from wheel",
+      "wheeltestint": 100,
+      "wheeltestbool": true
+    },
+    {
+      "id": "wheel.test.element.defaults",
+      "label": "Wheel Test: Default Properties",
+      "description": "This element uses default values for all custom properties.",
+      "aspects": { "testaspect": 1 }
+    },
+    {
+      "id": "wheel.test.element.legacy_format",
+      "label": "Wheel Test: Legacy Format",
+      "description": "This element uses a legacy property that gets converted via molding.",
+      "aspects": { "testaspect": 1 },
+      "wheellegacyformat": "converted from legacy"
+    },
+    {
+      "id": "wheel.test.element.ignored_field",
+      "label": "Wheel Test: Ignored Field",
+      "description": "This element has the ignored property 'wheelLegacyField' which should not appear.",
+      "aspects": { "testaspect": 1 },
+      "wheelteststring": "visible prop",
+      "wheelLegacyField": "this should be silently skipped"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "recipes": [
+    {
+      "id": "wheel.test.recipe.test_note",
+      "label": "Wheel Test: Recipe with Note",
+      "description": "A recipe that has a custom Wheel recipe note.",
+      "aspects": { "testaspect": 1 },
+      "wheelrecipenote": "This recipe was created by WheelTestMod"
+    },
+    {
+      "id": "wheel.test.recipe.no_note",
+      "label": "Wheel Test: Recipe Without Note",
+      "description": "A recipe without a custom note (should get default).",
+      "aspects": { "testaspect": 1 }
+    }
+  ]
+}

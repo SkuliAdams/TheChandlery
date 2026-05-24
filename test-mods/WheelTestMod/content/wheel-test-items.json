@@ -1,0 +1,27 @@
+{
+  "wheel_test_items": [
+    {
+      "id": "wheel.test.simple_item",
+      "value": 10,
+      "description": "A simple test item",
+      "ismagical": false,
+      "weight": 0.5
+    },
+    {
+      "id": "wheel.test.magical_gem",
+      "value": 100,
+      "description": "A shimmering magical gem",
+      "ismagical": true,
+      "weight": 0.2,
+      "requiredelements": ["glass", "scale"]
+    },
+    {
+      "id": "wheel.test.heavy_rock",
+      "value": 1,
+      "description": "A heavy, ordinary rock",
+      "ismagical": false,
+      "weight": 15.0,
+      "requiredelements": ["stone"]
+    }
+  ]
+}

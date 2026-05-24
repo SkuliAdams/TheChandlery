@@ -1,0 +1,8 @@
+{
+  "name": "WheelTestMod",
+  "author": "Chandlery",
+  "version": "1.0.0",
+  "description": "Test mod for TheChandlery Wheel data loading system.",
+  "description_long": "Validates all phases of the Wheel data loading system: custom entity types, custom properties on existing entities, property ignoring, inheritance, and custom importers.",
+  "tags": ["chandlery", "test"]
+}
