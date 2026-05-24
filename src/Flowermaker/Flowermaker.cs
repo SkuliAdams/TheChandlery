@@ -1,6 +1,8 @@
-using System.IO;
 using HarmonyLib;
 using SecretHistories.Infrastructure;
+using SecretHistories.Infrastructure.Modding;
+using SecretHistories.Services;
+using SecretHistories.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +11,12 @@ namespace TheHouse
     // Replaces the main menu background and disables overlapping visual elements.
     internal static class Flowermaker
     {
+        private static Texture _originalTexture;
+    private static GameObject _floatingGlyphs;
+    private static GameObject _fuchsia;
+    private static GameObject _proem;
+    private static GameObject _bugsButton;
+
         public static void Enact(Harmony harmony)
         {
             harmony.Patch(
@@ -18,36 +26,58 @@ namespace TheHouse
 
         private static void OnMenuScreenStart(BHMenuScreenController __instance)
         {
-            ApplyCustomMenuBackground(__instance);
+            ApplyCustomMenuBackground();
+
+            (Watchman.Get<Concursum>().ContentUpdatedEvent)
+                .AddListener(_ => ApplyCustomMenuBackground());
         }
 
-        private static void ApplyCustomMenuBackground(BHMenuScreenController controller)
+        private static void ApplyCustomMenuBackground()
         {
-            var bgPath = @"C:\Users\jonat\AppData\LocalLow\Weather Factory\Book of Hours\mods\Chandlery\images\mainmenu.png";
-
-            if (!File.Exists(bgPath))
-                return;
-
-            var texture = new Texture2D(2, 2);
-            if (!texture.LoadImage(File.ReadAllBytes(bgPath)))
-                return;
-
             var bgHolder = GameObject.Find("CanvasBG/BGHolder");
-            if (bgHolder != null)
+            if (bgHolder == null)
+                return;
+
+            var rawImage = bgHolder.GetComponent<RawImage>();
+            if (rawImage == null)
+                return;
+
+            if (_originalTexture == null)
+                _originalTexture = rawImage.texture;
+
+            CacheOverlayReferences();
+
+            var sprite = Watchman.Get<ModManager>()?.GetSprite("chandlery\\mainmenu");
+            if (sprite != null)
             {
-                var rawImage = bgHolder.GetComponent<RawImage>();
-                if (rawImage != null)
-                    rawImage.texture = texture;
+                rawImage.texture = sprite.texture;
+                SetOverlaysVisible(false);
             }
+            else
+            {
+                rawImage.texture = _originalTexture;
+                SetOverlaysVisible(true);
+            }
+        }
 
-            var floatingGlyphs = GameObject.Find("CanvasBG/BGHolder/floatingGlyphs - left to right");
-            if (floatingGlyphs != null) floatingGlyphs.SetActive(false);
+        private static void CacheOverlayReferences()
+        {
+            if (_floatingGlyphs == null)
+                _floatingGlyphs = GameObject.Find("CanvasBG/BGHolder/floatingGlyphs - left to right");
+            if (_fuchsia == null)
+                _fuchsia = GameObject.Find("CanvasMenu/Fuchsia");
+            if (_proem == null)
+                _proem = GameObject.Find("CanvasMenu/ProemHolder");
+            if (_bugsButton == null)
+                _bugsButton = GameObject.Find("CanvasMenu/VersionAndDlcInfo/Button_Bugs");
+        }
 
-            var fuchsia = GameObject.Find("CanvasMenu/Fuchsia");
-            if (fuchsia != null) fuchsia.SetActive(false);
-            
-            var proem = GameObject.Find("CanvasMenu/ProemHolder");
-            if (proem != null) proem.SetActive(false);
+        private static void SetOverlaysVisible(bool visible)
+        {
+            if (_floatingGlyphs != null) _floatingGlyphs.SetActive(visible);
+            if (_fuchsia != null) _fuchsia.SetActive(visible);
+            if (_proem != null) _proem.SetActive(visible);
+            if (_bugsButton != null) _bugsButton.SetActive(visible);
         }
     }
 }

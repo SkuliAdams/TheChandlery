@@ -13,6 +13,7 @@ public static class Chandlery
         _harmony = new Harmony("com.chandlery.patch");
         Debug.Log("Chandlery: Initialising...");
 
+        Wheel.Enact(_harmony);
         Lionsmith.Enact(_harmony);
         Flowermaker.Enact(_harmony);
 

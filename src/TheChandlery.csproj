@@ -16,6 +16,18 @@
         <OutDir>C:\Users\jonat\AppData\LocalLow\Weather Factory\Book of Hours\mods\Chandlery\dll</OutDir>
     </PropertyGroup>
 
+    <Target Name="DeployExampleMod" AfterTargets="AfterBuild" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+        <PropertyGroup>
+            <ExampleModSourceDir>$(MSBuildProjectDirectory)\ExampleMod</ExampleModSourceDir>
+            <ExampleModTargetDir>$([MSBuild]::EnsureTrailingSlash('$([System.IO.Path]::GetFullPath('$(OutDir)\..\..\ExampleMod'))'))</ExampleModTargetDir>
+        </PropertyGroup>
+        <RemoveDir Directories="$(ExampleModTargetDir)" />
+        <ItemGroup>
+            <_ExampleModFiles Include="$(ExampleModSourceDir)\**\*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(_ExampleModFiles)" DestinationFiles="@(_ExampleModFiles->'$(ExampleModTargetDir)%(RecursiveDir)%(Filename)%(Extension)')" />
+    </Target>
+
     <ItemGroup>
         <PackageReference Include="Lib.Harmony" Version="2.4.2" />
         <Reference Include="System" />
