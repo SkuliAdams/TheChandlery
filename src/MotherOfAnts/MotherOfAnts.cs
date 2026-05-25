@@ -31,7 +31,22 @@ public static class MotherOfAnts
             var compNames = new string[comps.Length];
             for (var c = 0; c < comps.Length; c++)
                 compNames[c] = comps[c].GetType().Name;
-            Debug.Log($"Chandlery: [{index}] {indent}{node.name}  [{string.Join(", ", compNames)}]");
+
+            var pos = node.localPosition;
+            var rect = node as RectTransform;
+            var size = rect != null ? $" ({rect.sizeDelta.x:F1}x{rect.sizeDelta.y:F1})" : "";
+
+            var image = node.GetComponent<Image>();
+            var imageInfo = "";
+            if (image != null)
+            {
+                var sprite = image.sprite;
+                var spriteName = sprite != null ? sprite.name : "null";
+                var color = image.color;
+                imageInfo = $"  Image[sprite={spriteName} color=({color.r:F2},{color.g:F2},{color.b:F2},{color.a:F2}) alpha={image.canvasRenderer.GetAlpha():F2}]";
+            }
+
+            Debug.Log($"Chandlery: [{index}] {indent}{node.name}  [{string.Join(", ", compNames)}]  pos=({pos.x:F1}, {pos.y:F1}){size}{imageInfo}");
 
             for (var i = node.childCount - 1; i >= 0; i--)
                 stack.Push((node.GetChild(i), depth + 1));

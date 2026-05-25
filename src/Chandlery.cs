@@ -1,6 +1,7 @@
 using HarmonyLib;
 using TheHouse;
 using TheHouse.Wheel;
+using TheHouse.WolfDivided;
 using UnityEngine;
 
 // ReSharper disable once UnusedType.Global
@@ -16,7 +17,8 @@ public static class Chandlery
 
         Wheel.Enact(_harmony);
         Flowermaker.Enact(_harmony);
-        //Lionsmith.Enact(_harmony);
+        WolfDivided.Enact(_harmony);
+        Lionsmith.Enact(_harmony);
 
         Debug.Log("Chandlery: Ready");
     }
