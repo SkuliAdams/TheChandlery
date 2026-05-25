@@ -1,0 +1,14 @@
+{
+  "terrain": [
+    {
+      "id": "thechandlery",
+      "posx": 3030.0,
+      "posy": 460.0,
+      "width": 400.0,
+      "height": 200.0,
+      "startsopen": false,
+      "startsunsealed": true,
+      "templateid": "watchmanstower1"
+    }
+  ]
+}
