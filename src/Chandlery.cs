@@ -1,5 +1,6 @@
 using HarmonyLib;
 using TheHouse;
+using TheHouse.Colonel;
 using TheHouse.Wheel;
 using TheHouse.WolfDivided;
 using UnityEngine;
@@ -19,6 +20,7 @@ public static class Chandlery
         Flowermaker.Enact(_harmony);
         WolfDivided.Enact(_harmony);
         Lionsmith.Enact(_harmony);
+        Colonel.Enact(_harmony);
 
         Debug.Log("Chandlery: Ready");
     }

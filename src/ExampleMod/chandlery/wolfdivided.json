@@ -1,5 +1,5 @@
 {
-  "cleanSlate": true,
+  "cleanSlate": false,
   "preserve": ["lodge", "entrancehall"],
   "disableTerrain": ["gatehouse"]
 }

@@ -18,7 +18,6 @@ internal static class Lionsmith
 
     private static void OnEnvironmentPopulated()
     {
-        Debug.Log("Chandlery: === Terrain hierarchy dump ===");
-        MotherOfAnts.LogAllCanvases();
+        // Custom terrain injection will go here
     }
 }

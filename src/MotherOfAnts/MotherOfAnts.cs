@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SecretHistories.Tokens.Payloads;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,27 @@ public static class MotherOfAnts
 
     public static void LogHierarchyDFS(Transform root)
     {
+        LogHierarchyDFSInternal(root, includeTerrain: true);
+    }
+
+    public static void LogCanvasesSkipTerrain()
+    {
+        var allCanvases = Resources.FindObjectsOfTypeAll<Canvas>();
+        foreach (var canvas in allCanvases)
+        {
+            var active = canvas.gameObject.activeInHierarchy ? "active" : "inactive";
+            Debug.Log($"Chandlery: ===== Canvas '{canvas.name}' ({active}) =====");
+            LogHierarchyDFSSkipTerrain(canvas.transform);
+        }
+    }
+
+    public static void LogHierarchyDFSSkipTerrain(Transform root)
+    {
+        LogHierarchyDFSInternal(root, includeTerrain: false);
+    }
+
+    private static void LogHierarchyDFSInternal(Transform root, bool includeTerrain)
+    {
         var stack = new Stack<(Transform node, int depth)>();
         stack.Push((root, 0));
         var index = 0;
@@ -27,6 +49,15 @@ public static class MotherOfAnts
         {
             var (node, depth) = stack.Pop();
             var indent = new string(' ', depth * 2);
+
+            // When skipping terrain, omit children of TerrainFeature nodes
+            if (!includeTerrain && depth > 0 && node.GetComponent<TerrainFeature>() != null)
+            {
+                Debug.Log($"Chandlery: [{index}] {indent}[SKIP] {node.name}  (TerrainFeature - children omitted)");
+                index++;
+                continue;
+            }
+
             var comps = node.GetComponents<Component>();
             var compNames = new string[comps.Length];
             for (var c = 0; c < comps.Length; c++)
