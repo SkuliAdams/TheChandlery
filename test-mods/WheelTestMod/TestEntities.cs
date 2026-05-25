@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using SecretHistories.Entities;
 using SecretHistories.Fucine;
 using SecretHistories.Fucine.DataImport;
+using TheHouse.Wheel;
 using UnityEngine;
 
-namespace WheelTestMod
+namespace ChandleryWheelTests
 {
     [FucineImportable("wheel_test_items")]
     public class TestItem : AbstractEntity<TestItem>
@@ -23,6 +25,9 @@ namespace WheelTestMod
         [FucineValue(DefaultValue = 1.0)]
         public float Weight { get; set; }
 
+        [WheelFucineEverValue(0f, 0f)]
+        public Vector2 Position { get; set; }
+
         public TestItem(EntityData importDataForEntity, ContentImportLog log)
             : base(importDataForEntity, log)
         {
@@ -36,7 +41,8 @@ namespace WheelTestMod
         protected override void OnPostImportForSpecificEntity(ContentImportLog log, Compendium populatedCompendium)
         {
             Debug.Log($"[WheelTestMod] Loaded TestItem '{Id}': Value={Value}, Desc='{Description}', " +
-                      $"Magical={IsMagical}, Weight={Weight}, ReqElements=[{string.Join(",", RequiredElements)}]");
+                      $"Magical={IsMagical}, Weight={Weight}, Position={Position}, " +
+                      $"ReqElements=[{string.Join(",", RequiredElements)}]");
         }
     }
 
@@ -52,6 +58,9 @@ namespace WheelTestMod
         [FucineDict]
         public Dictionary<string, string> Params { get; set; }
 
+        [WheelFucineEverValue(DefaultValue = 0)]
+        public int LegacyValue { get; set; }
+
         public TestConfig(EntityData importDataForEntity, ContentImportLog log)
             : base(importDataForEntity, log)
         {
@@ -64,6 +73,38 @@ namespace WheelTestMod
 
         protected override void OnPostImportForSpecificEntity(ContentImportLog log, Compendium populatedCompendium)
         {
+            Debug.Log($"[WheelTestMod] Loaded TestConfig '{Id}': SettingName='{SettingName}', " +
+                      $"NumericValue={NumericValue}, LegacyValue={LegacyValue}, " +
+                      $"Params=[{string.Join(", ", Params)}]");
+        }
+    }
+
+    [FucineImportable("wheel_test_quickspec")]
+    public class QuickSpecItem : AbstractEntity<QuickSpecItem>, IQuickSpecEntity
+    {
+        [FucineValue(DefaultValue = 0)]
+        public int Value { get; set; }
+
+        [FucineValue(DefaultValue = "")]
+        public string Description { get; set; }
+
+        public QuickSpecItem(EntityData importDataForEntity, ContentImportLog log)
+            : base(importDataForEntity, log)
+        {
+        }
+
+        public QuickSpecItem()
+        {
+        }
+
+        public void QuickSpec(string value)
+        {
+            Description = value;
+        }
+
+        protected override void OnPostImportForSpecificEntity(ContentImportLog log, Compendium populatedCompendium)
+        {
+            Debug.Log($"[WheelTestMod] Loaded QuickSpecItem '{Id}': Value={Value}, Desc='{Description}'");
         }
     }
 }

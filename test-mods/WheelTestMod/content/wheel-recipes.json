@@ -3,15 +3,29 @@
     {
       "id": "wheel.test.recipe.test_note",
       "label": "Wheel Test: Recipe with Note",
-      "description": "A recipe that has a custom Wheel recipe note.",
+      "desc": "A recipe that has a custom Wheel recipe note.",
       "aspects": { "testaspect": 1 },
       "wheelrecipenote": "This recipe was created by WheelTestMod"
     },
     {
       "id": "wheel.test.recipe.no_note",
       "label": "Wheel Test: Recipe Without Note",
-      "description": "A recipe without a custom note (should get default).",
+      "desc": "A recipe without a custom note (should get default).",
       "aspects": { "testaspect": 1 }
+    },
+    {
+      "id": "wheel.test.recipe.base_inherit",
+      "label": "Wheel Test: Base Recipe for Inheritance",
+      "desc": "Base recipe with custom properties for runtime inheritance testing.",
+      "aspects": { "testaspect": 1 },
+      "wheelrecipenote": "inherited recipe note"
+    },
+    {
+      "id": "wheel.test.recipe.runtime_inherit",
+      "label": "Wheel Test: Runtime Inherit Recipe",
+      "desc": "Uses 'inherits' (runtime). Phase 7 not implemented — custom props will NOT be inherited.",
+      "inherits": "wheel.test.recipe.base_inherit",
+      "aspects": { "testaspect": 2 }
     }
   ]
 }

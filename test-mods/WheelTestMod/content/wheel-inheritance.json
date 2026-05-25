@@ -3,7 +3,7 @@
     {
       "id": "wheel.test.element.base_entity",
       "label": "Wheel Test: Base Entity",
-      "description": "Base entity with a custom property value.",
+      "desc": "Base entity with inherited custom properties.",
       "aspects": { "testaspect": 1 },
       "wheelteststring": "inherited value",
       "wheeltestint": 999
@@ -11,10 +11,24 @@
     {
       "id": "wheel.test.element.derived_entity",
       "label": "Wheel Test: Derived Entity",
-      "description": "Derived entity that should inherit custom properties from base.",
-      "extends": "wheel.test.element.base_entity",
+      "desc": "Derived entity using $extends. Should inherit wheeltestint, override wheelteststring.",
+      "$extends": "wheel.test.element.base_entity",
       "aspects": { "testaspect": 2 },
       "wheelteststring": "overridden value"
+    },
+    {
+      "id": "wheel.test.element.converted_entity",
+      "label": "Wheel Test: Converted Entity",
+      "desc": "Uses 'extends' (no $) — WheelChain converts it to $extends. Should inherit both custom props.",
+      "extends": "wheel.test.element.base_entity",
+      "aspects": { "testaspect": 3 }
+    },
+    {
+      "id": "wheel.test.element.runtime_inherit",
+      "label": "Wheel Test: Runtime Inherit",
+      "desc": "Uses 'inherits' (runtime InheritFrom). Phase 7 not implemented — custom props will NOT be inherited.",
+      "inherits": "wheel.test.element.base_entity",
+      "aspects": { "testaspect": 4 }
     }
   ]
 }

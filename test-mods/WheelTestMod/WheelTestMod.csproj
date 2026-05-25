@@ -3,13 +3,13 @@
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <OutputType>Library</OutputType>
-        <RootNamespace>WheelTestMod</RootNamespace>
+        <!-- RootNamespace deliberately differs from AssemblyName/entry class to avoid .NET SDK auto-generation conflict -->
+        <RootNamespace>ChandleryWheelTestMod</RootNamespace>
         <AssemblyName>WheelTestMod</AssemblyName>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <LangVersion>latest</LangVersion>
         <BOHGamePath>$(BOHGamePath)</BOHGamePath>
         <BOHModsPath>$(BOHModsPath)</BOHModsPath>
-        <ChandleryProjectDir>$(MSBuildProjectDirectory)\..\..\src</ChandleryProjectDir>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
@@ -32,7 +32,7 @@
         <ItemGroup>
             <_ContentFiles Include="$(MSBuildProjectDirectory)\content\**\*" />
         </ItemGroup>
-        <Copy SourceFiles="@(_ContentFiles)" DestinationFiles="@(_ContentFiles->'$(TargetModDir)%(RecursiveDir)%(Filename)%(Extension)')" />
+        <Copy SourceFiles="@(_ContentFiles)" DestinationFolder="$(TargetModDir)content" />
     </Target>
 
     <ItemGroup>
@@ -62,8 +62,9 @@
             <HintPath>$(BOHGamePath)\bh_Data\Managed\Newtonsoft.Json.dll</HintPath>
             <Private>false</Private>
         </Reference>
-        <ProjectReference Include="$(ChandleryProjectDir)\TheChandlery.csproj">
-            <Private>true</Private>
-        </ProjectReference>
+        <Reference Include="Chandlery">
+            <HintPath>$(BOHModsPath)\Chandlery\dll\Chandlery.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
     </ItemGroup>
 </Project>

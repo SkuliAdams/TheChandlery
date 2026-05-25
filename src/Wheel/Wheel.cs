@@ -11,9 +11,9 @@ using SecretHistories.Services;
 using SecretHistories.UI;
 using UnityEngine;
 
-namespace TheHouse;
+namespace TheHouse.Wheel;
 
-internal static class Wheel
+public static class Wheel
 {
     private static readonly Dictionary<string, Type> EntityTypes = new();
     private static readonly Dictionary<string, Dictionary<string, object>> Entities = new();
@@ -25,6 +25,41 @@ internal static class Wheel
             original: AccessTools.Method(typeof(ModManager), "TryLoadImagesForEnabledMods"),
             postfix: AccessTools.Method(typeof(Wheel), nameof(OnLoadImages)));
 
+        WheelTypes.Enact(harmony);
+        WheelIntercept.Enact(harmony);
+        WheelChain.Enact(harmony);
+        WheelFucine.Enact(harmony);
+    }
+
+    public static void ClaimProperty<TEntity, TProperty>(string propertyName,
+        bool localize = false, TProperty defaultValue = default(TProperty))
+        where TEntity : AbstractEntity<TEntity>
+    {
+        WheelStore.AddClaim<TEntity>(propertyName, typeof(TProperty), defaultValue, localize);
+    }
+
+    public static void ClaimProperty<TEntity, TProperty>(string propertyName,
+        bool localize, TProperty defaultValue, Fucine importer)
+        where TEntity : AbstractEntity<TEntity>
+    {
+        WheelStore.AddClaim<TEntity>(propertyName, typeof(TProperty), defaultValue, localize, importer);
+    }
+
+    public static void AddImportMolding<TEntity>(Action<EntityData> molding)
+        where TEntity : AbstractEntity<TEntity>
+    {
+        WheelStore.AddMolding<TEntity>(molding);
+    }
+
+    public static void IgnoreProperty<TEntity>(string propertyName)
+        where TEntity : AbstractEntity<TEntity>
+    {
+        WheelIgnore.IgnoreProperty(typeof(TEntity), propertyName);
+    }
+
+    public static void IgnoreEntityGroup(string groupId)
+    {
+        WheelIgnore.IgnoreEntityGroup(groupId);
     }
 
     private static void OnLoadImages(ModManager __instance)

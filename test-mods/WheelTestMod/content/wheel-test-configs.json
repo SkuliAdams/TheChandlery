@@ -18,6 +18,14 @@
         "base": "10",
         "per_aspect": "5"
       }
+    },
+    {
+      "id": "wheel.test.config.extra",
+      "settingname": "Extra Config",
+      "numericvalue": 0.0,
+      "legacyvalue": 42,
+      "extraUnknownField": "this should be silently ignored by group-ignore",
+      "anotherUnknownKey": "also silently ignored"
     }
   ]
 }

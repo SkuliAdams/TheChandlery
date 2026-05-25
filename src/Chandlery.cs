@@ -1,5 +1,6 @@
 using HarmonyLib;
 using TheHouse;
+using TheHouse.Wheel;
 using UnityEngine;
 
 // ReSharper disable once UnusedType.Global
