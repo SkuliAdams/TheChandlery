@@ -1,5 +1,6 @@
 using SecretHistories.Fucine;
 using SecretHistories.Fucine.DataImport;
+using UnityEngine;
 
 namespace TheHouse;
 
@@ -22,4 +23,33 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
     [FucineValue] public bool StartsOpen { get; set; }
     [FucineValue(true)] public bool StartsUnsealed { get; set; }
     [FucineValue] public string TemplateId { get; set; }
+
+    [FucineValue] public string RoomSize { get; set; }
+
+    [FucineSubEntity]
+    public RoomContentsDefinition Contents { get; set; }
+
+    private const float BlockWidth = 400f;
+    private const float BlockHeight = 200f;
+    private const float BlockGap = 20f;
+
+    public void ResolveSize(out float w, out float h)
+    {
+        if (!string.IsNullOrEmpty(RoomSize))
+        {
+            var parts = RoomSize.Split('x');
+            if (parts.Length == 2
+                && int.TryParse(parts[0].Trim(), out var rows)
+                && int.TryParse(parts[1].Trim(), out var cols)
+                && rows > 0 && cols > 0)
+            {
+                w = BlockWidth * cols + BlockGap * (cols - 1);
+                h = BlockHeight * rows + BlockGap * (rows - 1);
+                return;
+            }
+            Debug.LogWarning($"Chandlery Lionsmith: Invalid RoomSize '{RoomSize}' for room '{Id}', falling back to Width/Height");
+        }
+        w = Width;
+        h = Height;
+    }
 }

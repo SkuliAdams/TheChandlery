@@ -8,7 +8,107 @@
       "height": 200.0,
       "startsopen": false,
       "startsunsealed": true,
-      "templateid": "watchmanstower1"
+      "contents": {
+        "slots": [
+          {
+            "id": "things",
+            "label": "THINGS",
+            "posx": 0,
+            "posy": 0,
+            "width": 120,
+            "height": 120,
+            "required": { "physical": 1 }
+          }
+        ],
+        "workstations": [
+          {
+            "id": "desk",
+            "label": "Candlemaker's Desk",
+            "verb": "library.desk.reading",
+            "posx": 120,
+            "posy": 0,
+            "width": 100,
+            "height": 100
+          }
+        ],
+        "shelves": [
+          {
+            "id": "shelf1",
+            "label": "Candle Shelf",
+            "description": "Shelf of tapers and tallow dips.",
+            "posx": -120,
+            "posy": 0,
+            "width": 200,
+            "height": 80,
+            "required": { "readable": 1 }
+          }
+        ]
+      }
+    },
+    {
+      "id": "thechandlery_gallery",
+      "posx": 3700.0,
+      "posy": 460.0,
+      "roomsize": "1x2",
+      "startsopen": false,
+      "startsunsealed": true,
+      "contents": {
+        "slots": [
+          {
+            "id": "gallery_things",
+            "label": "GALLERY THINGS",
+            "posx": 200,
+            "posy": 0,
+            "width": 120,
+            "height": 120,
+            "required": { "physical": 1 }
+          }
+        ],
+        "shelves": [
+          {
+            "id": "gallery_books",
+            "label": "Reference Shelf",
+            "description": "Catalogs and art folios.",
+            "posx": -250,
+            "posy": 0,
+            "width": 200,
+            "height": 80,
+            "required": { "readable": 1 }
+          }
+        ]
+      }
+    },
+    {
+      "id": "thechandlery_spire",
+      "posx": 3030.0,
+      "posy": 790.0,
+      "roomsize": "2x1",
+      "startsopen": false,
+      "startsunsealed": true,
+      "contents": {
+        "slots": [
+          {
+            "id": "spire_things",
+            "label": "SPIRE THINGS",
+            "posx": 0,
+            "posy": 80,
+            "width": 120,
+            "height": 120,
+            "required": { "physical": 1 }
+          }
+        ],
+        "workstations": [
+          {
+            "id": "spire_desk",
+            "label": "Observer's Desk",
+            "verb": "library.desk.reading",
+            "posx": 0,
+            "posy": -100,
+            "width": 100,
+            "height": 100
+          }
+        ]
+      }
     }
   ]
 }

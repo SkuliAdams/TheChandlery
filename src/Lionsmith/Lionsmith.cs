@@ -57,7 +57,8 @@ internal static class Lionsmith
 
     private static void OnEnvironmentPopulated()
     {
-        MotherOfAnts.LogCanvasesSkipTerrain();
+        MotherOfAnts.LogTerrainDetails();
+        MotherOfAnts.LogRoomSpheres("terrain.pantry");
 
         try
         {

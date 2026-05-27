@@ -6,6 +6,7 @@ using SecretHistories;
 using SecretHistories.Abstract;
 using SecretHistories.Entities;
 using SecretHistories.Infrastructure.Modding;
+using SecretHistories.Manifestations;
 using SecretHistories.Services;
 using SecretHistories.Spheres;
 using SecretHistories.Tokens;
@@ -31,30 +32,24 @@ internal class TerrainFactory
                 return;
             }
 
-            var templateId = def.TemplateId ?? DefaultTemplateId;
-            var templateToken = Watchman.Get<HornedAxe>().FindSingleOrDefaultTokenById(templateId);
-
-            if (templateToken == null || !templateToken.IsValid())
+            var parentSphere = FindParentSphere();
+            if (parentSphere == null)
             {
-                Debug.LogWarning($"Chandlery Lionsmith: Template '{templateId}' not found for room '{def.Id}'");
+                Debug.LogError($"Chandlery Lionsmith: Cannot find parent sphere for room '{def.Id}'");
                 return;
             }
 
-            var sphere = templateToken.Sphere;
-            if (sphere == null)
+            var root = SetupClone(def, parentSphere);
+            if (root == null)
             {
-                Debug.LogWarning($"Chandlery Lionsmith: No parent sphere for template '{templateId}'");
+                Debug.LogError($"Chandlery Lionsmith: Failed to setup clone for room '{def.Id}'");
                 return;
             }
 
-            var clone = SetupClone(def, templateToken, sphere);
-            if (clone == null)
-                return;
-
-            var terrainFeature = clone.GetComponent<TerrainFeature>();
+            var terrainFeature = root.GetComponent<TerrainFeature>();
             (terrainFeature as IEdenable)?.EdenSetup(withLogging: false);
 
-            Debug.Log($"Chandlery Lionsmith: Created room '{def.Id}' at ({def.PosX}, {def.PosY}) from template '{templateId}'");
+            Debug.Log($"Chandlery Lionsmith: Created room '{def.Id}' at ({def.PosX}, {def.PosY})");
         }
         catch (Exception ex)
         {
@@ -96,6 +91,33 @@ internal class TerrainFactory
         }
     }
 
+    private static Sphere FindParentSphere()
+    {
+        var ha = Watchman.Get<HornedAxe>();
+        foreach (var sphere in ha.GetSpheres())
+        {
+            var match = sphere.GetTokens().FirstOrDefault(t => t.Payload is TerrainFeature && t.IsValid());
+            if (match != null)
+            {
+                Debug.Log($"Chandlery Lionsmith: Found parent sphere '{sphere.Id}' via token '{match.PayloadId}'");
+                return sphere;
+            }
+        }
+        Debug.LogError("Chandlery Lionsmith: No sphere found containing any TerrainFeature token");
+        return null;
+    }
+
+    private static GameObject SetupClone(CustomTerrainDefinition def, Sphere sphere)
+    {
+        var templateToken = Watchman.Get<HornedAxe>().FindSingleOrDefaultTokenById(DefaultTemplateId);
+        if (templateToken == null || !templateToken.IsValid())
+        {
+            Debug.LogWarning($"Chandlery Lionsmith: Template '{DefaultTemplateId}' not found for creating room '{def.Id}'");
+            return null;
+        }
+        return SetupClone(def, templateToken, sphere);
+    }
+
     private static GameObject SetupClone(CustomTerrainDefinition def, Token templateToken, Sphere sphere)
     {
         var templatePayload = templateToken.Payload as TerrainFeature;
@@ -131,14 +153,18 @@ internal class TerrainFactory
             specSeed.StartsUnsealed = def.StartsUnsealed;
         }
 
+        var roomInstance = new RoomInstance(clone, def);
+        roomInstance.ExtractArchetypes();
         StripInteractiveChildren(clone);
+        roomInstance.PopulateContents();
 
+        def.ResolveSize(out var resolvedW, out var resolvedH);
         var rt = clone.GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(def.Width, def.Height);
+        rt.sizeDelta = new Vector2(resolvedW, resolvedH);
         rt.anchoredPosition = new Vector2(def.PosX, def.PosY);
         rt.pivot = new Vector2(0.5f, 0.5f);
 
-        TryReplaceSprites(terrainFeature, templatePayload.Id, def);
+        ApplySprites(terrainFeature, resolvedW, resolvedH, def);
 
         terrainFeature.SetUpAsTokenWithId(sphere);
 
@@ -147,19 +173,24 @@ internal class TerrainFactory
 
     private static void StripInteractiveChildren(GameObject root)
     {
-        var toDestroy = new System.Collections.Generic.HashSet<GameObject>();
+        var toDestroy = new HashSet<GameObject>();
+
+        var archetypes = new HashSet<GameObject>();
+        foreach (var t in root.GetComponentsInChildren<Transform>(true))
+            if (t.name.StartsWith("__archetype_"))
+                archetypes.Add(t.gameObject);
 
         foreach (var lazy in root.GetComponentsInChildren<ILazyEdenable>(true))
         {
             var mb = lazy as MonoBehaviour;
-            if (mb != null && mb.gameObject != root)
+            if (mb != null && mb.gameObject != root && !archetypes.Contains(mb.gameObject))
                 toDestroy.Add(mb.gameObject);
         }
 
         foreach (var dom in root.GetComponentsInChildren<AbstractDominion>(true))
         {
             var mb = dom as MonoBehaviour;
-            if (mb != null && mb.gameObject != root)
+            if (mb != null && mb.gameObject != root && !archetypes.Contains(mb.gameObject))
                 toDestroy.Add(mb.gameObject);
         }
 
@@ -170,39 +201,83 @@ internal class TerrainFactory
             Debug.Log($"Chandlery Lionsmith: Stripped {toDestroy.Count} interactive children from cloned room");
     }
 
-    private static void TryReplaceSprites(TerrainFeature terrainFeature, string templateId, CustomTerrainDefinition def)
+    private static void ApplySprites(TerrainFeature terrainFeature, float resolvedW, float resolvedH, CustomTerrainDefinition def)
     {
-        var templateSpriteName = "room_" + templateId;
-        var templateShroudName = templateSpriteName + "_shrouded";
         var modManager = Watchman.Get<ModManager>();
-
         var manifestationGo = terrainFeature.GetComponentInChildren<IManifestation>() as MonoBehaviour;
         if (manifestationGo == null)
             return;
+
+        var spriteWidth = Mathf.RoundToInt(resolvedW * 4.2f);
+        var spriteHeight = Mathf.RoundToInt(resolvedH * 4.2f);
 
         foreach (var img in manifestationGo.GetComponentsInChildren<Image>(true))
         {
             if (img.sprite == null)
                 continue;
 
-            var spriteName = img.sprite.name;
+            switch (img.name)
+            {
+                case "RoomImage":
+                    img.sprite = LoadModSprite(modManager, "chandlery\\terrain\\" + def.Id)
+                                 ?? CreatePlaceholder(def.Id + "_unshrouded", spriteWidth, spriteHeight);
+                    break;
 
-            if (spriteName == templateSpriteName && !string.IsNullOrEmpty(def.Sprite))
-            {
-                var newSprite = modManager.GetSprite("chandlery\\terrain\\" + def.Sprite);
-                if (newSprite != null)
-                    img.sprite = newSprite;
-                else
-                    Debug.LogWarning($"Chandlery Lionsmith: Sprite 'chandlery\\terrain\\{def.Sprite}' not found for room '{def.Id}'");
-            }
-            else if (spriteName == templateShroudName && !string.IsNullOrEmpty(def.ShroudSprite))
-            {
-                var newSprite = modManager.GetSprite("chandlery\\terrain\\" + def.ShroudSprite);
-                if (newSprite != null)
-                    img.sprite = newSprite;
-                else
-                    Debug.LogWarning($"Chandlery Lionsmith: Sprite 'chandlery\\terrain\\{def.ShroudSprite}' not found for room '{def.Id}'");
+                case "ShroudedImage":
+                    img.sprite = LoadModSprite(modManager, "chandlery\\terrain\\" + def.Id + "_shrouded")
+                                 ?? CreatePlaceholder(def.Id + "_shrouded", spriteWidth, spriteHeight);
+                    break;
+
+                case "SealedImage":
+                    var sealedSprite = GetSealedSprite(resolvedW, resolvedH);
+                    if (sealedSprite != null)
+                        img.sprite = sealedSprite;
+                    break;
             }
         }
+    }
+
+    private static Sprite LoadModSprite(ModManager modManager, string path)
+    {
+        var sprite = modManager.GetSprite(path);
+        if (sprite != null)
+            Debug.Log($"Chandlery Lionsmith: Loaded sprite '{path}'");
+        return sprite;
+    }
+
+    private static readonly Dictionary<string, Sprite> _placeholderCache = new();
+
+    private static Sprite CreatePlaceholder(string key, int width, int height)
+    {
+        if (_placeholderCache.TryGetValue(key, out var cached))
+            return cached;
+
+        var texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
+        texture.hideFlags = HideFlags.HideAndDontSave;
+        var pixels = new Color32[width * height];
+        for (var i = 0; i < pixels.Length; i++)
+            pixels[i] = new Color32(0, 0, 0, byte.MaxValue);
+        texture.SetPixels32(pixels);
+        texture.Apply();
+
+        var sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f));
+        sprite.hideFlags = HideFlags.HideAndDontSave;
+        _placeholderCache[key] = sprite;
+
+        Debug.Log($"Chandlery Lionsmith: Created white placeholder for '{key}' ({width}x{height})");
+        return sprite;
+    }
+
+    private static Sprite GetSealedSprite(float w, float h)
+    {
+        string sealedName;
+        if (h > w)
+            sealedName = "sealed_tall";
+        else if (w >= h * 2f)
+            sealedName = "sealed";
+        else
+            sealedName = "sealed_smol";
+
+        return Resources.Load<Sprite>(sealedName) ?? Watchman.Get<ModManager>().GetSprite(sealedName);
     }
 }
