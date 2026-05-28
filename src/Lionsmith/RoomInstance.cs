@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using SecretHistories.Assets.Scripts.Application.Spheres.Dominions;
 using SecretHistories.Spheres;
+using SecretHistories.Abstract;
 using SecretHistories.Tokens;
 using SecretHistories.UI;
 using UnityEngine;
@@ -96,15 +97,17 @@ internal class RoomInstance
 
     private void BuildDominions()
     {
+        var parentTf = _root.transform.Find("RoomManifestation/Unshrouded") ?? _root.transform;
+
         var worldGo = new GameObject("dominion_world");
-        worldGo.transform.SetParent(_root.transform, false);
+        worldGo.transform.SetParent(parentTf, false);
         _worldDominion = worldGo;
         _worldDominion.AddComponent<WorldDominion>();
 
         if (_def.Contents != null && _def.Contents.HasShelves)
         {
             var shelfGo = new GameObject("dominion_shelves");
-            shelfGo.transform.SetParent(_root.transform, false);
+            shelfGo.transform.SetParent(parentTf, false);
             var shelfDom = shelfGo.AddComponent<ShelfDominion>();
             typeof(AbstractDominion).GetProperty("Identifier", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                 ?.SetValue(shelfDom, "dominion_shelves");
@@ -308,6 +311,13 @@ internal class RoomInstance
         spec.Required = AspectSpecsFromDict(required);
         spec.Essential = AspectSpecsFromDict(essential);
         spec.Forbidden = AspectSpecsFromDict(forbidden);
+
+        // PermanentSpecIdUpdater.Start() calls CachePermanentPayloads() on the next frame,
+        // but SetUpAsTokenWithId → RegisterFor → ApplySpecToSphere runs synchronously
+        // and enumerates _cachedPermanentPayloads, which would NPE if null.
+        typeof(PermanentSphereSpec).GetField("_cachedPermanentPayloads",
+            BindingFlags.Instance | BindingFlags.NonPublic)
+            ?.SetValue(spec, Array.Empty<AbstractPermanentPayload>());
     }
 
     private static AspectSpec[] AspectSpecsFromDict(Dictionary<string, int> dict)

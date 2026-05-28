@@ -24,7 +24,6 @@
           {
             "id": "desk",
             "label": "Candlemaker's Desk",
-            "verb": "library.desk.reading",
             "posx": 120,
             "posy": 0,
             "width": 100,
@@ -101,7 +100,6 @@
           {
             "id": "spire_desk",
             "label": "Observer's Desk",
-            "verb": "library.desk.reading",
             "posx": 0,
             "posy": -100,
             "width": 100,

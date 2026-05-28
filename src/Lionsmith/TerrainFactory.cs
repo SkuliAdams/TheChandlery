@@ -194,6 +194,29 @@ internal class TerrainFactory
                 toDestroy.Add(mb.gameObject);
         }
 
+        foreach (var sphere in root.GetComponentsInChildren<Sphere>(true))
+        {
+            if (sphere.gameObject == root) continue;
+            if (archetypes.Contains(sphere.gameObject)) continue;
+            toDestroy.Add(sphere.gameObject);
+        }
+
+        foreach (var ps in root.GetComponentsInChildren<ParticleSystem>(true))
+        {
+            if (ps.gameObject == root) continue;
+            if (archetypes.Contains(ps.gameObject)) continue;
+            toDestroy.Add(ps.gameObject);
+        }
+
+        var knownVisualEffectNames = new HashSet<string> { "StationaryFires" };
+        foreach (var t in root.GetComponentsInChildren<Transform>(true))
+        {
+            if (t.gameObject == root) continue;
+            if (archetypes.Contains(t.gameObject)) continue;
+            if (knownVisualEffectNames.Contains(t.name))
+                toDestroy.Add(t.gameObject);
+        }
+
         foreach (var go in toDestroy)
             GameObject.DestroyImmediate(go);
 

@@ -64,6 +64,10 @@
             <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.UIModule.dll</HintPath>
             <Private>false</Private>
         </Reference>
+        <Reference Include="UnityEngine.ParticleSystemModule">
+            <HintPath>$(BOHGamePath)\bh_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
         <Reference Include="SecretHistories.Main">
             <HintPath>$(BOHGamePath)\bh_Data\Managed\SecretHistories.Main.dll</HintPath>
             <Private>false</Private>

@@ -71,6 +71,8 @@ internal static class Lionsmith
             var factory = new TerrainFactory();
             foreach (var def in TerrainRegistry.GetAll())
                 factory.Create(def);
+
+            MotherOfAnts.DescribeRoomFull("watchmanstower1");
         }
         catch (Exception ex)
         {

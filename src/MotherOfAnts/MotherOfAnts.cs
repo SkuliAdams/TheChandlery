@@ -2,8 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using SecretHistories.Abstract;
 using SecretHistories.Manifestations;
 using SecretHistories.Spheres;
+using SecretHistories.Spheres.Choreographers;
 using SecretHistories.Tokens;
 using SecretHistories.Tokens.Payloads;
 using SecretHistories.UI;
@@ -122,6 +124,239 @@ public static class MotherOfAnts
             var glowInteract = typeof(PhysicalSphere).GetField("ShowInteractionGlow", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(sphere);
             if (lockDrag != null)
                 Debug.Log($"Chandlery:     LockDrag={lockDrag} ShowGlowOnHover={glowHover} ShowInteractionGlow={glowInteract}");
+        }
+    }
+
+    public static void DescribeRoomFull(string roomId)
+    {
+        var allTerrain = Resources.FindObjectsOfTypeAll<TerrainFeature>();
+        var room = allTerrain.FirstOrDefault(t => t.Id == roomId);
+        if (room == null)
+        {
+            Debug.Log($"Chandlery: No room '{roomId}' found");
+            return;
+        }
+        Debug.Log($"Chandlery MotherOfAnts: === Full hierarchy for room '{roomId}' ===");
+        DescribeHierarchyFull(room.gameObject, 0);
+    }
+
+    public static void DescribeSphere(GameObject go)
+    {
+        Debug.Log($"Chandlery MotherOfAnts: === Full hierarchy for '{go.name}' ===");
+        DescribeHierarchyFull(go, 0);
+    }
+
+    public static void DescribeSphereInRoom(string roomId, string sphereSpecId)
+    {
+        var allTerrain = Resources.FindObjectsOfTypeAll<TerrainFeature>();
+        var room = allTerrain.FirstOrDefault(t => t.Id == roomId);
+        if (room == null)
+        {
+            Debug.Log($"Chandlery: No room '{roomId}' found");
+            return;
+        }
+
+        var spheres = room.gameObject.GetComponentsInChildren<Sphere>(true);
+        foreach (var sphere in spheres)
+        {
+            var spec = sphere.GetComponent<PermanentSphereSpec>();
+            var matchId = spec != null ? spec.ApplyId : sphere.gameObject.name;
+            if (matchId == sphereSpecId)
+            {
+                DescribeHierarchyFull(sphere.gameObject, 0);
+                return;
+            }
+        }
+
+        Debug.Log($"Chandlery: No sphere with spec id '{sphereSpecId}' found in room '{roomId}'");
+    }
+
+    private static void DescribeHierarchyFull(GameObject go, int depth)
+    {
+        try
+        {
+            var indent = new string(' ', depth * 2);
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
+
+            var comps = go.GetComponents<Component>();
+            var compNames = comps.Select(c => c.GetType().Name);
+            Debug.Log($"{indent}{go.name}  [{string.Join(", ", compNames)}]  activeInHierarchy={go.activeInHierarchy} activeSelf={go.activeSelf} layer={go.layer}");
+
+            DescribeComponent_RectTransform(go, indent);
+            DescribeComponent_CanvasGroup(go, indent);
+            DescribeComponent_Image(go, indent);
+            DescribeComponent_Sphere(go, indent, flags);
+            DescribeComponent_PhysicalSphere(go, indent, flags);
+            DescribeComponent_FitmentWorkstationSphere(go, indent, flags);
+            DescribeComponent_ShelfSpaceSphere(go, indent, flags);
+            DescribeComponent_PermanentSphereSpec(go, indent, flags);
+            DescribeComponent_SphereDropCatcher(go, indent, flags);
+            DescribeComponent_GraphicFader(go, indent);
+            DescribeComponent_Choreographer(go, indent, flags);
+            DescribeComponent_PseudoAspectPreviewTooltip(go, indent);
+            DescribeComponent_ShaderGlow(go, indent);
+            DescribeComponent_ParticleSystem(go, indent);
+
+            for (var i = 0; i < go.transform.childCount; i++)
+                DescribeHierarchyFull(go.transform.GetChild(i).gameObject, depth + 1);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"Chandlery DescribeHierarchyFull: Error at '{go.name}': {ex}");
+        }
+    }
+
+    private static void DescribeComponent_RectTransform(GameObject go, string indent)
+    {
+        var rt = go.GetComponent<RectTransform>();
+        if (rt != null)
+            Debug.Log($"{indent}  RectTransform: anchoredPos=({rt.anchoredPosition.x:F1},{rt.anchoredPosition.y:F1}) size=({rt.sizeDelta.x:F1}x{rt.sizeDelta.y:F1}) pivot=({rt.pivot.x:F2},{rt.pivot.y:F2}) anchorMin=({rt.anchorMin.x:F2},{rt.anchorMin.y:F2}) anchorMax=({rt.anchorMax.x:F2},{rt.anchorMax.y:F2}) localPos=({rt.localPosition.x:F1},{rt.localPosition.y:F1},{rt.localPosition.z:F1})");
+    }
+
+    private static void DescribeComponent_CanvasGroup(GameObject go, string indent)
+    {
+        var cg = go.GetComponent<CanvasGroup>();
+        if (cg != null)
+            Debug.Log($"{indent}  CanvasGroup: alpha={cg.alpha:F2} blocksRaycasts={cg.blocksRaycasts} interactable={cg.interactable} ignoreParentGroups={cg.ignoreParentGroups}");
+    }
+
+    private static void DescribeComponent_Image(GameObject go, string indent)
+    {
+        var img = go.GetComponent<Image>();
+        if (img != null)
+        {
+            var sprite = img.sprite;
+            var spriteName = sprite != null ? $"{sprite.name}({sprite.rect.width:F0}x{sprite.rect.height:F0})" : "null";
+            var canvasAlpha = img.canvasRenderer != null ? img.canvasRenderer.GetAlpha().ToString("F2") : "null";
+            Debug.Log($"{indent}  Image: sprite={spriteName} color=({img.color.r:F2},{img.color.g:F2},{img.color.b:F2},{img.color.a:F2}) raycastTarget={img.raycastTarget} alpha={canvasAlpha} fillCenter={img.fillCenter} type={img.type} preserveAspect={img.preserveAspect}");
+        }
+    }
+
+    private static void DescribeComponent_Sphere(GameObject go, string indent, BindingFlags flags)
+    {
+        var sphere = go.GetComponent<Sphere>();
+        if (sphere == null) return;
+
+        Debug.Log($"{indent}  Sphere: type={sphere.GetType().Name} id={sphere.Id} category={sphere.SphereCategory} allowDrag={sphere.AllowDrag} allowStackMerge={sphere.AllowStackMerge} isExterior={sphere.IsExteriorSphere} understateContents={sphere.UnderstateContents} enforceUniqueStacks={sphere.EnforceUniqueStacksInThisSphere} heartbeatMultiplier={sphere.TokenHeartbeatIntervalMultiplier:F2}");
+
+        var choreo = sphere.Choreographer;
+        Debug.Log($"{indent}  Sphere: choreographer={(choreo != null ? choreo.GetType().Name : "null")}");
+
+        var tokenContainer = typeof(Sphere).GetField("tokenContainer", flags)?.GetValue(sphere);
+        var tokenContainerName = tokenContainer is Transform tc ? tc.name : "null";
+        Debug.Log($"{indent}  Sphere: tokenContainer={tokenContainerName}");
+
+        var gs = sphere.GoverningSphereSpec;
+        if (gs != null)
+            Debug.Log($"{indent}  Sphere.GoverningSphereSpec: id={gs.Id} label={gs.Label} description={gs.Description} greedy={gs.Greedy}");
+
+        var blockedInward = typeof(Sphere).GetField("_blockedInward", flags)?.GetValue(sphere);
+        Debug.Log($"{indent}  Sphere: blockedInward={blockedInward}");
+    }
+
+    private static void DescribeComponent_PhysicalSphere(GameObject go, string indent, BindingFlags flags)
+    {
+        var ps = go.GetComponent<PhysicalSphere>();
+        if (ps == null) return;
+
+        Debug.Log($"{indent}  PhysicalSphere: slotGlow={(ps.slotGlow != null ? ps.slotGlow.name : "null")}");
+        Debug.Log($"{indent}    LockDrag={typeof(PhysicalSphere).GetField("LockDrag", flags)?.GetValue(ps)} ShowGlowOnHover={typeof(PhysicalSphere).GetField("ShowGlowOnHover", flags)?.GetValue(ps)} ShowInteractionGlow={typeof(PhysicalSphere).GetField("ShowInteractionGlow", flags)?.GetValue(ps)} NeverShroud={typeof(PhysicalSphere).GetField("NeverShroud", flags)?.GetValue(ps)}");
+    }
+
+    private static void DescribeComponent_FitmentWorkstationSphere(GameObject go, string indent, BindingFlags flags)
+    {
+        var fws = go.GetComponent<FitmentWorkstationSphere>();
+        if (fws == null) return;
+
+        var verbId = typeof(FitmentWorkstationSphere).GetField("seedWithVerbId", flags)?.GetValue(fws) as string;
+        var laterEden = typeof(FitmentWorkstationSphere).GetField("_laterEdenId", flags)?.GetValue(fws) as string;
+        Debug.Log($"{indent}  FitmentWorkstationSphere: seedWithVerbId={verbId} _laterEdenId={laterEden}");
+    }
+
+    private static void DescribeComponent_ShelfSpaceSphere(GameObject go, string indent, BindingFlags flags)
+    {
+        var sss = go.GetComponent<ShelfSpaceSphere>();
+        if (sss == null) return;
+
+        Debug.Log($"{indent}  ShelfSpaceSphere: slotGlow={(sss.slotGlow != null ? sss.slotGlow.name : "null")}");
+        var plaqueImg = typeof(ShelfSpaceSphere).GetField("plaqueImage", flags)?.GetValue(sss) as Image;
+        var plaqueTooltip = typeof(ShelfSpaceSphere).GetField("plaqueImageTooltipComponent", flags)?.GetValue(sss) as PseudoAspectPreviewTooltip;
+        Debug.Log($"{indent}    plaqueImage={(plaqueImg != null ? plaqueImg.name : "null")} plaqueImageTooltip={(plaqueTooltip != null ? "present" : "null")}");
+    }
+
+    private static void DescribeComponent_PermanentSphereSpec(GameObject go, string indent, BindingFlags flags)
+    {
+        var permSpec = go.GetComponent<PermanentSphereSpec>();
+        if (permSpec == null) return;
+
+        var inferredId = typeof(PermanentSphereSpec).GetMethod("GetId", flags)?.Invoke(permSpec, null) as string;
+        Debug.Log($"{indent}  PermanentSphereSpec: ApplyId={permSpec.ApplyId} Title={permSpec.Title} Description={permSpec.Description} InferredId={inferredId} AvailableFromHouse={permSpec.AvailableFromHouse}");
+        Debug.Log($"{indent}    Required=[{string.Join(", ", (permSpec.Required ?? System.Array.Empty<AspectSpec>()).Select(a => $"{a.name}x{a.level}"))}]");
+        Debug.Log($"{indent}    Essential=[{string.Join(", ", (permSpec.Essential ?? System.Array.Empty<AspectSpec>()).Select(a => $"{a.name}x{a.level}"))}]");
+        Debug.Log($"{indent}    Forbidden=[{string.Join(", ", (permSpec.Forbidden ?? System.Array.Empty<AspectSpec>()).Select(a => $"{a.name}x{a.level}"))}]");
+        var cachedPayloads = typeof(PermanentSphereSpec).GetField("_cachedPermanentPayloads", flags)?.GetValue(permSpec) as AbstractPermanentPayload[];
+        Debug.Log($"{indent}    _cachedPermanentPayloads={(cachedPayloads != null ? cachedPayloads.Length.ToString() : "null")}");
+    }
+
+    private static void DescribeComponent_SphereDropCatcher(GameObject go, string indent, BindingFlags flags)
+    {
+        var catcher = go.GetComponent<SphereDropCatcher>();
+        if (catcher == null) catcher = go.GetComponentInChildren<SphereDropCatcher>();
+        if (catcher == null) return;
+
+        var catcherSphereField = typeof(SphereDropCatcher).GetField("Sphere", flags)?.GetValue(catcher) as Sphere;
+        var catcherSphereId = catcherSphereField != null ? $"{catcherSphereField.GetType().Name} id={catcherSphereField.Id}" : "null";
+        var disableWhenNotDragging = typeof(SphereDropCatcher).GetField("_disableWhenNotDragging", flags)?.GetValue(catcher);
+        var demandGhost = typeof(SphereDropCatcher).GetField("_demandGhost", flags)?.GetValue(catcher);
+        Debug.Log($"{indent}  SphereDropCatcher: Sphere=({catcherSphereId}) _disableWhenNotDragging={disableWhenNotDragging} _demandGhost={demandGhost}");
+    }
+
+    private static void DescribeComponent_GraphicFader(GameObject go, string indent)
+    {
+        var fader = go.GetComponent<GraphicFader>();
+        if (fader == null) return;
+
+        Debug.Log($"{indent}  GraphicFader: color=({fader.currentColor.r:F2},{fader.currentColor.g:F2},{fader.currentColor.b:F2},{fader.currentColor.a:F2}) durationTurnOn={fader.durationTurnOn} durationTurnOff={fader.durationTurnOff} keepEnabled={fader.KeepGraphicEnabledWhenHidden} ignoreTimeScale={fader.ignoreTimeScale}");
+    }
+
+    private static void DescribeComponent_Choreographer(GameObject go, string indent, BindingFlags flags)
+    {
+        var choreo = go.GetComponent<AbstractChoreographer>();
+        if (choreo == null) return;
+
+        Debug.Log($"{indent}  AbstractChoreographer: type={choreo.GetType().Name} enabled={choreo.enabled}");
+        if (choreo is ShelfChoreographer sc)
+        {
+            var bookSpacing = typeof(ShelfChoreographer).GetField("bookSpacing", flags)?.GetValue(sc);
+            var edgePadding = typeof(ShelfChoreographer).GetField("edgePadding", flags)?.GetValue(sc);
+            Debug.Log($"{indent}    ShelfChoreographer: bookSpacing={bookSpacing} edgePadding={edgePadding}");
+        }
+    }
+
+    private static void DescribeComponent_PseudoAspectPreviewTooltip(GameObject go, string indent)
+    {
+        if (go.GetComponent<PseudoAspectPreviewTooltip>() != null)
+            Debug.Log($"{indent}  PseudoAspectPreviewTooltip: present");
+    }
+
+    private static void DescribeComponent_ShaderGlow(GameObject go, string indent)
+    {
+        var sg = go.GetComponent<ShaderGlow>();
+        if (sg != null)
+        {
+            var minVal = typeof(ShaderGlow).GetField("minGlowValue", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(sg) ?? "?";
+            var maxVal = typeof(ShaderGlow).GetField("maxGlowValue", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(sg) ?? "?";
+            Debug.Log($"{indent}  ShaderGlow: minGlow={minVal} maxGlow={maxVal}");
+        }
+    }
+
+    private static void DescribeComponent_ParticleSystem(GameObject go, string indent)
+    {
+        var ps = go.GetComponent<ParticleSystem>();
+        if (ps != null)
+        {
+            var main = ps.main;
+            Debug.Log($"{indent}  ParticleSystem: startLifetime={main.startLifetime.constant} startSpeed={main.startSpeed.constant} maxParticles={main.maxParticles} startColor={main.startColor.color}");
         }
     }
 
