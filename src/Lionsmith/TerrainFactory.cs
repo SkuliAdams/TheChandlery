@@ -156,9 +156,10 @@ internal class TerrainFactory
         var roomInstance = new RoomInstance(clone, def);
         roomInstance.ExtractArchetypes();
         StripInteractiveChildren(clone);
-        roomInstance.PopulateContents();
 
         def.ResolveSize(out var resolvedW, out var resolvedH);
+        roomInstance.PopulateContents(resolvedW, resolvedH);
+
         var rt = clone.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(resolvedW, resolvedH);
         rt.anchoredPosition = new Vector2(def.PosX, def.PosY);
@@ -176,43 +177,47 @@ internal class TerrainFactory
         var toDestroy = new HashSet<GameObject>();
 
         var archetypes = new HashSet<GameObject>();
+        var archetypeDescendants = new HashSet<GameObject>();
         foreach (var t in root.GetComponentsInChildren<Transform>(true))
             if (t.name.StartsWith("__archetype_"))
+            {
                 archetypes.Add(t.gameObject);
+                foreach (var childT in t.GetComponentsInChildren<Transform>(true))
+                    archetypeDescendants.Add(childT.gameObject);
+            }
+
+        bool IsProtected(GameObject go) => go == root || archetypes.Contains(go) || archetypeDescendants.Contains(go);
 
         foreach (var lazy in root.GetComponentsInChildren<ILazyEdenable>(true))
         {
             var mb = lazy as MonoBehaviour;
-            if (mb != null && mb.gameObject != root && !archetypes.Contains(mb.gameObject))
+            if (mb != null && !IsProtected(mb.gameObject))
                 toDestroy.Add(mb.gameObject);
         }
 
         foreach (var dom in root.GetComponentsInChildren<AbstractDominion>(true))
         {
             var mb = dom as MonoBehaviour;
-            if (mb != null && mb.gameObject != root && !archetypes.Contains(mb.gameObject))
+            if (mb != null && !IsProtected(mb.gameObject))
                 toDestroy.Add(mb.gameObject);
         }
 
         foreach (var sphere in root.GetComponentsInChildren<Sphere>(true))
         {
-            if (sphere.gameObject == root) continue;
-            if (archetypes.Contains(sphere.gameObject)) continue;
-            toDestroy.Add(sphere.gameObject);
+            if (!IsProtected(sphere.gameObject))
+                toDestroy.Add(sphere.gameObject);
         }
 
         foreach (var ps in root.GetComponentsInChildren<ParticleSystem>(true))
         {
-            if (ps.gameObject == root) continue;
-            if (archetypes.Contains(ps.gameObject)) continue;
-            toDestroy.Add(ps.gameObject);
+            if (!IsProtected(ps.gameObject))
+                toDestroy.Add(ps.gameObject);
         }
 
         var knownVisualEffectNames = new HashSet<string> { "StationaryFires" };
         foreach (var t in root.GetComponentsInChildren<Transform>(true))
         {
-            if (t.gameObject == root) continue;
-            if (archetypes.Contains(t.gameObject)) continue;
+            if (IsProtected(t.gameObject)) continue;
             if (knownVisualEffectNames.Contains(t.name))
                 toDestroy.Add(t.gameObject);
         }
@@ -242,12 +247,12 @@ internal class TerrainFactory
             switch (img.name)
             {
                 case "RoomImage":
-                    img.sprite = LoadModSprite(modManager, "chandlery\\terrain\\" + def.Id)
+                    img.sprite = LoadModSprite(modManager, "images\\terrain\\" + def.Id)
                                  ?? CreatePlaceholder(def.Id + "_unshrouded", spriteWidth, spriteHeight);
                     break;
 
                 case "ShroudedImage":
-                    img.sprite = LoadModSprite(modManager, "chandlery\\terrain\\" + def.Id + "_shrouded")
+                    img.sprite = LoadModSprite(modManager, "images\\terrain\\" + def.Id + "_shrouded")
                                  ?? CreatePlaceholder(def.Id + "_shrouded", spriteWidth, spriteHeight);
                     break;
 

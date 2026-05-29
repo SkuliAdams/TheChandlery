@@ -37,7 +37,7 @@ public abstract class SphereDefinitionBase<T> : AbstractEntity<T> where T : Abst
     [FucineDict] public Dictionary<string, int> Forbidden { get; set; }
     [FucineValue(false)] public bool Greedy { get; set; }
     [FucineValue(false)] public bool LockDrag { get; set; }
-    [FucineValue(true)] public bool ShowGlowOnHover { get; set; }
+    [FucineValue(false)] public bool ShowGlowOnHover { get; set; }
     [FucineValue(false)] public bool ShowInteractionGlow { get; set; }
 }
 

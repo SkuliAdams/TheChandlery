@@ -4,10 +4,12 @@ using System.Linq;
 using System.Reflection;
 using SecretHistories.Assets.Scripts.Application.Spheres.Dominions;
 using SecretHistories.Spheres;
+using SecretHistories.Spheres.Choreographers;
 using SecretHistories.Abstract;
 using SecretHistories.Tokens;
 using SecretHistories.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TheHouse;
 
@@ -23,6 +25,8 @@ internal class RoomInstance
 
     private GameObject _worldDominion;
     private GameObject _shelfDominion;
+    private float _roomW;
+    private float _roomH;
 
     public RoomInstance(GameObject root, CustomTerrainDefinition def)
     {
@@ -39,8 +43,10 @@ internal class RoomInstance
         _comfortArchetype = FindAndCloneArchetype<ComfortSphere>("__archetype_comfort");
     }
 
-    public void PopulateContents()
+    public void PopulateContents(float roomW, float roomH)
     {
+        _roomW = roomW;
+        _roomH = roomH;
         var contents = _def.Contents;
         if (contents == null)
             return;
@@ -136,9 +142,11 @@ internal class RoomInstance
 
         AssignPositionAndSize(go, def.PosX, def.PosY, def.Width, def.Height);
         ConfigureCanvasGroup(go);
+        ReplaceChoreographer<ThingChoreographer>(go);
         ConfigurePhysicalSphereFields(go, def.LockDrag, def.ShowGlowOnHover, def.ShowInteractionGlow);
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
+        LogSphereState(go);
     }
 
     private void BuildWorkstation(WorkstationDefinition def)
@@ -158,6 +166,7 @@ internal class RoomInstance
 
         AssignPositionAndSize(go, def.PosX, def.PosY, def.Width, def.Height);
         ConfigureCanvasGroup(go);
+        ReplaceChoreographer<FitmentChoreographer>(go);
 
         var ws = go.GetComponent<FitmentWorkstationSphere>();
         if (ws != null)
@@ -186,7 +195,9 @@ internal class RoomInstance
 
         AssignPositionAndSize(go, def.PosX, def.PosY, def.Width, def.Height);
         ConfigureCanvasGroup(go);
+        ReplaceChoreographer<ShelfChoreographer>(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
+        LogSphereState(go);
     }
 
     private void BuildComfort(ComfortDefinition def)
@@ -210,9 +221,11 @@ internal class RoomInstance
 
         AssignPositionAndSize(go, def.PosX, def.PosY, def.Width, def.Height);
         ConfigureCanvasGroup(go);
+        ReplaceChoreographer<ThingChoreographer>(go);
         ConfigurePhysicalSphereFields(go, def.LockDrag, def.ShowGlowOnHover, def.ShowInteractionGlow);
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
+        LogSphereState(go);
     }
 
     /*
@@ -258,12 +271,16 @@ internal class RoomInstance
     }
     */
 
-    private static void AssignPositionAndSize(GameObject go, float posX, float posY, float width, float height)
+    private void AssignPositionAndSize(GameObject go, float posX, float posY, float width, float height)
     {
         var rt = go.GetComponent<RectTransform>();
         if (rt != null)
         {
-            rt.anchoredPosition = new Vector2(posX, posY);
+            // JSON: (posX, posY) = item's bottom-left, with (0,0) = room's top-left, Y increases downward
+            // Unity: anchoredPosition = item's center relative to room's center, Y increases upward
+            var centerX = posX - _roomW * 0.5f + width * 0.5f;
+            var centerY = _roomH * 0.5f - posY + height * 0.5f;
+            rt.anchoredPosition = new Vector2(centerX, centerY);
             rt.sizeDelta = new Vector2(width, height);
         }
     }
@@ -291,14 +308,51 @@ internal class RoomInstance
             ?.SetValue(sphere, showInteractionGlow);
     }
 
+    private static void ReplaceChoreographer<T>(GameObject go) where T : AbstractChoreographer
+    {
+        var existing = go.GetComponent<AbstractChoreographer>();
+        if (existing != null)
+            UnityEngine.Object.DestroyImmediate(existing);
+        go.AddComponent<T>();
+    }
+
+    private static void LogSphereState(GameObject go)
+    {
+        var sphere = go.GetComponent<Sphere>();
+        var rt = go.GetComponent<RectTransform>();
+        var cg = go.GetComponentInParent<CanvasGroup>();
+        var catcher = go.GetComponentInChildren<SphereDropCatcher>(true);
+        var catcherImg = catcher?.GetComponent<Image>();
+        string governingSpecStr;
+        try { governingSpecStr = sphere?.GoverningSphereSpec != null ? "SET" : "null"; }
+        catch { governingSpecStr = "EXCEPTION"; }
+
+        Debug.Log($"Chandlery DIAG: Sphere '{go.name}' state:\n" +
+          $"  RectTransform: size=({rt?.sizeDelta.x:F1},{rt?.sizeDelta.y:F1}) " +
+          $"pos=({rt?.anchoredPosition.x:F1},{rt?.anchoredPosition.y:F1})\n" +
+          $"  CanvasGroup.blocksRaycasts={cg?.blocksRaycasts}\n" +
+          $"  Sphere.AllowDrag={sphere?.AllowDrag}\n" +
+          $"  Sphere.GoverningSphereSpec={governingSpecStr}\n" +
+          $"  Sphere.dropCatcher GO={(catcher != null ? catcher.gameObject.name : "MISSING")}\n" +
+          $"  DropCatcher.Sphere={(catcher?.Sphere != null ? catcher.Sphere.gameObject.name : "null")}\n" +
+          $"  DropCatcher Image raycastTarget={catcherImg?.raycastTarget}\n" +
+          $"  DropCatcher Image enabled={catcherImg?.enabled}\n" +
+          $"  DropCatcher go active={catcher?.gameObject.activeSelf}");
+    }
+
     private static void ConfigureSphereDropCatcher(GameObject go)
     {
         var sphere = go.GetComponent<Sphere>();
         if (sphere == null) return;
 
-        var catcher = go.GetComponentInChildren<SphereDropCatcher>();
+        var catcher = go.GetComponentInChildren<SphereDropCatcher>(true);
         if (catcher != null)
+        {
             catcher.Sphere = sphere;
+            Debug.Log($"Chandlery DIAG: Set SphereDropCatcher.Sphere on '{go.name}'");
+        }
+        else
+            Debug.LogWarning($"Chandlery DIAG: No SphereDropCatcher found in children of '{go.name}'");
     }
 
     private static void AddSphereSpec(GameObject go, string id, string label, string description,

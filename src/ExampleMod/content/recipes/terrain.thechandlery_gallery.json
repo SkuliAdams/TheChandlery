@@ -1,0 +1,25 @@
+{
+  "recipes": [
+    {
+      "id": "terrain.thechandlery_gallery",
+      "actionid": "terrain.unlock",
+      "label": "The Gallery",
+      "preface": "Chandlery Gallery",
+      "startdescription": "A long chamber lined with empty niches and candle-sconces.",
+      "desc": "The gallery waits, patient as stone.",
+      "preslots": [
+        {
+          "id": "infoRecipeInput",
+          "label": "#UI_ROOMINPUT_LABEL#",
+          "description": "#UI_ROOMINPUT_DESCRIPTION#",
+          "required": { "rose": 1 },
+          "forbidden": {},
+          "essential": { "assistance": 1 }
+        }
+      ],
+      "fx": { "thechandlery.gallery.open": 1 },
+      "warmup": 30,
+      "craftable": true
+    }
+  ]
+}

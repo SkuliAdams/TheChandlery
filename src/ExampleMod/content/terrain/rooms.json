@@ -13,19 +13,19 @@
           {
             "id": "things",
             "label": "THINGS",
-            "posx": 0,
-            "posy": 0,
-            "width": 120,
-            "height": 120,
-            "required": { "physical": 1 }
+            "posx": 34,
+            "posy": 180,
+            "width": 90,
+            "height": 18
           }
         ],
         "workstations": [
           {
             "id": "desk",
             "label": "Candlemaker's Desk",
-            "posx": 120,
-            "posy": 0,
+            "verb": "library.desk.natan.consider",
+            "posx": 270,
+            "posy": 200,
             "width": 100,
             "height": 100
           }
@@ -35,11 +35,21 @@
             "id": "shelf1",
             "label": "Candle Shelf",
             "description": "Shelf of tapers and tallow dips.",
-            "posx": -120,
-            "posy": 0,
-            "width": 200,
-            "height": 80,
-            "required": { "readable": 1 }
+            "posx": 29,
+            "posy": 57,
+            "width": 72,
+            "height": 34.4
+          }
+        ],
+        "comforts": [
+          {
+            "id": "seat",
+            "label": "Stool",
+            "description": "A low wooden stool near the candle bench.",
+            "posx": 120,
+            "posy": 200,
+            "width": 100,
+            "height": 100
           }
         ]
       }
@@ -56,8 +66,8 @@
           {
             "id": "gallery_things",
             "label": "GALLERY THINGS",
-            "posx": 200,
-            "posy": 0,
+            "posx": 550,
+            "posy": 160,
             "width": 120,
             "height": 120,
             "required": { "physical": 1 }
@@ -68,8 +78,8 @@
             "id": "gallery_books",
             "label": "Reference Shelf",
             "description": "Catalogs and art folios.",
-            "posx": -250,
-            "posy": 0,
+            "posx": 60,
+            "posy": 140,
             "width": 200,
             "height": 80,
             "required": { "readable": 1 }
@@ -89,8 +99,8 @@
           {
             "id": "spire_things",
             "label": "SPIRE THINGS",
-            "posx": 0,
-            "posy": 80,
+            "posx": 140,
+            "posy": 190,
             "width": 120,
             "height": 120,
             "required": { "physical": 1 }
@@ -100,8 +110,8 @@
           {
             "id": "spire_desk",
             "label": "Observer's Desk",
-            "posx": 0,
-            "posy": -100,
+            "posx": 150,
+            "posy": 360,
             "width": 100,
             "height": 100
           }

@@ -17,6 +17,58 @@ namespace TheHouse;
 
 public static class MotherOfAnts
 {
+    public static void LogChoreographers(string roomId)
+    {
+        var allTerrain = Resources.FindObjectsOfTypeAll<TerrainFeature>();
+        var room = allTerrain.FirstOrDefault(t => t.Id == roomId);
+        if (room == null)
+        {
+            Debug.Log($"Chandlery MotherOfAnts: No room '{roomId}' found");
+            return;
+        }
+
+        var spheres = room.gameObject.GetComponentsInChildren<Sphere>(true);
+        Debug.Log($"Chandlery MotherOfAnts: === Choreographers in '{roomId}' ({spheres.Length} spheres) ===");
+
+        foreach (var sphere in spheres)
+        {
+            try
+            {
+                var spec = sphere.GetComponent<PermanentSphereSpec>();
+                var specId = spec != null ? spec.ApplyId : "(no spec)";
+                var choreo = sphere.Choreographer;
+                var choreoType = choreo != null ? choreo.GetType().Name : "null";
+                var active = sphere.gameObject.activeInHierarchy;
+
+                var catcher = sphere.gameObject.GetComponentInChildren<SphereDropCatcher>(true);
+                string catcherInfo;
+                if (catcher == null)
+                    catcherInfo = "no catcher";
+                else
+                {
+                    var disableWhenND = typeof(SphereDropCatcher).GetField("_disableWhenNotDragging", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(catcher);
+                    var demandGhost = typeof(SphereDropCatcher).GetField("_demandGhost", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(catcher);
+                    var catcherSphereId = catcher.Sphere != null ? catcher.Sphere.Id : "null";
+                    catcherInfo = $"catcher->Sphere(id='{catcherSphereId}') _disND={disableWhenND} _demandGhost={demandGhost}";
+                }
+
+                Debug.Log($"  [{sphere.GetType().Name}] spec='{specId}' active={active} choreographer={choreoType} catcher={catcherInfo}");
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"  [ERROR] while logging sphere: {ex.Message}");
+            }
+        }
+    }
+
+    public static void LogChoreographersAll()
+    {
+        var allTerrain = Resources.FindObjectsOfTypeAll<TerrainFeature>();
+        Debug.Log($"Chandlery MotherOfAnts: === Choreographers across all {allTerrain.Length} rooms ===");
+        foreach (var room in allTerrain)
+            LogChoreographers(room.Id);
+    }
+
     public static void LogAllCanvases()
     {
         var allCanvases = Resources.FindObjectsOfTypeAll<Canvas>();
