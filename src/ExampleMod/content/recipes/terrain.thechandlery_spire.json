@@ -1,7 +1,7 @@
 {
   "recipes": [
     {
-      "id": "terrain.thechandlery_spire",
+      "id": "terrain.thechandlery.spire",
       "actionid": "terrain.unlock",
       "label": "The Spire",
       "preface": "Chandlery Spire",

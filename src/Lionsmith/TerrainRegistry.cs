@@ -11,6 +11,7 @@ namespace TheHouse;
 internal static class TerrainRegistry
 {
     private static Dictionary<string, CustomTerrainDefinition> _definitions;
+    private static Dictionary<string, List<string>> _connections;
 
     internal static void LoadAll()
     {
@@ -21,6 +22,7 @@ internal static class TerrainRegistry
                 return;
 
             _definitions = new Dictionary<string, CustomTerrainDefinition>();
+            _connections = new Dictionary<string, List<string>>();
             foreach (var def in list)
             {
                 if (string.IsNullOrEmpty(def.Id))
@@ -36,12 +38,16 @@ internal static class TerrainRegistry
                 }
 
                 _definitions[def.Id] = def;
+
+                if (def.ConnectedTo != null && def.ConnectedTo.Count > 0)
+                    _connections[def.Id] = def.ConnectedTo;
             }
         }
         catch (System.Exception ex)
         {
             Debug.LogError($"Chandlery Lionsmith: Failed to load terrain definitions: {ex.Message}");
             _definitions = new Dictionary<string, CustomTerrainDefinition>();
+            _connections = new Dictionary<string, List<string>>();
         }
     }
 
@@ -56,4 +62,12 @@ internal static class TerrainRegistry
 
     internal static IEnumerable<CustomTerrainDefinition> GetAll() =>
         _definitions?.Values ?? Enumerable.Empty<CustomTerrainDefinition>();
+
+    internal static bool TryGetConnections(string roomId, out List<string> connectedIds)
+    {
+        if (_connections != null && _connections.TryGetValue(roomId, out connectedIds))
+            return true;
+        connectedIds = null;
+        return false;
+    }
 }

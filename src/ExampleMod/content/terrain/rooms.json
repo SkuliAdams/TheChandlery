@@ -8,6 +8,7 @@
       "height": 200.0,
       "startsopen": false,
       "startsunsealed": true,
+      "connectedto": ["thechandlery.gallery", "thechandlery.spire"],
       "contents": {
         "slots": [
           {
@@ -55,12 +56,12 @@
       }
     },
     {
-      "id": "thechandlery_gallery",
+      "id": "thechandlery.gallery",
       "posx": 3700.0,
       "posy": 460.0,
       "roomsize": "1x2",
       "startsopen": false,
-      "startsunsealed": true,
+      "startsunsealed": false,
       "contents": {
         "slots": [
           {
@@ -88,12 +89,12 @@
       }
     },
     {
-      "id": "thechandlery_spire",
+      "id": "thechandlery.spire",
       "posx": 3030.0,
       "posy": 790.0,
       "roomsize": "2x1",
       "startsopen": false,
-      "startsunsealed": true,
+      "startsunsealed": false,
       "contents": {
         "slots": [
           {
@@ -104,6 +105,18 @@
             "width": 120,
             "height": 120,
             "required": { "physical": 1 }
+          }
+        ],
+        "wallarts": [
+          {
+            "id": "spire_wallart",
+            "label": "Spire Wall Art",
+            "description": "The bare walls of the spire, waiting to be adorned.",
+            "posx": 0,
+            "posy": 420,
+            "width": 400,
+            "height": 420,
+            "required": { "wallart": 1 }
           }
         ],
         "workstations": [

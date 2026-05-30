@@ -1,7 +1,7 @@
 {
   "recipes": [
     {
-      "id": "terrain.thechandlery_gallery",
+      "id": "terrain.thechandlery.gallery",
       "actionid": "terrain.unlock",
       "label": "The Gallery",
       "preface": "Chandlery Gallery",

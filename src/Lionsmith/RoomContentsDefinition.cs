@@ -16,6 +16,7 @@ public class RoomContentsDefinition : AbstractEntity<RoomContentsDefinition>
     [FucineList] public List<WorkstationDefinition> Workstations { get; set; }
     [FucineList] public List<ShelfDefinition> Shelves { get; set; }
     [FucineList] public List<ComfortDefinition> Comforts { get; set; }
+    [FucineList] public List<WallArtDefinition> WallArts { get; set; }
 
     public bool HasShelves => Shelves != null && Shelves.Count > 0;
 }
@@ -65,4 +66,10 @@ public class ComfortDefinition : SphereDefinitionBase<ComfortDefinition>
 {
     public ComfortDefinition() { }
     public ComfortDefinition(EntityData d, ContentImportLog l) : base(d, l) { }
+}
+
+public class WallArtDefinition : SphereDefinitionBase<WallArtDefinition>
+{
+    public WallArtDefinition() { }
+    public WallArtDefinition(EntityData d, ContentImportLog l) : base(d, l) { }
 }

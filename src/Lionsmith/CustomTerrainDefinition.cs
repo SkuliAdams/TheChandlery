@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using SecretHistories.Fucine;
 using SecretHistories.Fucine.DataImport;
 using UnityEngine;
@@ -28,6 +29,8 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
 
     [FucineSubEntity]
     public RoomContentsDefinition Contents { get; set; }
+
+    [FucineList] public List<string> ConnectedTo { get; set; }
 
     private const float BlockWidth = 400f;
     private const float BlockHeight = 200f;

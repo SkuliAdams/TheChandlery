@@ -22,6 +22,7 @@ internal class RoomInstance
     private GameObject _workstationArchetype;
     private GameObject _shelfArchetype;
     private GameObject _comfortArchetype;
+    private GameObject _wallArtArchetype;
 
     private GameObject _worldDominion;
     private GameObject _shelfDominion;
@@ -41,6 +42,8 @@ internal class RoomInstance
         _workstationArchetype = FindAndCloneArchetype<FitmentWorkstationSphere>("__archetype_workstation");
         _shelfArchetype = FindAndCloneArchetype<ShelfSpaceSphere>("__archetype_shelf");
         _comfortArchetype = FindAndCloneArchetype<ComfortSphere>("__archetype_comfort");
+        _wallArtArchetype = FindAndCloneArchetype<PhysicalSphere>("__archetype_wallart",
+            s => !(s is FitmentWorkstationSphere) && !(s is ComfortSphere));
     }
 
     public void PopulateContents(float roomW, float roomH)
@@ -54,7 +57,8 @@ internal class RoomInstance
         var hasContent = (contents.Slots != null && contents.Slots.Count > 0)
                       || (contents.Workstations != null && contents.Workstations.Count > 0)
                       || (contents.Shelves != null && contents.Shelves.Count > 0)
-                      || (contents.Comforts != null && contents.Comforts.Count > 0);
+                      || (contents.Comforts != null && contents.Comforts.Count > 0)
+                      || (contents.WallArts != null && contents.WallArts.Count > 0);
 
         if (!hasContent)
             return;
@@ -76,6 +80,10 @@ internal class RoomInstance
         if (contents.Comforts != null)
             foreach (var cd in contents.Comforts)
                 BuildComfort(cd);
+
+        if (contents.WallArts != null)
+            foreach (var wad in contents.WallArts)
+                BuildWallArt(wad);
     }
 
     private GameObject FindAndCloneArchetype<T>(string name, Func<T, bool> filter = null) where T : MonoBehaviour
@@ -222,6 +230,34 @@ internal class RoomInstance
         AssignPositionAndSize(go, def.PosX, def.PosY, def.Width, def.Height);
         ConfigureCanvasGroup(go);
         ReplaceChoreographer<ThingChoreographer>(go);
+        ConfigurePhysicalSphereFields(go, def.LockDrag, def.ShowGlowOnHover, def.ShowInteractionGlow);
+        ConfigureSphereDropCatcher(go);
+        AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
+        LogSphereState(go);
+    }
+
+    private void BuildWallArt(WallArtDefinition def)
+    {
+        var dominion = _worldDominion;
+        if (dominion == null) return;
+
+        if (_wallArtArchetype == null)
+        {
+            Debug.LogError($"Chandlery RoomInstance: No wall art archetype for room '{_def.Id}' — cannot build wall art '{def.Id}'");
+            return;
+        }
+
+        var go = UnityEngine.Object.Instantiate(_wallArtArchetype, dominion.transform, false);
+        go.SetActive(true);
+        go.name = "wallart_" + def.Id;
+
+        var oldSpec = go.GetComponent<PermanentSphereSpec>();
+        if (oldSpec != null)
+            UnityEngine.Object.DestroyImmediate(oldSpec);
+
+        AssignPositionAndSize(go, def.PosX, def.PosY, def.Width, def.Height);
+        ConfigureCanvasGroup(go);
+        ReplaceChoreographer<WallChoreographer>(go);
         ConfigurePhysicalSphereFields(go, def.LockDrag, def.ShowGlowOnHover, def.ShowInteractionGlow);
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);

@@ -7,6 +7,7 @@ using SecretHistories.Events;
 using SecretHistories.Infrastructure;
 using SecretHistories.Services;
 using SecretHistories.Spheres;
+using SecretHistories.Tokens.Payloads;
 using SecretHistories.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -46,6 +47,12 @@ internal static class Lionsmith
                 new[] { typeof(Token) }),
             prefix: new HarmonyMethod(typeof(Lionsmith), nameof(OnDropCatcherTryDisplayPrefix)),
             postfix: new HarmonyMethod(typeof(Lionsmith), nameof(OnDropCatcherTryDisplayPostfix))
+        );
+
+        harmony.Patch(
+            AccessTools.Method(typeof(TerrainFeature), "Unshroud",
+                new[] { typeof(bool) }),
+            postfix: new HarmonyMethod(typeof(Lionsmith), nameof(OnUnshroudPostfix))
         );
 
         Debug.Log("Chandlery Lionsmith: Patches applied");
@@ -113,6 +120,32 @@ internal static class Lionsmith
             || __instance.Sphere.name.StartsWith("shelf_") || __instance.Sphere.name.StartsWith("comfort_")
             || __instance.Sphere.name.StartsWith("workstation_")))
             Debug.Log($"Chandlery DIAG: SphereDropCatcher.OnDrop enter sphere='{__instance.Sphere.name}'");
+    }
+
+    private static void OnUnshroudPostfix(TerrainFeature __instance)
+    {
+        if (__instance == null || string.IsNullOrEmpty(__instance.Id))
+            return;
+
+        if (!TerrainRegistry.TryGetConnections(__instance.Id, out var connectedIds))
+            return;
+
+        var ha = Watchman.Get<HornedAxe>();
+        foreach (var connectedId in connectedIds)
+        {
+            var token = ha.FindSingleOrDefaultTokenById(connectedId);
+            if (token == null || !token.IsValid())
+            {
+                Debug.LogWarning($"Chandlery Lionsmith: Connected room '{connectedId}' not found from '{__instance.Id}'");
+                continue;
+            }
+
+            if (token.Payload is TerrainFeature connectedRoom)
+            {
+                connectedRoom.Unseal();
+                Debug.Log($"Chandlery Lionsmith: Unsealed connected room '{connectedId}' from '{__instance.Id}'");
+            }
+        }
     }
 
     private static void OnEnvironmentPopulated()
