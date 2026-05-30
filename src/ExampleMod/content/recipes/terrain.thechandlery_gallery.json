@@ -17,7 +17,6 @@
           "essential": { "assistance": 1 }
         }
       ],
-      "fx": { "thechandlery.gallery.open": 1 },
       "warmup": 30,
       "craftable": true
     }

@@ -53,6 +53,8 @@ internal static class TerrainRegistry
 
     internal static bool HasAny() => _definitions?.Count > 0;
 
+    internal static bool Has(string id) => _definitions?.ContainsKey(id) == true;
+
     internal static CustomTerrainDefinition Get(string id)
     {
         if (_definitions != null && _definitions.TryGetValue(id, out var def))

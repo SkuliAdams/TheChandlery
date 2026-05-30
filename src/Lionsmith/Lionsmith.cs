@@ -55,6 +55,11 @@ internal static class Lionsmith
             postfix: new HarmonyMethod(typeof(Lionsmith), nameof(OnUnshroudPostfix))
         );
 
+        harmony.Patch(
+            AccessTools.Method(typeof(Situation), "ExecuteCurrentRecipe"),
+            postfix: new HarmonyMethod(typeof(Lionsmith), nameof(OnRecipeExecuted))
+        );
+
         Debug.Log("Chandlery Lionsmith: Patches applied");
     }
 
@@ -145,6 +150,27 @@ internal static class Lionsmith
                 connectedRoom.Unseal();
                 Debug.Log($"Chandlery Lionsmith: Unsealed connected room '{connectedId}' from '{__instance.Id}'");
             }
+        }
+    }
+
+    private static void OnRecipeExecuted(Situation __instance)
+    {
+        var recipe = __instance.GetCurrentRecipe();
+        if (recipe == null || recipe.ActionId != "terrain.unlock")
+            return;
+
+        var roomId = recipe.Id;
+        if (roomId.StartsWith("terrain."))
+            roomId = roomId.Substring("terrain.".Length);
+
+        if (!TerrainRegistry.Has(roomId))
+            return;
+
+        var token = Watchman.Get<HornedAxe>().FindSingleOrDefaultTokenById(roomId);
+        if (token?.Payload is TerrainFeature tf)
+        {
+            var fx = new EnviroFxCommand(roomId + ".open", "1");
+            Watchman.Get<LocalNexus>().BroadcastFx(fx);
         }
     }
 
