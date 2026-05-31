@@ -40,11 +40,16 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
             var pos = ResolvePosition(def, rt);
             var location = new TokenLocation(pos, sphere);
 
-            new TokenCreationCommand()
+            var element = compendium.GetEntityById<Element>(elementId);
+            var isFixed = element?.Aspects != null && element.Aspects.ContainsKey("fixed");
+
+            var token = new TokenCreationCommand()
                 .WithElementStack(elementId, 1)
                 .WithLocation(location)
-                .Execute(new Context(Context.ActionSource.Eden), sphere)
-                .Understate();
+                .Execute(new Context(Context.ActionSource.Eden), sphere);
+            token.Understate();
+            if (isFixed)
+                token.gameObject.AddComponent<NoDragMarker>();
         }
 
         return true;

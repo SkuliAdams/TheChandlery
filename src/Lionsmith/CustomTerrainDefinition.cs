@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SecretHistories;
 using SecretHistories.Fucine;
 using SecretHistories.Fucine.DataImport;
 using UnityEngine;
@@ -34,6 +35,9 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
 
     [FucineDict] public Dictionary<string, int> Aspects { get; set; }
 
+    [FucineSubEntity]
+    public UnlockRecipeDefinition UnlockRecipe { get; set; }
+
     private const float BlockWidth = 400f;
     private const float BlockHeight = 200f;
     private const float BlockGap = 20f;
@@ -57,4 +61,20 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
         w = Width;
         h = Height;
     }
+}
+
+public class UnlockRecipeDefinition : AbstractEntity<UnlockRecipeDefinition>
+{
+    public UnlockRecipeDefinition() { }
+    public UnlockRecipeDefinition(EntityData d, ContentImportLog l) : base(d, l) { }
+    protected override void OnPostImportForSpecificEntity(ContentImportLog log, Compendium populatedCompendium) { }
+
+    [FucineValue] public string Label { get; set; }
+    [FucineValue] public string Preface { get; set; }
+    [FucineValue] public string StartDescription { get; set; }
+    [FucineValue] public string Description { get; set; }
+    [FucineDict] public Dictionary<string, int> Aspects { get; set; }
+    [FucineDict] public Dictionary<string, int> Essential { get; set; }
+    [FucineDict] public Dictionary<string, int> Forbidden { get; set; }
+    [FucineValue(30)] public int Warmup { get; set; }
 }

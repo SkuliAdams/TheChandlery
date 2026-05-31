@@ -10,6 +10,14 @@
       "startsunsealed": true,
       "connectedto": ["thechandlery.gallery", "thechandlery.spire"],
       "aspects": { "forge": 1, "lantern": 1 },
+      "unlockrecipe": {
+        "label": "The Chandlery",
+        "preface": "The Chandlery",
+        "startdescription": "You're pretty sure this wasn't here yesterday.",
+        "description": "It's filled with candles.",
+        "aspects": { "forge": 1 },
+        "warmup": 30
+      },
       "contents": {
         "slots": [
           {
@@ -70,7 +78,15 @@
       "posy": 460.0,
       "roomsize": "1x2",
       "startsopen": false,
-      "startsunsealed": false
+      "startsunsealed": false,
+      "unlockrecipe": {
+        "label": "The Gallery",
+        "preface": "Chandlery Gallery",
+        "startdescription": "A long chamber lined with empty niches and candle-sconces.",
+        "description": "The gallery waits, patient as stone.",
+        "aspects": { "rose": 1 },
+        "warmup": 30
+      }
     },
     {
       "id": "thechandlery.spire",
@@ -79,6 +95,14 @@
       "roomsize": "2x1",
       "startsopen": false,
       "startsunsealed": false,
+      "unlockrecipe": {
+        "label": "The Spire",
+        "preface": "Chandlery Spire",
+        "startdescription": "A narrow tower rising above the rest of the chandlery, open to the sky.",
+        "description": "The wind moves freely here.",
+        "aspects": { "sky": 1 },
+        "warmup": 30
+      },
       "contents": {
         "wallarts": [
           {
@@ -89,7 +113,8 @@
               {"id": "painting.annointing", "posx": -50, "posy": 50},
               {"id": "painting.annointing", "posx": 50, "posy": 50},
               {"id": "painting.annointing", "posx": -50, "posy": -50},
-              {"id": "painting.annointing", "posx": 50, "posy": -50}
+              {"id": "painting.annointing", "posx": 50, "posy": -50},
+              {"id": "window.meniscate"}
             ],
             "posx": 0,
             "posy": 420,

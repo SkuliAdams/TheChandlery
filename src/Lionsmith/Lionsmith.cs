@@ -60,6 +60,11 @@ internal static class Lionsmith
             postfix: new HarmonyMethod(typeof(Lionsmith), nameof(OnRecipeExecuted))
         );
 
+        harmony.Patch(
+            AccessTools.Method(typeof(Token), "CanBeDragged"),
+            prefix: new HarmonyMethod(typeof(Lionsmith), nameof(OnCanBeDraggedPrefix))
+        );
+
         Debug.Log("Chandlery Lionsmith: Patches applied");
     }
 
@@ -68,7 +73,10 @@ internal static class Lionsmith
         if (__instance.Payload is PopulateTerrainFeatureCommand ptfc)
         {
             if (!TerrainRegistry.HasAny())
+            {
                 TerrainRegistry.LoadAll();
+                RecipeRegistrar.RegisterAll();
+            }
 
             var def = TerrainRegistry.Get(ptfc.Id);
             if (def != null)
@@ -174,6 +182,16 @@ internal static class Lionsmith
         }
     }
 
+    private static bool OnCanBeDraggedPrefix(Token __instance, ref bool __result)
+    {
+        if (__instance.GetComponent<NoDragMarker>() != null)
+        {
+            __result = false;
+            return false;
+        }
+        return true;
+    }
+
     private static void OnEnvironmentPopulated()
     {
         MotherOfAnts.LogTerrainDetails();
@@ -184,6 +202,8 @@ internal static class Lionsmith
             TerrainRegistry.LoadAll();
             if (!TerrainRegistry.HasAny())
                 return;
+
+            RecipeRegistrar.RegisterAll();
 
             Debug.Log($"Chandlery Lionsmith: Creating {TerrainRegistry.GetAll().Count()} custom rooms...");
 
