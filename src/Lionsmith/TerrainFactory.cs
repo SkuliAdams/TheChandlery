@@ -149,20 +149,20 @@ internal class TerrainFactory
         var specSeed = clone.GetComponent<TerrainFeatureSpecSeed>();
         if (specSeed != null)
         {
-            specSeed.StartsOpen = def.StartsOpen;
-            specSeed.StartsUnsealed = def.StartsUnsealed;
+            specSeed.StartsOpen = def.StartsOpen ?? false;
+            specSeed.StartsUnsealed = def.StartsUnsealed ?? true;
         }
 
         var roomInstance = new RoomInstance(clone, def);
         roomInstance.ExtractArchetypes();
         StripInteractiveChildren(clone);
 
-        def.ResolveSize(out var resolvedW, out var resolvedH);
+        def.ResolveSize(out var resolvedW, out var resolvedH, 400f, 200f);
         roomInstance.PopulateContents(resolvedW, resolvedH);
 
         var rt = clone.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(resolvedW, resolvedH);
-        rt.anchoredPosition = new Vector2(def.PosX, def.PosY);
+        rt.anchoredPosition = new Vector2(def.PosX ?? 0f, def.PosY ?? 0f);
         rt.pivot = new Vector2(0.5f, 0.5f);
 
         ApplySprites(terrainFeature, resolvedW, resolvedH, def);

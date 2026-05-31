@@ -65,6 +65,22 @@ internal static class TerrainRegistry
     internal static IEnumerable<CustomTerrainDefinition> GetAll() =>
         _definitions?.Values ?? Enumerable.Empty<CustomTerrainDefinition>();
 
+    internal static IEnumerable<CustomTerrainDefinition> GetAllNew() =>
+        _definitions?.Values.Where(d => d.Override != true) ?? Enumerable.Empty<CustomTerrainDefinition>();
+
+    internal static IEnumerable<CustomTerrainDefinition> GetAllOverrides() =>
+        _definitions?.Values.Where(d => d.Override == true) ?? Enumerable.Empty<CustomTerrainDefinition>();
+
+    internal static bool IsOverride(string id) =>
+        _definitions != null && _definitions.TryGetValue(id, out var def) && def.Override == true;
+
+    internal static void RegisterConnection(string roomId, List<string> connectedIds)
+    {
+        if (_connections == null)
+            _connections = new Dictionary<string, List<string>>();
+        _connections[roomId] = connectedIds;
+    }
+
     internal static bool TryGetConnections(string roomId, out List<string> connectedIds)
     {
         if (_connections != null && _connections.TryGetValue(roomId, out connectedIds))

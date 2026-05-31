@@ -1,0 +1,21 @@
+{
+  "terrain": [
+    {
+      "id": "motleytower3",
+      "override": true,
+      "aspects": { "moth": 1 },
+      "contents": {
+        "remove_spheres": ["ComfortSlotDocBag"],
+        "slots": [
+          {
+            "id": "ThingSlotNatanDesk",
+            "seeds": [
+              { "id": "candle.holderthree", "posx": -20, "posy": 0 },
+              { "id": "typewriter", "posx": 0, "posy": -15 }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

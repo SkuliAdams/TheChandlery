@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using SecretHistories;
 using SecretHistories.Fucine;
 using SecretHistories.Fucine.DataImport;
+using TheHouse.Wheel;
 using UnityEngine;
 
 namespace TheHouse;
@@ -16,16 +17,16 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
 
     protected override void OnPostImportForSpecificEntity(ContentImportLog log, Compendium populatedCompendium) { }
 
-    [FucineValue] public float PosX { get; set; }
-    [FucineValue] public float PosY { get; set; }
-    [FucineValue(400f)] public float Width { get; set; }
-    [FucineValue(200f)] public float Height { get; set; }
+    [WheelFucineNullable] public float? PosX { get; set; }
+    [WheelFucineNullable] public float? PosY { get; set; }
+    [WheelFucineNullable] public float? Width { get; set; }
+    [WheelFucineNullable] public float? Height { get; set; }
+    [WheelFucineNullable] public bool? Override { get; set; }
+    [WheelFucineNullable] public bool? StartsOpen { get; set; }
+    [WheelFucineNullable] public bool? StartsUnsealed { get; set; }
     [FucineValue] public string Sprite { get; set; }
     [FucineValue] public string ShroudSprite { get; set; }
-    [FucineValue] public bool StartsOpen { get; set; }
-    [FucineValue(true)] public bool StartsUnsealed { get; set; }
     [FucineValue] public string TemplateId { get; set; }
-
     [FucineValue] public string RoomSize { get; set; }
 
     [FucineSubEntity]
@@ -42,7 +43,7 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
     private const float BlockHeight = 200f;
     private const float BlockGap = 20f;
 
-    public void ResolveSize(out float w, out float h)
+    public void ResolveSize(out float w, out float h, float defaultW = 400f, float defaultH = 200f)
     {
         if (!string.IsNullOrEmpty(RoomSize))
         {
@@ -58,8 +59,8 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
             }
             Debug.LogWarning($"Chandlery Lionsmith: Invalid RoomSize '{RoomSize}' for room '{Id}', falling back to Width/Height");
         }
-        w = Width;
-        h = Height;
+        w = Width ?? defaultW;
+        h = Height ?? defaultH;
     }
 }
 

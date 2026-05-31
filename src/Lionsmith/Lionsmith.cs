@@ -203,18 +203,31 @@ internal static class Lionsmith
             if (!TerrainRegistry.HasAny())
                 return;
 
+            var newDefs = TerrainRegistry.GetAllNew().ToList();
+            var overrideDefs = TerrainRegistry.GetAllOverrides().ToList();
+
             RecipeRegistrar.RegisterAll();
 
-            Debug.Log($"Chandlery Lionsmith: Creating {TerrainRegistry.GetAll().Count()} custom rooms...");
+            Debug.Log($"Chandlery Lionsmith: Creating {newDefs.Count} custom rooms, patching {overrideDefs.Count} vanilla rooms...");
 
             var factory = new TerrainFactory();
-            foreach (var def in TerrainRegistry.GetAll())
+            foreach (var def in newDefs)
                 factory.Create(def);
 
+            var patcher = new VanillaRoomPatcher();
+            foreach (var def in overrideDefs)
+            {
+                patcher.Patch(def);
+
+                if (def.ConnectedTo != null && def.ConnectedTo.Count > 0)
+                    TerrainRegistry.RegisterConnection(def.Id, def.ConnectedTo);
+            }
+
             MotherOfAnts.LogChoreographers("watchmanstower1");
-            MotherOfAnts.LogChoreographers("thechandlery");
-            MotherOfAnts.LogChoreographers("thechandlery_gallery");
-            MotherOfAnts.LogChoreographers("thechandlery_spire");
+            foreach (var def in newDefs)
+                MotherOfAnts.LogChoreographers(def.Id);
+            foreach (var def in overrideDefs)
+                MotherOfAnts.LogChoreographers(def.Id);
         }
         catch (Exception ex)
         {

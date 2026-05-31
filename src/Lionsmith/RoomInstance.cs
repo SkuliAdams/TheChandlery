@@ -148,10 +148,10 @@ internal class RoomInstance
         if (oldSpec != null)
             UnityEngine.Object.DestroyImmediate(oldSpec);
 
-        AssignPositionAndSize(go, def.PosX, def.PosY, def.Width, def.Height);
+        AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
         ConfigureCanvasGroup(go);
         ReplaceChoreographer<ThingChoreographer>(go);
-        ConfigurePhysicalSphereFields(go, def.LockDrag, def.ShowGlowOnHover, def.ShowInteractionGlow);
+        ConfigurePhysicalSphereFields(go, def.LockDrag ?? false, def.ShowGlowOnHover ?? false, def.ShowInteractionGlow ?? false);
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
         AddSeeds(go, def.Seeds);
@@ -173,7 +173,7 @@ internal class RoomInstance
         go.SetActive(true);
         go.name = "workstation_" + def.Id;
 
-        AssignPositionAndSize(go, def.PosX, def.PosY, def.Width, def.Height);
+        AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
         ConfigureCanvasGroup(go);
         ReplaceChoreographer<FitmentChoreographer>(go);
 
@@ -202,7 +202,7 @@ internal class RoomInstance
         if (oldSpec != null)
             UnityEngine.Object.DestroyImmediate(oldSpec);
 
-        AssignPositionAndSize(go, def.PosX, def.PosY, def.Width, def.Height);
+        AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
         ConfigureCanvasGroup(go);
         ReplaceChoreographer<ShelfChoreographer>(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
@@ -229,10 +229,10 @@ internal class RoomInstance
         if (oldSpec != null)
             UnityEngine.Object.DestroyImmediate(oldSpec);
 
-        AssignPositionAndSize(go, def.PosX, def.PosY, def.Width, def.Height);
+        AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
         ConfigureCanvasGroup(go);
         ReplaceChoreographer<ThingChoreographer>(go);
-        ConfigurePhysicalSphereFields(go, def.LockDrag, def.ShowGlowOnHover, def.ShowInteractionGlow);
+        ConfigurePhysicalSphereFields(go, def.LockDrag ?? false, def.ShowGlowOnHover ?? false, def.ShowInteractionGlow ?? false);
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
         AddSeeds(go, def.Seeds);
@@ -258,10 +258,10 @@ internal class RoomInstance
         if (oldSpec != null)
             UnityEngine.Object.DestroyImmediate(oldSpec);
 
-        AssignPositionAndSize(go, def.PosX, def.PosY, def.Width, def.Height);
+        AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
         ConfigureCanvasGroup(go);
         ReplaceChoreographer<WallChoreographer>(go);
-        ConfigurePhysicalSphereFields(go, def.LockDrag, def.ShowGlowOnHover, def.ShowInteractionGlow);
+        ConfigurePhysicalSphereFields(go, def.LockDrag ?? false, def.ShowGlowOnHover ?? false, def.ShowInteractionGlow ?? false);
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
         AddSeeds(go, def.Seeds);
@@ -311,7 +311,7 @@ internal class RoomInstance
     }
     */
 
-    private void AssignPositionAndSize(GameObject go, float posX, float posY, float width, float height)
+    internal void AssignPositionAndSize(GameObject go, float posX, float posY, float width, float height)
     {
         var rt = go.GetComponent<RectTransform>();
         if (rt != null)
@@ -325,7 +325,7 @@ internal class RoomInstance
         }
     }
 
-    private static void ConfigureCanvasGroup(GameObject go)
+    internal static void ConfigureCanvasGroup(GameObject go)
     {
         var cg = go.GetComponent<CanvasGroup>();
         if (cg != null)
@@ -335,7 +335,7 @@ internal class RoomInstance
         }
     }
 
-    private static void ConfigurePhysicalSphereFields(GameObject go, bool lockDrag, bool showGlowOnHover, bool showInteractionGlow)
+    internal static void ConfigurePhysicalSphereFields(GameObject go, bool lockDrag, bool showGlowOnHover, bool showInteractionGlow)
     {
         var sphere = go.GetComponent<PhysicalSphere>();
         if (sphere == null) return;
@@ -348,7 +348,7 @@ internal class RoomInstance
             ?.SetValue(sphere, showInteractionGlow);
     }
 
-    private static void ReplaceChoreographer<T>(GameObject go) where T : AbstractChoreographer
+    internal static void ReplaceChoreographer<T>(GameObject go) where T : AbstractChoreographer
     {
         var existing = go.GetComponent<AbstractChoreographer>();
         if (existing != null)
@@ -356,7 +356,15 @@ internal class RoomInstance
         go.AddComponent<T>();
     }
 
-    private static void LogSphereState(GameObject go)
+    internal static void ReplaceChoreographerGeneric(Type choreographerType, GameObject go)
+    {
+        var existing = go.GetComponent<AbstractChoreographer>();
+        if (existing != null)
+            UnityEngine.Object.DestroyImmediate(existing);
+        go.AddComponent(choreographerType);
+    }
+
+    internal static void LogSphereState(GameObject go)
     {
         var sphere = go.GetComponent<Sphere>();
         var rt = go.GetComponent<RectTransform>();
@@ -380,7 +388,7 @@ internal class RoomInstance
           $"  DropCatcher go active={catcher?.gameObject.activeSelf}");
     }
 
-    private static void AddSeeds(GameObject go, List<SeedEntry> seeds)
+    internal static void AddSeeds(GameObject go, List<SeedEntry> seeds)
     {
         if (seeds == null || seeds.Count == 0)
             return;
@@ -390,7 +398,7 @@ internal class RoomInstance
         Debug.Log($"Chandlery RoomInstance: Added {seeds.Count} seed(s) to sphere '{go.name}'");
     }
 
-    private static void ConfigureSphereDropCatcher(GameObject go)
+    internal static void ConfigureSphereDropCatcher(GameObject go)
     {
         var sphere = go.GetComponent<Sphere>();
         if (sphere == null) return;
@@ -405,7 +413,7 @@ internal class RoomInstance
             Debug.LogWarning($"Chandlery DIAG: No SphereDropCatcher found in children of '{go.name}'");
     }
 
-    private static void AddSphereSpec(GameObject go, string id, string label, string description,
+    internal static void AddSphereSpec(GameObject go, string id, string label, string description,
         Dictionary<string, int> required, Dictionary<string, int> essential, Dictionary<string, int> forbidden)
     {
         var spec = go.AddComponent<PermanentSphereSpec>();
@@ -416,15 +424,12 @@ internal class RoomInstance
         spec.Essential = AspectSpecsFromDict(essential);
         spec.Forbidden = AspectSpecsFromDict(forbidden);
 
-        // PermanentSpecIdUpdater.Start() calls CachePermanentPayloads() on the next frame,
-        // but SetUpAsTokenWithId → RegisterFor → ApplySpecToSphere runs synchronously
-        // and enumerates _cachedPermanentPayloads, which would NPE if null.
         typeof(PermanentSphereSpec).GetField("_cachedPermanentPayloads",
             BindingFlags.Instance | BindingFlags.NonPublic)
             ?.SetValue(spec, Array.Empty<AbstractPermanentPayload>());
     }
 
-    private static AspectSpec[] AspectSpecsFromDict(Dictionary<string, int> dict)
+    internal static AspectSpec[] AspectSpecsFromDict(Dictionary<string, int> dict)
     {
         if (dict == null || dict.Count == 0)
             return null;
