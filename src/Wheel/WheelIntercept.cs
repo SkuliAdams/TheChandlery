@@ -27,7 +27,6 @@ internal static class WheelIntercept
             }
 
             var patchedUnknown = new HashSet<Type>();
-            var skipped = 0;
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
@@ -56,14 +55,9 @@ internal static class WheelIntercept
 
                         if (method != null)
                             harmony.Patch(original: method, prefix: new HarmonyMethod(unknownPrefix));
-                        else
-                            skipped++;
                     }
                 }
             }
-
-            Debug.Log($"[WheelIntercept] Patched {patchedUnknown.Count} entity types" +
-                      $" ({skipped} missing PushUnknownProperty)");
 
             var createEntity = AccessTools.Method(typeof(FactoryInstantiator), "CreateEntity",
                 new[] { typeof(Type), typeof(EntityData), typeof(ContentImportLog) });
@@ -90,10 +84,7 @@ internal static class WheelIntercept
         var propertyKey = key.ToString().ToLower();
 
         if (WheelIgnore.Ignores(entityType, propertyKey))
-        {
-            Debug.Log($"[WheelIntercept] Ignored unknown property '{propertyKey}' on {entityType.Name}");
             return false;
-        }
 
         if (WheelStore.TryConvertAndStore(entity, entityType, propertyKey, value))
             return false;

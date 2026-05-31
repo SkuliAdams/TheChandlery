@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using SecretHistories.Fucine;
@@ -104,37 +103,6 @@ internal static class WheelStore
         return false;
     }
 
-    internal static void InterceptClaimedProperties(
-        IEntityWithId entity,
-        EntityData entityData,
-        Type entityType,
-        ContentImportLog log)
-    {
-        ApplyMoldings(entityType, entityData, log);
-
-        var type = entityType;
-        while (type != null)
-        {
-            if (_claimed.TryGetValue(type, out var props))
-            {
-                foreach (var kvp in props)
-                {
-                    var key = kvp.Key;
-                    var slot = kvp.Value;
-
-                    if (entityData.ValuesTable.ContainsKey(key))
-                    {
-                        var rawValue = entityData.ValuesTable[key];
-                        var propDict = _data.GetOrCreateValue(entity);
-                        propDict[key] = ConvertWithImporter(rawValue, slot);
-                        entityData.ValuesTable.Remove(key);
-                    }
-                }
-            }
-            type = type.BaseType;
-        }
-    }
-
     private static object ConvertWithImporter(object rawValue, PropertySlot slot)
     {
         if (rawValue == null)
@@ -159,8 +127,9 @@ internal static class WheelStore
         {
             return Convert.ChangeType(rawValue, slot.Type);
         }
-        catch
+        catch (Exception ex)
         {
+            Debug.LogWarning($"WheelStore: Convert.ChangeType failed for value '{rawValue}' -> {slot.Type.Name}: {ex.Message}");
             return rawValue;
         }
     }
@@ -217,9 +186,9 @@ public static class WheelEntityExtensions
     public static T RetrieveProperty<T>(this IEntityWithId entity, string propertyName)
     {
         var value = WheelStore.RetrieveProperty(entity, propertyName);
-        if (value == null)
-            return default;
-        return (T)value;
+        if (value is T typed)
+            return typed;
+        return default;
     }
 
     public static bool TryRetrieveProperty<T>(this IEntityWithId entity, string propertyName, out T result)

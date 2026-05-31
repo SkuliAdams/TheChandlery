@@ -1,23 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using HarmonyLib;
-using SecretHistories.Abstract;
 using SecretHistories.Fucine;
 using SecretHistories.Fucine.DataImport;
 using SecretHistories.Infrastructure.Modding;
-using SecretHistories.Services;
-using SecretHistories.UI;
 using UnityEngine;
 
 namespace TheHouse.Wheel;
 
 public static class Wheel
 {
-    private static readonly Dictionary<string, Type> EntityTypes = new();
-    private static readonly Dictionary<string, Dictionary<string, object>> Entities = new();
-    private static readonly Dictionary<string, bool> ModsWithChandleryFolder = new();
 
     public static void Enact(Harmony harmony)
     {
@@ -62,22 +55,24 @@ public static class Wheel
         WheelIgnore.IgnoreEntityGroup(groupId);
     }
 
+    // Loads PNGs from each mod's chandlery/ folder into the ModManager sprite cache.
+    // Sprites are addressable by key "chandlery\\{relative_path_without_ext}" so other
+    // modules (Flowermaker, Lionsmith, Colonel) can look them up via ModManager.GetSprite().
     private static void OnLoadImages(ModManager __instance)
     {
         var imagesField = AccessTools.Field(typeof(ModManager), "_images");
         var images = imagesField.GetValue(__instance) as Dictionary<string, Sprite>;
         if (images == null)
+        {
+            Debug.LogWarning("Chandlery Wheel: Could not access ModManager._images — game structure may have changed");
             return;
-
-        ModsWithChandleryFolder.Clear();
+        }
 
         foreach (var mod in __instance.GetEnabledModsInLoadOrder())
         {
             var chandleryDir = Path.Combine(mod.ModRootFolder, "chandlery");
             if (!Directory.Exists(chandleryDir))
                 continue;
-
-            ModsWithChandleryFolder[mod.Id] = true;
 
             foreach (var filePath in Directory.GetFiles(chandleryDir, "*.png", SearchOption.AllDirectories))
             {
@@ -91,7 +86,10 @@ public static class Wheel
 
                     var texture = new Texture2D(2, 2);
                     if (!texture.LoadImage(File.ReadAllBytes(filePath)))
+                    {
+                        Debug.LogWarning($"Chandlery Wheel: Failed to decode PNG '{filePath}'");
                         continue;
+                    }
 
                     texture.filterMode = FilterMode.Bilinear;
                     texture.anisoLevel = 1;

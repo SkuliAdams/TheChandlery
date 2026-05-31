@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using HarmonyLib;
 using SecretHistories.Entities;
 using SecretHistories.Fucine.DataImport;

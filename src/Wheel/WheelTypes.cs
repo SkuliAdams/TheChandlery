@@ -180,6 +180,10 @@ internal static class WheelTypes
                         fucineLoaders.Add(tag,
                             new EntityTypeDataLoader(type, attr.TaggedAs, cultureId, log));
                     }
+                    else
+                    {
+                        log.LogWarning($"WheelTypes: Tag '{tag}' on '{type.FullName}' already registered — skipping");
+                    }
                 }
             }
         }
