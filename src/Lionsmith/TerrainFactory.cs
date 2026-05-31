@@ -226,9 +226,6 @@ internal class TerrainFactory
 
         foreach (var go in toDestroy)
             GameObject.DestroyImmediate(go);
-
-        if (toDestroy.Count > 0)
-            Debug.Log($"Chandlery Lionsmith: Stripped {toDestroy.Count} interactive children from cloned room");
     }
 
     private static void ApplySprites(TerrainFeature terrainFeature, float resolvedW, float resolvedH, CustomTerrainDefinition def)
@@ -288,8 +285,6 @@ internal class TerrainFactory
     private static Sprite LoadModSprite(ModManager modManager, string path)
     {
         var sprite = modManager.GetSprite(path);
-        if (sprite != null)
-            Debug.Log($"Chandlery Lionsmith: Loaded sprite '{path}'");
         return sprite;
     }
 

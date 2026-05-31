@@ -260,7 +260,6 @@ internal class VanillaRoomPatcher
         RoomInstance.ConfigureSphereDropCatcher(go);
 
         go.SetActive(true);
-        RoomInstance.LogSphereState(go);
     }
 
     private static void ModifyExistingSphere(GameObject sphereGo, ISphereOverrideTarget def, GameObject roomGo)

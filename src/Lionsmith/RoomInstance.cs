@@ -101,7 +101,6 @@ internal class RoomInstance
                     UnityEngine.Object.DestroyImmediate(token.gameObject);
 
             clone.SetActive(false);
-            Debug.Log($"Chandlery RoomInstance: Cloned archetype '{name}' from {comp.GetType().Name} '{comp.name}'");
             return clone;
         }
 
@@ -155,7 +154,6 @@ internal class RoomInstance
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
         AddSeeds(go, def.Seeds);
-        LogSphereState(go);
     }
 
     private void BuildWorkstation(WorkstationDefinition def)
@@ -207,7 +205,6 @@ internal class RoomInstance
         ReplaceChoreographer<ShelfChoreographer>(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
         AddSeeds(go, def.Seeds);
-        LogSphereState(go);
     }
 
     private void BuildComfort(ComfortDefinition def)
@@ -236,7 +233,6 @@ internal class RoomInstance
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
         AddSeeds(go, def.Seeds);
-        LogSphereState(go);
     }
 
     private void BuildWallArt(WallArtDefinition def)
@@ -265,51 +261,7 @@ internal class RoomInstance
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
         AddSeeds(go, def.Seeds);
-        LogSphereState(go);
     }
-
-    /*
-    // From-scratch sphere construction — kept for reference but unused.
-    // Archetypes are always expected to be present in the template room.
-    private static GameObject BuildSphereFromScratch(GameObject dominion, SlotDefinition def)
-    {
-        var go = new GameObject("slot_" + def.Id);
-        go.transform.SetParent(dominion.transform, false);
-
-        go.AddComponent<RectTransform>();
-        go.AddComponent<CanvasGroup>();
-        go.AddComponent<CanvasGroupFader>();
-        go.AddComponent<ThingChoreographer>();
-        go.AddComponent<PhysicalSphere>();
-        go.AddComponent<TokenMovementReactionDecorator>();
-
-        var dropCatcherGo = new GameObject("DropCatcher");
-        dropCatcherGo.transform.SetParent(go.transform, false);
-        var drt = dropCatcherGo.AddComponent<RectTransform>();
-        drt.anchorMin = Vector2.zero;
-        drt.anchorMax = Vector2.one;
-        drt.sizeDelta = Vector2.zero;
-        var dimg = dropCatcherGo.AddComponent<Image>();
-        dimg.color = new Color(1f, 1f, 1f, 0f);
-        dimg.raycastTarget = true;
-        dropCatcherGo.AddComponent<SphereDropCatcher>();
-
-        var tokenContainer = new GameObject("TokenContainer");
-        tokenContainer.transform.SetParent(go.transform, false);
-
-        var slotImage = new GameObject("SlotImage");
-        slotImage.transform.SetParent(go.transform, false);
-        var srt = slotImage.AddComponent<RectTransform>();
-        srt.anchorMin = Vector2.zero;
-        srt.anchorMax = Vector2.one;
-        srt.sizeDelta = new Vector2(-2f, -2f);
-        var simg = slotImage.AddComponent<Image>();
-        simg.color = new Color(1f, 1f, 1f, 0.15f);
-        simg.raycastTarget = false;
-
-        return go;
-    }
-    */
 
     internal void AssignPositionAndSize(GameObject go, float posX, float posY, float width, float height)
     {
@@ -364,30 +316,6 @@ internal class RoomInstance
         go.AddComponent(choreographerType);
     }
 
-    internal static void LogSphereState(GameObject go)
-    {
-        var sphere = go.GetComponent<Sphere>();
-        var rt = go.GetComponent<RectTransform>();
-        var cg = go.GetComponentInParent<CanvasGroup>();
-        var catcher = go.GetComponentInChildren<SphereDropCatcher>(true);
-        var catcherImg = catcher?.GetComponent<Image>();
-        string governingSpecStr;
-        try { governingSpecStr = sphere?.GoverningSphereSpec != null ? "SET" : "null"; }
-        catch { governingSpecStr = "EXCEPTION"; }
-
-        Debug.Log($"Chandlery DIAG: Sphere '{go.name}' state:\n" +
-          $"  RectTransform: size=({rt?.sizeDelta.x:F1},{rt?.sizeDelta.y:F1}) " +
-          $"pos=({rt?.anchoredPosition.x:F1},{rt?.anchoredPosition.y:F1})\n" +
-          $"  CanvasGroup.blocksRaycasts={cg?.blocksRaycasts}\n" +
-          $"  Sphere.AllowDrag={sphere?.AllowDrag}\n" +
-          $"  Sphere.GoverningSphereSpec={governingSpecStr}\n" +
-          $"  Sphere.dropCatcher GO={(catcher != null ? catcher.gameObject.name : "MISSING")}\n" +
-          $"  DropCatcher.Sphere={(catcher?.Sphere != null ? catcher.Sphere.gameObject.name : "null")}\n" +
-          $"  DropCatcher Image raycastTarget={catcherImg?.raycastTarget}\n" +
-          $"  DropCatcher Image enabled={catcherImg?.enabled}\n" +
-          $"  DropCatcher go active={catcher?.gameObject.activeSelf}");
-    }
-
     internal static void AddSeeds(GameObject go, List<SeedEntry> seeds)
     {
         if (seeds == null || seeds.Count == 0)
@@ -407,10 +335,9 @@ internal class RoomInstance
         if (catcher != null)
         {
             catcher.Sphere = sphere;
-            Debug.Log($"Chandlery DIAG: Set SphereDropCatcher.Sphere on '{go.name}'");
         }
         else
-            Debug.LogWarning($"Chandlery DIAG: No SphereDropCatcher found in children of '{go.name}'");
+            Debug.LogWarning($"Chandlery RoomInstance: No SphereDropCatcher found in children of '{go.name}'");
     }
 
     internal static void AddSphereSpec(GameObject go, string id, string label, string description,

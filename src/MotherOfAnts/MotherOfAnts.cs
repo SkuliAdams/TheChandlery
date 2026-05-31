@@ -198,6 +198,30 @@ public static class MotherOfAnts
         DescribeHierarchyFull(go, 0);
     }
 
+    public static void LogSphereState(GameObject go)
+    {
+        var sphere = go.GetComponent<Sphere>();
+        var rt = go.GetComponent<RectTransform>();
+        var cg = go.GetComponentInParent<CanvasGroup>();
+        var catcher = go.GetComponentInChildren<SphereDropCatcher>(true);
+        var catcherImg = catcher?.GetComponent<Image>();
+        string governingSpecStr;
+        try { governingSpecStr = sphere?.GoverningSphereSpec != null ? "SET" : "null"; }
+        catch { governingSpecStr = "EXCEPTION"; }
+
+        Debug.Log($"Chandlery MotherOfAnts: Sphere '{go.name}' state:\n" +
+          $"  RectTransform: size=({rt?.sizeDelta.x:F1},{rt?.sizeDelta.y:F1}) " +
+          $"pos=({rt?.anchoredPosition.x:F1},{rt?.anchoredPosition.y:F1})\n" +
+          $"  CanvasGroup.blocksRaycasts={cg?.blocksRaycasts}\n" +
+          $"  Sphere.AllowDrag={sphere?.AllowDrag}\n" +
+          $"  Sphere.GoverningSphereSpec={governingSpecStr}\n" +
+          $"  Sphere.dropCatcher GO={(catcher != null ? catcher.gameObject.name : "MISSING")}\n" +
+          $"  DropCatcher.Sphere={(catcher?.Sphere != null ? catcher.Sphere.gameObject.name : "null")}\n" +
+          $"  DropCatcher Image raycastTarget={catcherImg?.raycastTarget}\n" +
+          $"  DropCatcher Image enabled={catcherImg?.enabled}\n" +
+          $"  DropCatcher go active={catcher?.gameObject.activeSelf}");
+    }
+
     public static void DescribeSphereInRoom(string roomId, string sphereSpecId)
     {
         var allTerrain = Resources.FindObjectsOfTypeAll<TerrainFeature>();
