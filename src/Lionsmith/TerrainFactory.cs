@@ -169,6 +169,8 @@ internal class TerrainFactory
 
         terrainFeature.SetUpAsTokenWithId(sphere);
 
+        ApplyAspects(terrainFeature, def);
+
         return clone;
     }
 
@@ -262,6 +264,24 @@ internal class TerrainFactory
                         img.sprite = sealedSprite;
                     break;
             }
+        }
+    }
+
+    private static void ApplyAspects(TerrainFeature terrainFeature, CustomTerrainDefinition def)
+    {
+        var aspectsField = typeof(AbstractPermanentPayload)
+            .GetField("_aspects", BindingFlags.Instance | BindingFlags.NonPublic);
+        if (aspectsField == null)
+            return;
+
+        if (def.Aspects == null || def.Aspects.Count == 0)
+        {
+            aspectsField.SetValue(terrainFeature, Array.Empty<AspectSpec>());
+        }
+        else
+        {
+            aspectsField.SetValue(terrainFeature,
+                def.Aspects.Select(kv => new AspectSpec { name = kv.Key, level = kv.Value }).ToArray());
         }
     }
 

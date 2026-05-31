@@ -37,6 +37,7 @@ public abstract class SphereDefinitionBase<T> : AbstractEntity<T> where T : Abst
     [FucineDict] public Dictionary<string, int> Essential { get; set; }
     [FucineDict] public Dictionary<string, int> Forbidden { get; set; }
     [FucineValue(false)] public bool Greedy { get; set; }
+    [FucineList] public List<SeedEntry> Seeds { get; set; }
     [FucineValue(false)] public bool LockDrag { get; set; }
     [FucineValue(false)] public bool ShowGlowOnHover { get; set; }
     [FucineValue(false)] public bool ShowInteractionGlow { get; set; }
@@ -72,4 +73,15 @@ public class WallArtDefinition : SphereDefinitionBase<WallArtDefinition>
 {
     public WallArtDefinition() { }
     public WallArtDefinition(EntityData d, ContentImportLog l) : base(d, l) { }
+}
+
+public class SeedEntry : AbstractEntity<SeedEntry>
+{
+    public SeedEntry() { }
+    public SeedEntry(EntityData d, ContentImportLog l) : base(d, l) { }
+    protected override void OnPostImportForSpecificEntity(ContentImportLog log, Compendium populatedCompendium) { }
+
+    [FucineValue] public float PosX { get; set; }
+    [FucineValue] public float PosY { get; set; }
+    [FucineValue] public string Side { get; set; }
 }

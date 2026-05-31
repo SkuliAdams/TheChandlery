@@ -32,6 +32,8 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
 
     [FucineList] public List<string> ConnectedTo { get; set; }
 
+    [FucineDict] public Dictionary<string, int> Aspects { get; set; }
+
     private const float BlockWidth = 400f;
     private const float BlockHeight = 200f;
     private const float BlockGap = 20f;

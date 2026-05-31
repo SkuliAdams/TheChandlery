@@ -154,6 +154,7 @@ internal class RoomInstance
         ConfigurePhysicalSphereFields(go, def.LockDrag, def.ShowGlowOnHover, def.ShowInteractionGlow);
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
+        AddSeeds(go, def.Seeds);
         LogSphereState(go);
     }
 
@@ -205,6 +206,7 @@ internal class RoomInstance
         ConfigureCanvasGroup(go);
         ReplaceChoreographer<ShelfChoreographer>(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
+        AddSeeds(go, def.Seeds);
         LogSphereState(go);
     }
 
@@ -233,6 +235,7 @@ internal class RoomInstance
         ConfigurePhysicalSphereFields(go, def.LockDrag, def.ShowGlowOnHover, def.ShowInteractionGlow);
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
+        AddSeeds(go, def.Seeds);
         LogSphereState(go);
     }
 
@@ -261,6 +264,7 @@ internal class RoomInstance
         ConfigurePhysicalSphereFields(go, def.LockDrag, def.ShowGlowOnHover, def.ShowInteractionGlow);
         ConfigureSphereDropCatcher(go);
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
+        AddSeeds(go, def.Seeds);
         LogSphereState(go);
     }
 
@@ -374,6 +378,16 @@ internal class RoomInstance
           $"  DropCatcher Image raycastTarget={catcherImg?.raycastTarget}\n" +
           $"  DropCatcher Image enabled={catcherImg?.enabled}\n" +
           $"  DropCatcher go active={catcher?.gameObject.activeSelf}");
+    }
+
+    private static void AddSeeds(GameObject go, List<SeedEntry> seeds)
+    {
+        if (seeds == null || seeds.Count == 0)
+            return;
+
+        var seedComp = go.AddComponent<ProgrammaticSeed>();
+        seedComp.SeedDefs = seeds;
+        Debug.Log($"Chandlery RoomInstance: Added {seeds.Count} seed(s) to sphere '{go.name}'");
     }
 
     private static void ConfigureSphereDropCatcher(GameObject go)

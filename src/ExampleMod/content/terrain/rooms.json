@@ -9,11 +9,16 @@
       "startsopen": false,
       "startsunsealed": true,
       "connectedto": ["thechandlery.gallery", "thechandlery.spire"],
+      "aspects": { "forge": 1, "lantern": 1 },
       "contents": {
         "slots": [
           {
             "id": "things",
             "label": "THINGS",
+            "seeds": [
+              {"id": "typewriter", "posx": -15, "posy": 0},
+              {"id": "candle.holderthree", "posx": 15, "posy": 0}
+            ],
             "posx": 34,
             "posy": 180,
             "width": 90,
@@ -36,6 +41,10 @@
             "id": "shelf1",
             "label": "Candle Shelf",
             "description": "Shelf of tapers and tallow dips.",
+            "seeds": [
+              {"id": "uncatbook.baronial", "side":  "left"},
+              {"id": "uncatbook.baronial", "side":  "right"}
+            ],
             "posx": 29,
             "posy": 57,
             "width": 72,
@@ -61,32 +70,7 @@
       "posy": 460.0,
       "roomsize": "1x2",
       "startsopen": false,
-      "startsunsealed": false,
-      "contents": {
-        "slots": [
-          {
-            "id": "gallery_things",
-            "label": "GALLERY THINGS",
-            "posx": 550,
-            "posy": 160,
-            "width": 120,
-            "height": 120,
-            "required": { "physical": 1 }
-          }
-        ],
-        "shelves": [
-          {
-            "id": "gallery_books",
-            "label": "Reference Shelf",
-            "description": "Catalogs and art folios.",
-            "posx": 60,
-            "posy": 140,
-            "width": 200,
-            "height": 80,
-            "required": { "readable": 1 }
-          }
-        ]
-      }
+      "startsunsealed": false
     },
     {
       "id": "thechandlery.spire",
@@ -96,37 +80,22 @@
       "startsopen": false,
       "startsunsealed": false,
       "contents": {
-        "slots": [
-          {
-            "id": "spire_things",
-            "label": "SPIRE THINGS",
-            "posx": 140,
-            "posy": 190,
-            "width": 120,
-            "height": 120,
-            "required": { "physical": 1 }
-          }
-        ],
         "wallarts": [
           {
             "id": "spire_wallart",
             "label": "Spire Wall Art",
             "description": "The bare walls of the spire, waiting to be adorned.",
+            "seeds": [
+              {"id": "painting.annointing", "posx": -50, "posy": 50},
+              {"id": "painting.annointing", "posx": 50, "posy": 50},
+              {"id": "painting.annointing", "posx": -50, "posy": -50},
+              {"id": "painting.annointing", "posx": 50, "posy": -50}
+            ],
             "posx": 0,
             "posy": 420,
             "width": 400,
             "height": 420,
             "required": { "wallart": 1 }
-          }
-        ],
-        "workstations": [
-          {
-            "id": "spire_desk",
-            "label": "Observer's Desk",
-            "posx": 150,
-            "posy": 360,
-            "width": 100,
-            "height": 100
           }
         ]
       }
