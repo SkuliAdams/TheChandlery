@@ -21,8 +21,6 @@ internal static class WolfDivided
             original: AccessTools.Method(typeof(GameGateway), "PopulateEnvironment"),
             postfix: new HarmonyMethod(typeof(WolfDivided), nameof(OnEnvironmentPopulated))
         );
-
-        Debug.Log("Chandlery WolfDivided: Patches applied");
     }
 
     private static void OnEnvironmentPopulated()
@@ -30,8 +28,6 @@ internal static class WolfDivided
         var config = LoadMergedConfig();
         if (config.IsEmpty)
             return;
-
-        Debug.Log("Chandlery WolfDivided: Applying terrain disable rules...");
 
         if (config.CleanSlate)
             ApplyCleanSlate(config);
@@ -100,6 +96,10 @@ internal static class WolfDivided
             {
                 token.gameObject.SetActive(false);
                 Debug.Log($"Chandlery WolfDivided: Disabled terrain '{id}' (selective)");
+            }
+            else if (token == null)
+            {
+                Debug.LogWarning($"Chandlery WolfDivided: disableTerrain '{id}' not found — check ID spelling or mod load order");
             }
         }
     }
