@@ -3,6 +3,8 @@
     {
       "id": "motleytower3",
       "override": true,
+      "posx": 260,
+      "posy": 1500,
       "aspects": { "moth": 1 },
       "contents": {
         "remove_spheres": ["ComfortSlotDocBag"],
