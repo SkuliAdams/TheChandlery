@@ -162,7 +162,9 @@ internal class TerrainFactory
 
         var rt = clone.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(resolvedW, resolvedH);
-        rt.anchoredPosition = new Vector2(def.PosX ?? 0f, def.PosY ?? 0f);
+        rt.anchoredPosition = new Vector2(
+            (def.PosX ?? 0f) + resolvedW * 0.5f,
+            (def.PosY ?? 0f) + resolvedH * 0.5f);
         rt.pivot = new Vector2(0.5f, 0.5f);
 
         ApplySprites(terrainFeature, resolvedW, resolvedH, def);

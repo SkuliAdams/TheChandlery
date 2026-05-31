@@ -13,14 +13,21 @@ public class RoomContentsDefinition : AbstractEntity<RoomContentsDefinition>
 
     protected override void OnPostImportForSpecificEntity(ContentImportLog log, Compendium populatedCompendium) { }
 
-    [FucineList] public List<SlotDefinition> Slots { get; set; }
+    [FucineList] public List<SphereDefinition> Spheres { get; set; }
     [FucineList] public List<WorkstationDefinition> Workstations { get; set; }
-    [FucineList] public List<ShelfDefinition> Shelves { get; set; }
-    [FucineList] public List<ComfortDefinition> Comforts { get; set; }
-    [FucineList] public List<WallArtDefinition> WallArts { get; set; }
     [FucineList] public List<string> remove_spheres { get; set; }
 
-    public bool HasShelves => Shelves != null && Shelves.Count > 0;
+    public bool HasShelves
+    {
+        get
+        {
+            if (Spheres == null) return false;
+            foreach (var s in Spheres)
+                if (s.SphereType == "bookshelf")
+                    return true;
+            return false;
+        }
+    }
 }
 
 internal interface ISphereOverrideTarget
@@ -64,10 +71,12 @@ public abstract class SphereDefinitionBase<T> : AbstractEntity<T>, ISphereOverri
     [WheelFucineNullable] public bool? ShowInteractionGlow { get; set; }
 }
 
-public class SlotDefinition : SphereDefinitionBase<SlotDefinition>
+public class SphereDefinition : SphereDefinitionBase<SphereDefinition>
 {
-    public SlotDefinition() { }
-    public SlotDefinition(EntityData d, ContentImportLog l) : base(d, l) { }
+    public SphereDefinition() { }
+    public SphereDefinition(EntityData d, ContentImportLog l) : base(d, l) { }
+
+    [FucineValue] public string SphereType { get; set; }
 }
 
 public class WorkstationDefinition : SphereDefinitionBase<WorkstationDefinition>
@@ -76,24 +85,6 @@ public class WorkstationDefinition : SphereDefinitionBase<WorkstationDefinition>
     public WorkstationDefinition(EntityData d, ContentImportLog l) : base(d, l) { }
 
     [FucineValue] public string Verb { get; set; }
-}
-
-public class ShelfDefinition : SphereDefinitionBase<ShelfDefinition>
-{
-    public ShelfDefinition() { }
-    public ShelfDefinition(EntityData d, ContentImportLog l) : base(d, l) { }
-}
-
-public class ComfortDefinition : SphereDefinitionBase<ComfortDefinition>
-{
-    public ComfortDefinition() { }
-    public ComfortDefinition(EntityData d, ContentImportLog l) : base(d, l) { }
-}
-
-public class WallArtDefinition : SphereDefinitionBase<WallArtDefinition>
-{
-    public WallArtDefinition() { }
-    public WallArtDefinition(EntityData d, ContentImportLog l) : base(d, l) { }
 }
 
 public class SeedEntry : AbstractEntity<SeedEntry>

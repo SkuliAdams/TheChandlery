@@ -6,9 +6,10 @@
       "aspects": { "moth": 1 },
       "contents": {
         "remove_spheres": ["ComfortSlotDocBag"],
-        "slots": [
+        "spheres": [
           {
             "id": "ThingSlotNatanDesk",
+            "spheretype": "normal",
             "seeds": [
               { "id": "candle.holderthree", "posx": -20, "posy": 0 },
               { "id": "typewriter", "posx": 0, "posy": -15 }

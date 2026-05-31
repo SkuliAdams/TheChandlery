@@ -33,8 +33,8 @@ internal class VanillaRoomPatcher
             }
 
             PatchSprites(tf, def);
-            PatchPosition(tf, def);
             PatchSize(tf, def);
+            PatchPosition(tf, def);
             PatchAspects(tf, def);
             PatchContents(tf.gameObject, def);
 
@@ -88,7 +88,9 @@ internal class VanillaRoomPatcher
             return;
 
         var rt = terrainFeature.GetComponent<RectTransform>();
-        rt.anchoredPosition = new Vector2(def.PosX.Value, def.PosY.Value);
+        var halfW = rt.sizeDelta.x * 0.5f;
+        var halfH = rt.sizeDelta.y * 0.5f;
+        rt.anchoredPosition = new Vector2(def.PosX.Value + halfW, def.PosY.Value + halfH);
     }
 
     private static void PatchSize(TerrainFeature terrainFeature, CustomTerrainDefinition def)
@@ -146,36 +148,24 @@ internal class VanillaRoomPatcher
                     Debug.LogWarning($"Chandlery Lionsmith: Sphere '{specId}' not found for removal in room '{def.Id}'");
             }
 
-        if (contents.Slots != null)
-            foreach (var sd in contents.Slots)
-                AddOrModifySphere(roomGo, sd, typeof(ThingChoreographer), def.Id);
+        if (contents.Spheres != null)
+            foreach (var sd in contents.Spheres)
+                AddOrModifySphere(roomGo, sd, sd.SphereType ?? "normal", def.Id);
 
         if (contents.Workstations != null)
             foreach (var wd in contents.Workstations)
                 AddOrModifyWorkstation(roomGo, wd, def.Id);
-
-        if (contents.Shelves != null)
-            foreach (var sd in contents.Shelves)
-                AddOrModifySphere(roomGo, sd, typeof(ShelfChoreographer), def.Id);
-
-        if (contents.Comforts != null)
-            foreach (var cd in contents.Comforts)
-                AddOrModifySphere(roomGo, cd, typeof(ThingChoreographer), def.Id);
-
-        if (contents.WallArts != null)
-            foreach (var wad in contents.WallArts)
-                AddOrModifySphere(roomGo, wad, typeof(WallChoreographer), def.Id);
     }
 
     private static void AddOrModifySphere(GameObject roomGo, ISphereOverrideTarget def,
-        Type choreographerType, string roomId)
+        string sphereType, string roomId)
     {
         var existing = FindSphereBySpecId(roomGo, def.Id);
 
         if (existing != null)
             ModifyExistingSphere(existing, def, roomGo);
         else
-            AddNewSphere(roomGo, def, choreographerType, roomId);
+            AddNewSphere(roomGo, def, sphereType, roomId);
     }
 
     private static void AddOrModifyWorkstation(GameObject roomGo, WorkstationDefinition def, string roomId)
@@ -220,17 +210,29 @@ internal class VanillaRoomPatcher
         go.SetActive(true);
     }
 
-    private static void AddNewSphere(GameObject roomGo, ISphereOverrideTarget def,
-        Type choreographerType, string roomId)
+    private static Type ChoreographerForSphereType(string sphereType)
     {
-        var archetype = FindArchetypeForOverride(roomGo, def, choreographerType);
+        switch (sphereType ?? "normal")
+        {
+            case "bookshelf": return typeof(ShelfChoreographer);
+            case "wall":      return typeof(WallChoreographer);
+            case "comfort":
+            default:          return typeof(ThingChoreographer);
+        }
+    }
+
+    private static void AddNewSphere(GameObject roomGo, ISphereOverrideTarget def,
+        string sphereType, string roomId)
+    {
+        var archetype = FindArchetypeForOverride(roomGo, sphereType);
         if (archetype == null)
         {
             Debug.LogWarning($"Chandlery Lionsmith: Cannot add sphere '{def.Id}' — no archetype in room '{roomId}'");
             return;
         }
 
-        var dominion = FindDominion(roomGo, choreographerType == typeof(ShelfChoreographer));
+        var choreographerType = ChoreographerForSphereType(sphereType);
+        var dominion = FindDominion(roomGo, sphereType == "bookshelf");
         if (dominion == null)
         {
             Debug.LogWarning($"Chandlery Lionsmith: Cannot add sphere '{def.Id}' — no suitable dominion in room '{roomId}'");
@@ -351,19 +353,20 @@ internal class VanillaRoomPatcher
         return null;
     }
 
-    private static GameObject FindArchetypeForOverride(GameObject roomGo, ISphereOverrideTarget def, Type choreographerType)
+    private static GameObject FindArchetypeForOverride(GameObject roomGo, string sphereType)
     {
-        if (choreographerType == typeof(FitmentChoreographer))
-            return FindArchetypeByComponent(roomGo, typeof(FitmentWorkstationSphere));
-        if (choreographerType == typeof(ShelfChoreographer))
-            return FindArchetypeByComponent(roomGo, typeof(ShelfSpaceSphere));
-        if (choreographerType == typeof(ThingChoreographer))
-            return FindArchetypeByComponentWithFilter(roomGo, typeof(PhysicalSphere),
-                s => !(s is FitmentWorkstationSphere) && !(s is ComfortSphere));
-        if (choreographerType == typeof(WallChoreographer))
-            return FindArchetypeByComponent(roomGo, typeof(PhysicalSphere)); // wall arts don't have a unique component
-
-        return FindArchetypeByComponent(roomGo, typeof(PhysicalSphere));
+        switch (sphereType ?? "normal")
+        {
+            case "bookshelf":
+                return FindArchetypeByComponent(roomGo, typeof(ShelfSpaceSphere));
+            case "comfort":
+                return FindArchetypeByComponent(roomGo, typeof(ComfortSphere));
+            case "wall":
+                return FindArchetypeByComponent(roomGo, typeof(PhysicalSphere));
+            default:
+                return FindArchetypeByComponentWithFilter(roomGo, typeof(PhysicalSphere),
+                    s => !(s is FitmentWorkstationSphere) && !(s is ComfortSphere));
+        }
     }
 
     private static GameObject FindArchetypeByComponent(GameObject roomGo, Type componentType)

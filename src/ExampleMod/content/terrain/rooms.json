@@ -2,13 +2,13 @@
   "terrain": [
     {
       "id": "thechandlery",
-      "posx": 3030.0,
-      "posy": 460.0,
+      "posx": 2850.0,
+      "posy": 360.0,
       "width": 400.0,
       "height": 200.0,
       "startsopen": false,
       "startsunsealed": true,
-      "connectedto": ["thechandlery.gallery", "thechandlery.spire"],
+      "connectedto": ["thechandlery.example2", "thechandlery.example3"],
       "aspects": { "forge": 1, "lantern": 1 },
       "unlockrecipe": {
         "label": "The Chandlery",
@@ -19,9 +19,10 @@
         "warmup": 30
       },
       "contents": {
-        "slots": [
+        "spheres": [
           {
             "id": "things",
+            "spheretype": "normal",
             "label": "THINGS",
             "seeds": [
               {"id": "typewriter", "posx": -15, "posy": 0},
@@ -31,6 +32,30 @@
             "posy": 180,
             "width": 90,
             "height": 18
+          },
+          {
+            "id": "shelf1",
+            "spheretype": "bookshelf",
+            "label": "Candle Shelf",
+            "description": "Once for candles; now for books.",
+            "seeds": [
+              {"id": "uncatbook.baronial", "side": "left"},
+              {"id": "uncatbook.baronial", "side": "right"}
+            ],
+            "posx": 29,
+            "posy": 57,
+            "width": 72,
+            "height": 34.4
+          },
+          {
+            "id": "seat",
+            "spheretype": "comfort",
+            "label": "Stool",
+            "description": "Space for a stool.",
+            "posx": 120,
+            "posy": 200,
+            "width": 100,
+            "height": 100
           }
         ],
         "workstations": [
@@ -43,77 +68,53 @@
             "width": 100,
             "height": 100
           }
-        ],
-        "shelves": [
-          {
-            "id": "shelf1",
-            "label": "Candle Shelf",
-            "description": "Shelf of tapers and tallow dips.",
-            "seeds": [
-              {"id": "uncatbook.baronial", "side":  "left"},
-              {"id": "uncatbook.baronial", "side":  "right"}
-            ],
-            "posx": 29,
-            "posy": 57,
-            "width": 72,
-            "height": 34.4
-          }
-        ],
-        "comforts": [
-          {
-            "id": "seat",
-            "label": "Stool",
-            "description": "A low wooden stool near the candle bench.",
-            "posx": 120,
-            "posy": 200,
-            "width": 100,
-            "height": 100
-          }
         ]
       }
     },
     {
-      "id": "thechandlery.gallery",
-      "posx": 3700.0,
-      "posy": 460.0,
-      "roomsize": "1x2",
+      "id": "thechandlery.example2",
+      "posx": 3270.0,
+      "posy": 360.0,
+      "width": 600.0,
+      "height": 100.0,
       "startsopen": false,
       "startsunsealed": false,
       "unlockrecipe": {
-        "label": "The Gallery",
-        "preface": "Chandlery Gallery",
-        "startdescription": "A long chamber lined with empty niches and candle-sconces.",
-        "description": "The gallery waits, patient as stone.",
+        "label": "Example 2",
+        "preface": "The Second Example",
+        "startdescription": "What is this, a hall for ants?.",
+        "description": "You'll have to squat down.",
         "aspects": { "rose": 1 },
         "warmup": 30
       }
     },
     {
-      "id": "thechandlery.spire",
-      "posx": 3030.0,
-      "posy": 790.0,
+      "id": "thechandlery.example3",
+      "posx": 2850.0,
+      "posy": 580.0,
       "roomsize": "2x1",
       "startsopen": false,
       "startsunsealed": false,
       "unlockrecipe": {
-        "label": "The Spire",
-        "preface": "Chandlery Spire",
-        "startdescription": "A narrow tower rising above the rest of the chandlery, open to the sky.",
-        "description": "The wind moves freely here.",
+        "label": "The Art Room",
+        "preface": "The Art Room",
+        "startdescription": "A tower showcasing wall art.",
+        "description": "Neat.",
         "aspects": { "sky": 1 },
         "warmup": 30
       },
       "contents": {
-        "wallarts": [
+        "spheres": [
           {
             "id": "spire_wallart",
+            "spheretype": "wall",
             "label": "Spire Wall Art",
             "description": "The bare walls of the spire, waiting to be adorned.",
             "seeds": [
-              {"id": "painting.annointing", "posx": -50, "posy": 50},
-              {"id": "painting.annointing", "posx": 50, "posy": 50},
-              {"id": "painting.annointing", "posx": -50, "posy": -50},
-              {"id": "painting.annointing", "posx": 50, "posy": -50},
+              {"id": "painting.annointing", "posx": -150, "posy": 150},
+              {"id": "painting.annointing", "posx": 150, "posy": 150},
+              {"id": "painting.annointing", "posx": -150, "posy": -150},
+              {"id": "painting.annointing", "posx": 150, "posy": -150},
               {"id": "window.meniscate"}
             ],
             "posx": 0,

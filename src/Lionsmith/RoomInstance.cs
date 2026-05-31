@@ -54,36 +54,19 @@ internal class RoomInstance
         if (contents == null)
             return;
 
-        var hasContent = (contents.Slots != null && contents.Slots.Count > 0)
-                      || (contents.Workstations != null && contents.Workstations.Count > 0)
-                      || (contents.Shelves != null && contents.Shelves.Count > 0)
-                      || (contents.Comforts != null && contents.Comforts.Count > 0)
-                      || (contents.WallArts != null && contents.WallArts.Count > 0);
-
-        if (!hasContent)
+        if ((contents.Spheres == null || contents.Spheres.Count == 0)
+            && (contents.Workstations == null || contents.Workstations.Count == 0))
             return;
 
         BuildDominions();
 
-        if (contents.Slots != null)
-            foreach (var sd in contents.Slots)
+        if (contents.Spheres != null)
+            foreach (var sd in contents.Spheres)
                 BuildSphere(sd);
 
         if (contents.Workstations != null)
             foreach (var wd in contents.Workstations)
                 BuildWorkstation(wd);
-
-        if (contents.Shelves != null)
-            foreach (var sd in contents.Shelves)
-                BuildShelfSphere(sd);
-
-        if (contents.Comforts != null)
-            foreach (var cd in contents.Comforts)
-                BuildComfort(cd);
-
-        if (contents.WallArts != null)
-            foreach (var wad in contents.WallArts)
-                BuildWallArt(wad);
     }
 
     private GameObject FindAndCloneArchetype<T>(string name, Func<T, bool> filter = null) where T : MonoBehaviour
@@ -128,20 +111,62 @@ internal class RoomInstance
         }
     }
 
-    private void BuildSphere(SlotDefinition def)
+    private void BuildSphere(SphereDefinition def)
     {
-        var dominion = _worldDominion;
-        if (dominion == null) return;
+        var type = def.SphereType ?? "normal";
+        GameObject archetype;
+        GameObject dominion;
+        Type choreographerType;
+        bool applyFields;
+        string prefix;
 
-        if (_slotArchetype == null)
+        switch (type)
         {
-            Debug.LogError($"Chandlery RoomInstance: No slot archetype for room '{_def.Id}' — cannot build sphere '{def.Id}'");
+            case "bookshelf":
+                archetype = _shelfArchetype;
+                dominion = _shelfDominion ?? _worldDominion;
+                choreographerType = typeof(ShelfChoreographer);
+                applyFields = false;
+                prefix = "shelf_";
+                break;
+            case "comfort":
+                archetype = _comfortArchetype;
+                dominion = _worldDominion;
+                choreographerType = typeof(ThingChoreographer);
+                applyFields = true;
+                prefix = "comfort_";
+                break;
+            case "wall":
+                archetype = _wallArtArchetype;
+                dominion = _worldDominion;
+                choreographerType = typeof(WallChoreographer);
+                applyFields = true;
+                prefix = "wallart_";
+                break;
+            default:
+                archetype = _slotArchetype;
+                dominion = _worldDominion;
+                choreographerType = typeof(ThingChoreographer);
+                applyFields = true;
+                prefix = "slot_";
+                break;
+        }
+
+        if (dominion == null)
+        {
+            Debug.LogError($"Chandlery RoomInstance: No dominion for room '{_def.Id}' — cannot build sphere '{def.Id}'");
             return;
         }
 
-        var go = UnityEngine.Object.Instantiate(_slotArchetype, dominion.transform, false);
+        if (archetype == null)
+        {
+            Debug.LogError($"Chandlery RoomInstance: No {type} archetype for room '{_def.Id}' — cannot build sphere '{def.Id}'");
+            return;
+        }
+
+        var go = UnityEngine.Object.Instantiate(archetype, dominion.transform, false);
         go.SetActive(true);
-        go.name = "slot_" + def.Id;
+        go.name = prefix + def.Id;
 
         var oldSpec = go.GetComponent<PermanentSphereSpec>();
         if (oldSpec != null)
@@ -149,9 +174,14 @@ internal class RoomInstance
 
         AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
         ConfigureCanvasGroup(go);
-        ReplaceChoreographer<ThingChoreographer>(go);
-        ConfigurePhysicalSphereFields(go, def.LockDrag ?? false, def.ShowGlowOnHover ?? false, def.ShowInteractionGlow ?? false);
-        ConfigureSphereDropCatcher(go);
+        ReplaceChoreographerGeneric(choreographerType, go);
+
+        if (applyFields)
+        {
+            ConfigurePhysicalSphereFields(go, def.LockDrag ?? false, def.ShowGlowOnHover ?? false, def.ShowInteractionGlow ?? false);
+            ConfigureSphereDropCatcher(go);
+        }
+
         AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
         AddSeeds(go, def.Seeds);
     }
@@ -181,94 +211,12 @@ internal class RoomInstance
                 ?.SetValue(ws, def.Verb);
     }
 
-    private void BuildShelfSphere(ShelfDefinition def)
-    {
-        var dominion = _shelfDominion ?? _worldDominion;
-        if (dominion == null) return;
-
-        if (_shelfArchetype == null)
-        {
-            Debug.LogError($"Chandlery RoomInstance: No shelf archetype for room '{_def.Id}' — cannot build shelf '{def.Id}'");
-            return;
-        }
-
-        var go = UnityEngine.Object.Instantiate(_shelfArchetype, dominion.transform, false);
-        go.SetActive(true);
-        go.name = "shelf_" + def.Id;
-
-        var oldSpec = go.GetComponent<PermanentSphereSpec>();
-        if (oldSpec != null)
-            UnityEngine.Object.DestroyImmediate(oldSpec);
-
-        AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
-        ConfigureCanvasGroup(go);
-        ReplaceChoreographer<ShelfChoreographer>(go);
-        AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
-        AddSeeds(go, def.Seeds);
-    }
-
-    private void BuildComfort(ComfortDefinition def)
-    {
-        var dominion = _worldDominion;
-        if (dominion == null) return;
-
-        if (_comfortArchetype == null)
-        {
-            Debug.LogError($"Chandlery RoomInstance: No comfort archetype for room '{_def.Id}' — cannot build comfort '{def.Id}'");
-            return;
-        }
-
-        var go = UnityEngine.Object.Instantiate(_comfortArchetype, dominion.transform, false);
-        go.SetActive(true);
-        go.name = "comfort_" + def.Id;
-
-        var oldSpec = go.GetComponent<PermanentSphereSpec>();
-        if (oldSpec != null)
-            UnityEngine.Object.DestroyImmediate(oldSpec);
-
-        AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
-        ConfigureCanvasGroup(go);
-        ReplaceChoreographer<ThingChoreographer>(go);
-        ConfigurePhysicalSphereFields(go, def.LockDrag ?? false, def.ShowGlowOnHover ?? false, def.ShowInteractionGlow ?? false);
-        ConfigureSphereDropCatcher(go);
-        AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
-        AddSeeds(go, def.Seeds);
-    }
-
-    private void BuildWallArt(WallArtDefinition def)
-    {
-        var dominion = _worldDominion;
-        if (dominion == null) return;
-
-        if (_wallArtArchetype == null)
-        {
-            Debug.LogError($"Chandlery RoomInstance: No wall art archetype for room '{_def.Id}' — cannot build wall art '{def.Id}'");
-            return;
-        }
-
-        var go = UnityEngine.Object.Instantiate(_wallArtArchetype, dominion.transform, false);
-        go.SetActive(true);
-        go.name = "wallart_" + def.Id;
-
-        var oldSpec = go.GetComponent<PermanentSphereSpec>();
-        if (oldSpec != null)
-            UnityEngine.Object.DestroyImmediate(oldSpec);
-
-        AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
-        ConfigureCanvasGroup(go);
-        ReplaceChoreographer<WallChoreographer>(go);
-        ConfigurePhysicalSphereFields(go, def.LockDrag ?? false, def.ShowGlowOnHover ?? false, def.ShowInteractionGlow ?? false);
-        ConfigureSphereDropCatcher(go);
-        AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
-        AddSeeds(go, def.Seeds);
-    }
-
     internal void AssignPositionAndSize(GameObject go, float posX, float posY, float width, float height)
     {
         var rt = go.GetComponent<RectTransform>();
         if (rt != null)
         {
-            // JSON: (posX, posY) = item's bottom-left, with (0,0) = room's top-left, Y increases downward
+            // JSON: (posX, posY) = item's bottom-left corner, (0,0) = room's top-left, Y increases downward
             // Unity: anchoredPosition = item's center relative to room's center, Y increases upward
             var centerX = posX - _roomW * 0.5f + width * 0.5f;
             var centerY = _roomH * 0.5f - posY + height * 0.5f;
