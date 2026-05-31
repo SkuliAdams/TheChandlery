@@ -1,12 +1,12 @@
 using HarmonyLib;
 using TheHouse;
 using TheHouse.Colonel;
+using TheHouse.Flowermaker;
 using TheHouse.Wheel;
 using TheHouse.WolfDivided;
 using UnityEngine;
 
-// ReSharper disable once UnusedType.Global
-// ReSharper disable once CheckNamespace
+// Main entry point for the mod
 public static class Chandlery
 {
     private static Harmony _harmony;
@@ -24,8 +24,8 @@ public static class Chandlery
         WolfDivided.Enact(_harmony);
         // Terrain feature creation module
         Lionsmith.Enact(_harmony);
-        // In-game background manipulation module
-        Colonel.Enact(_harmony);
+        // In-game background manipulation module, in progress
+        // Colonel.Enact(_harmony);
 
         Debug.Log("Chandlery: Ready");
     }

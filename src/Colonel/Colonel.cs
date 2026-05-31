@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 namespace TheHouse.Colonel;
 
+// Work in progress module for game background replacement.
 internal static class Colonel
 {
     internal static void Enact(Harmony harmony)

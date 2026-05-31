@@ -6,110 +6,123 @@ using SecretHistories.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TheHouse
+namespace TheHouse.Flowermaker;
+
+// Replaces the main menu background with chandlery\mainmenu from any mod's
+// chandlery/ folder. Hides decorative overlays (floating glyphs, Fuchsia,
+// Proem) while a custom background is active. Suppresses the bug-report
+// button since custom backgrounds imply a non-vanilla setup.
+internal static class Flowermaker
 {
-    // Replaces the main menu background and disables specific visuals.
-    internal static class Flowermaker
+    // Cached once to avoid repeated GameObject.Find scans on content reloads
+    private static Texture _originalTexture;
+    private static GameObject _floatingGlyphs;
+    private static GameObject _fuchsia;
+    private static GameObject _proem;
+    private static GameObject _bugsButton;
+    private static GameObject _versionAndDlcInfo;
+    private static GameObject _dataPrivacyButton;
+    private static Vector2 _originalVersionAndDlcInfoPosition;
+    private static bool _positionSaved;
+
+    public static void Enact(Harmony harmony)
     {
-        private static Texture _originalTexture;
-        private static GameObject _floatingGlyphs;
-        private static GameObject _fuchsia;
-        private static GameObject _proem;
-        private static GameObject _bugsButton;
-        private static GameObject _versionAndDlcInfo;
-        private static GameObject _dataPrivacyButton;
-        private static Vector2 _originalVersionAndDlcInfoPosition;
+        harmony.Patch(
+            original: AccessTools.Method(typeof(BHMenuScreenController), "Start"),
+            postfix: AccessTools.Method(typeof(Flowermaker), nameof(OnMenuScreenStart)));
+    }
 
-        public static void Enact(Harmony harmony)
+    private static void OnMenuScreenStart(BHMenuScreenController __instance)
+    {
+        ApplyCustomMenuBackground();
+        (Watchman.Get<Concursum>().ContentUpdatedEvent).AddListener(_ => ApplyCustomMenuBackground());
+    }
+
+    private static void ApplyCustomMenuBackground()
+    {
+        var bgHolder = GameObject.Find("CanvasBG/BGHolder");
+        if (bgHolder == null)
         {
-            harmony.Patch(
-                original: AccessTools.Method(typeof(BHMenuScreenController), "Start"),
-                postfix: AccessTools.Method(typeof(Flowermaker), nameof(OnMenuScreenStart)));
+            Debug.LogWarning("Chandlery Flowermaker: CanvasBG/BGHolder not found — cannot apply menu background");
+            return;
         }
 
-        private static void OnMenuScreenStart(BHMenuScreenController __instance)
+        var rawImage = bgHolder.GetComponent<RawImage>();
+        if (rawImage == null)
         {
-            ApplyCustomMenuBackground();
-
-            (Watchman.Get<Concursum>().ContentUpdatedEvent)
-                .AddListener(_ => ApplyCustomMenuBackground());
+            Debug.LogWarning("Chandlery Flowermaker: No RawImage on CanvasBG/BGHolder");
+            return;
         }
 
-        private static void ApplyCustomMenuBackground()
+        if (_originalTexture == null)
+            _originalTexture = rawImage.texture;
+
+        CacheOverlayReferences();
+
+        var sprite = Watchman.Get<ModManager>()?.GetSprite("chandlery\\mainmenu");
+        if (sprite != null)
         {
-            var bgHolder = GameObject.Find("CanvasBG/BGHolder");
-            if (bgHolder == null)
-                return;
+            rawImage.texture = sprite.texture;
+            SetOverlaysVisible(false);
+        }
+        else
+        {
+            rawImage.texture = _originalTexture;
+            SetOverlaysVisible(true);
+        }
+    }
 
-            var rawImage = bgHolder.GetComponent<RawImage>();
-            if (rawImage == null)
-                return;
-
-            if (_originalTexture == null)
-                _originalTexture = rawImage.texture;
-
-            CacheOverlayReferences();
-
-            var sprite = Watchman.Get<ModManager>()?.GetSprite("chandlery\\mainmenu");
-            if (sprite != null)
+    private static void CacheOverlayReferences()
+    {
+        if (_floatingGlyphs == null)
+            _floatingGlyphs = GameObject.Find("CanvasBG/BGHolder/floatingGlyphs - left to right");
+        if (_fuchsia == null)
+            _fuchsia = GameObject.Find("CanvasMenu/Fuchsia");
+        if (_proem == null)
+            _proem = GameObject.Find("CanvasMenu/ProemHolder");
+        if (_bugsButton == null)
+            _bugsButton = GameObject.Find("CanvasMenu/VersionAndDlcInfo/Button_Bugs");
+        if (_versionAndDlcInfo == null)
+        {
+            _versionAndDlcInfo = GameObject.Find("CanvasMenu/VersionAndDlcInfo");
+            if (_versionAndDlcInfo != null)
             {
-                rawImage.texture = sprite.texture;
-                SetOverlaysVisible(false);
+                _originalVersionAndDlcInfoPosition = _versionAndDlcInfo.GetComponent<RectTransform>().anchoredPosition;
+                _positionSaved = true;
             }
-            else
-            {
-                rawImage.texture = _originalTexture;
-                SetOverlaysVisible(true);
-            }
         }
+        if (_dataPrivacyButton == null)
+            _dataPrivacyButton = GameObject.Find("CanvasMenu/VersionAndDlcInfo/DataPrivacyButton");
+    }
 
-        // Find the required game objects for future reference
-        private static void CacheOverlayReferences()
+    // Toggle decorative overlays. When hiding, shift version info downward to fill
+    // the gap left by the removed bug-report button, and save the original position
+    // for restoration.
+    private static void SetOverlaysVisible(bool visible)
+    {
+        if (_floatingGlyphs != null) _floatingGlyphs.SetActive(visible);
+        if (_fuchsia != null) _fuchsia.SetActive(visible);
+        if (_proem != null) _proem.SetActive(visible);
+
+        if (visible)
         {
-            if (_floatingGlyphs == null)
-                _floatingGlyphs = GameObject.Find("CanvasBG/BGHolder/floatingGlyphs - left to right");
-            if (_fuchsia == null)
-                _fuchsia = GameObject.Find("CanvasMenu/Fuchsia");
-            if (_proem == null)
-                _proem = GameObject.Find("CanvasMenu/ProemHolder");
-            if (_bugsButton == null)
-                _bugsButton = GameObject.Find("CanvasMenu/VersionAndDlcInfo/Button_Bugs");
-            if (_versionAndDlcInfo == null)
-                _versionAndDlcInfo = GameObject.Find("CanvasMenu/VersionAndDlcInfo");
-            if (_dataPrivacyButton == null)
-                _dataPrivacyButton = GameObject.Find("CanvasMenu/VersionAndDlcInfo/DataPrivacyButton");
+            if (_versionAndDlcInfo != null && _positionSaved)
+                _versionAndDlcInfo.GetComponent<RectTransform>().anchoredPosition = _originalVersionAndDlcInfoPosition;
+            if (_bugsButton != null)
+                _bugsButton.SetActive(true);
         }
-
-        // Sets the main menu visibilities depending on presence of custom main menu
-        private static void SetOverlaysVisible(bool visible)
+        else
         {
-            // Set vanilla background and advert objects
-            if (_floatingGlyphs != null) _floatingGlyphs.SetActive(visible);
-            if (_fuchsia != null) _fuchsia.SetActive(visible);
-            if (_proem != null) _proem.SetActive(visible);
-
-            // Disable bug reporting button and move above buttons down a bit into its space
-            // If there's a mod complex enough to demand its own main menu image, users shouldn't report bugs to WF
-            if (visible)
+            if (_versionAndDlcInfo != null && _bugsButton != null && _dataPrivacyButton != null)
             {
-                if (_versionAndDlcInfo != null)
-                    _versionAndDlcInfo.GetComponent<RectTransform>().anchoredPosition = _originalVersionAndDlcInfoPosition;
-                if (_bugsButton != null)
-                    _bugsButton.SetActive(true);
-            }
-            else
-            {
-                if (_versionAndDlcInfo != null && _bugsButton != null && _dataPrivacyButton != null)
-                {
-                    var viRect = _versionAndDlcInfo.GetComponent<RectTransform>();
-                    var bugsRect = _bugsButton.GetComponent<RectTransform>();
+                var viRect = _versionAndDlcInfo.GetComponent<RectTransform>();
+                var bugsRect = _bugsButton.GetComponent<RectTransform>();
 
-                    _originalVersionAndDlcInfoPosition = viRect.anchoredPosition;
-                    var offset = bugsRect.rect.height;
-                    viRect.anchoredPosition = new Vector2(viRect.anchoredPosition.x, viRect.anchoredPosition.y - offset);
+                viRect.anchoredPosition = new Vector2(
+                    viRect.anchoredPosition.x,
+                    viRect.anchoredPosition.y - bugsRect.rect.height);
 
-                    _bugsButton.SetActive(false);
-                }
+                _bugsButton.SetActive(false);
             }
         }
     }
