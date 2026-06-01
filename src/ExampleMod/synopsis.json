@@ -1,8 +1,8 @@
 {
   "name": "ExampleMod",
   "author": "Chandlery",
-  "version": "1.0.0",
-  "description": "Example mod demonstrating Chandlery's main menu background replacement.",
-  "description_long": "Example mod demonstrating Chandlery's main menu background replacement.",
+  "version": "1.0.1",
+  "description": "Example mod demonstrating Chandlery's features.",
+  "description_long": "Example mod demonstrating Chandlery's features.",
   "tags": ["cosmetic", "example"]
 }

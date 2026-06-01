@@ -37,6 +37,13 @@
         <Copy SourceFiles="@(_ExampleModFiles)" DestinationFiles="@(_ExampleModFiles->'$(ExampleModTargetDir)%(RecursiveDir)%(Filename)%(Extension)')" />
     </Target>
 
+    <Target Name="DeployChandleryManifest" AfterTargets="AfterBuild" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+        <PropertyGroup>
+            <ChandleryTargetDir>$([MSBuild]::EnsureTrailingSlash('$([System.IO.Path]::GetFullPath('$(OutDir)\..'))'))</ChandleryTargetDir>
+        </PropertyGroup>
+        <Copy SourceFiles="$(MSBuildProjectDirectory)\cover.png;$(MSBuildProjectDirectory)\synopsis.json" DestinationFolder="$(ChandleryTargetDir)" SkipUnchangedFiles="true" />
+    </Target>
+
     <ItemGroup Condition="'$(ExcludeLionsmith)' == 'true'">
         <Compile Remove="Lionsmith\**\*.cs" />
     </ItemGroup>
