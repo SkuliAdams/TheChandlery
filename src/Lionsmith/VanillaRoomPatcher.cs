@@ -51,7 +51,6 @@ internal class VanillaRoomPatcher
         if (def.Sprite == null && def.ShroudSprite == null)
             return;
 
-        var modManager = Watchman.Get<ModManager>();
         var manifestationGo = terrainFeature.GetComponentInChildren<IManifestation>() as MonoBehaviour;
         if (manifestationGo == null)
             return;
@@ -64,19 +63,19 @@ internal class VanillaRoomPatcher
             switch (img.name)
             {
                 case "RoomImage" when def.Sprite != null:
-                    var newSprite = modManager.GetSprite("images\\terrain\\" + def.Sprite);
+                    var newSprite = TerrainRegistry.FindSprite(def.Sprite);
                     if (newSprite != null)
                         img.sprite = newSprite;
                     else
-                        Debug.LogWarning($"Chandlery Lionsmith: Override sprite 'images\\terrain\\{def.Sprite}' not found for room '{def.Id}'");
+                        Debug.LogWarning($"Chandlery Lionsmith: Override sprite '{def.Sprite}' not found for room '{def.Id}'");
                     break;
 
                 case "ShroudedImage" when def.ShroudSprite != null:
-                    var newShroud = modManager.GetSprite("images\\terrain\\" + def.ShroudSprite);
+                    var newShroud = TerrainRegistry.FindSprite(def.ShroudSprite);
                     if (newShroud != null)
                         img.sprite = newShroud;
                     else
-                        Debug.LogWarning($"Chandlery Lionsmith: Override shroud sprite 'images\\terrain\\{def.ShroudSprite}' not found for room '{def.Id}'");
+                        Debug.LogWarning($"Chandlery Lionsmith: Override shroud sprite '{def.ShroudSprite}' not found for room '{def.Id}'");
                     break;
             }
         }

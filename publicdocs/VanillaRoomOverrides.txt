@@ -1,0 +1,255 @@
+VANILLA ROOM OVERRIDES
+======================
+
+The Chandlery's Lionsmith module supports modifying existing base-game rooms.
+This is done by adding an override definition to the "terrain" array in your mod's terrain JSON file.
+
+RESOURCE
+--------
+For room IDs, sphere IDs, seed IDs, and position data for every base-game
+room, see:
+
+    publicdocs/VanillaRoomReference.md
+
+Each room entry lists the Room ID, Terrain Recipe, sphere IDs, types,
+positions, sizes, verb IDs, aspect requirements, and seeds. Use those IDs
+directly in your override definitions.
+
+
+BASIC STRUCTURE
+---------------
+
+An override is a normal terrain definition with "override": true and an
+"id" matching a base-game room ID. Only the fields you specify will be
+changed; omitted fields are left intact.
+
+    {
+      "terrain": [
+        {
+          "id": "<base-game-room-id>",
+          "override": true,
+          // ... fields to change ...
+        }
+      ]
+    }
+
+Example:
+
+    {
+      "terrain": [
+        {
+          "id": "pantry",
+          "override": true,
+          "sprite": "custom_pantry",
+          "aspects": { "nectar": 2 }
+        }
+      ]
+    }
+
+
+1. CHANGING SPRITES
+-------------------
+
+Set custom unshrouded and/or shrouded sprites. Sprites are loaded from
+"images\terrain\<path>" in your mod's images folder.
+
+    "sprite": "<path-without-extension>",
+    "shroudsprite": "<path-without-extension>"
+
+If omitted, the existing sprite is left untouched. No placeholder is
+generated if the sprite is not found (unlike new custom rooms, which
+fall back to a black placeholder).
+
+Example:
+
+    "sprite": "pantry_alt",
+    "shroudsprite": "pantry_alt_shrouded"
+
+
+2. MOVING THE ROOM
+------------------
+
+Change the room's position on the map by setting posx and posy. Omit
+either to leave the current position unchanged.
+
+    "posx": <float>,
+    "posy": <float>
+
+Room positions signify the coordinates of their bottom left corner.
+VanillaRoomsReference gives base room coordinates in the same scheme.
+
+Example (from VanillaRoomReference.md, the pantry is at posx=-820, posy=1480):
+
+    "posx": -820.0,
+    "posy": 1480.0
+
+
+3. CHANGING ASPECTS
+-------------------
+
+Replace the room's aspects entirely. If omitted, existing aspects are
+kept. If set to an empty object {}, all aspects are cleared.
+
+    "aspects": { "<aspect-id>": <level>, ... }
+
+Example:
+
+    "aspects": { "nectar": 2, "heart": 1 }
+
+
+4. ADDING UNLOCK RECIPE
+-----------------------
+
+Change the requirements to unlock the room. The unlock recipe is
+registered under "terrain.<room-id>" and replaces the base-game recipe.
+
+    "unlockrecipe": {
+      "label": "<string>",
+      "preface": "<string>",
+      "startdescription": "<string>",
+      "description": "<string>",
+      "aspects": { "<aspect-id>": <level>, ... },
+      "essential": { "<aspect-id>": <level>, ... },
+      "forbidden": { "<aspect-id>": <level>, ... },
+      "warmup": <int>
+    }
+
+Example:
+
+    "unlockrecipe": {
+      "label": "Clean the Pantry",
+      "preface": "Pantry",
+      "startdescription": "Time to clear out this mess.",
+      "description": "The shelves are dusty but usable.",
+      "aspects": { "knock": 2, "nectar": 2 },
+      "warmup": 30
+    }
+
+
+5. ADDING CONNECTIONS
+---------------------
+
+Register room-to-room connections so that unshrouding this room
+automatically unseals connected rooms.
+
+    "connectedto": ["<other-room-id>", ...]
+
+This replaces any existing connections for this room in the connection
+registry. If omitted, existing connections are left untouched.
+
+Example:
+
+    "connectedto": ["kitchen", "nave"]
+
+
+6. REMOVING SPHERES
+-------------------
+
+Hide a sphere (slot, shelf, workstation, comfort, or wall art) from the room.
+
+    "contents": {
+      "remove_spheres": ["<sphere-spec-id>", ...]
+    }
+
+The sphere ID is the spec ApplyId shown in base-game-rooms.md (e.g.
+"ComfortSlotDocBag", "ThingSlotBedsideTable"). Find the exact ID in the
+room's entry.
+
+Example:
+
+    "contents": {
+      "remove_spheres": ["ComfortSlotDocBag"]
+    }
+
+
+7. REPLACING SEEDS ON AN EXISTING SPHERE
+----------------------------------------
+
+Change the items that spawn in an existing sphere. List the sphere
+definition under the matching content type (slots, shelves, etc.) with
+only the "id" and "seeds" fields. All other fields (posx, posy, etc.)
+are left unchanged.
+
+    "contents": {
+      "slots": [
+        {
+          "id": "<existing-sphere-spec-id>",
+          "seeds": [
+            { "id": "<element-id>", "posx": <float>, "posy": <float> },
+            { "id": "<element-id>", "side": "left" }
+          ]
+        }
+      ]
+    }
+
+The "id" must match the sphere's spec ID from base-game-rooms.md exactly.
+The "seeds" array fully replaces all existing seeds on that sphere.
+
+Seed entries support:
+- "posx", "posy": absolute position relative to the sphere's top-left
+- "side": "left" or "right" (positions at the edge, for shelves)
+
+Example (replacing the seeds on ThingSlotNatanDesk in motleytower3):
+
+    "contents": {
+      "slots": [
+        {
+          "id": "ThingSlotNatanDesk",
+          "seeds": [
+            { "id": "candle.holderthree", "posx": -20, "posy": 0 },
+            { "id": "typewriter", "posx": 0, "posy": -15 }
+          ]
+        }
+      ]
+    }
+
+
+COMPLETE EXAMPLE
+----------------
+
+This override targets motleytower3 (Motley Tower: Regensburg Room). It
+changes the sprite, moves the room, adds moth aspect, adds a connection
+to the nave, changes the unlock recipe, removes the doc bag comfort
+sphere, and replaces the seeds on Natan's desk.
+
+    {
+      "terrain": [
+        {
+          "id": "motleytower3",
+          "override": true,
+          "sprite": "motley_tower_alt",
+          "posx": 460.0,
+          "posy": 1560.0,
+          "aspects": { "moth": 1 },
+          "connectedto": ["nave"],
+          "unlockrecipe": {
+            "label": "Motley Tower: Regensburg Room",
+            "preface": "Motley Tower: Third Floor",
+            "startdescription": "Time to clear the miasma.",
+            "aspects": { "heart": 6, "sky": 6 },
+            "essential": { "assistance": 1 },
+            "warmup": 60
+          },
+          "contents": {
+            "remove_spheres": ["ComfortSlotDocBag"],
+            "slots": [
+              {
+                "id": "ThingSlotNatanDesk",
+                "seeds": [
+                  { "id": "candle.holderthree", "posx": -20, "posy": 0 },
+                  { "id": "typewriter", "posx": 20, "posy": 0 }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+
+
+NOTES
+-----
+- The "override": true flag is required. Without it, the definition
+  is treated as a new custom room to create.
+- Omitted fields are never changed. Only explicitly provided fields
+  are applied to the existing room.

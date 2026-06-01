@@ -232,7 +232,6 @@ internal class TerrainFactory
 
     private static void ApplySprites(TerrainFeature terrainFeature, float resolvedW, float resolvedH, CustomTerrainDefinition def)
     {
-        var modManager = Watchman.Get<ModManager>();
         var manifestationGo = terrainFeature.GetComponentInChildren<IManifestation>() as MonoBehaviour;
         if (manifestationGo == null)
             return;
@@ -248,12 +247,14 @@ internal class TerrainFactory
             switch (img.name)
             {
                 case "RoomImage":
-                    img.sprite = LoadModSprite(modManager, "images\\terrain\\" + def.Id)
+                    var spriteKey = def.Sprite ?? def.Id;
+                    img.sprite = TerrainRegistry.FindSprite(spriteKey)
                                  ?? CreatePlaceholder(def.Id + "_unshrouded", spriteWidth, spriteHeight);
                     break;
 
                 case "ShroudedImage":
-                    img.sprite = LoadModSprite(modManager, "images\\terrain\\" + def.Id + "_shrouded")
+                    var shroudKey = (def.ShroudSprite ?? def.Id) + "_shrouded";
+                    img.sprite = TerrainRegistry.FindSprite(shroudKey)
                                  ?? CreatePlaceholder(def.Id + "_shrouded", spriteWidth, spriteHeight);
                     break;
 

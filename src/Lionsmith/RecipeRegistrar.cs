@@ -93,9 +93,6 @@ internal static class RecipeRegistrar
             ? new AspectsDictionary(unlock.Forbidden)
             : new AspectsDictionary();
 
-        if (!preslot.Essential.ContainsKey("assistance"))
-            preslot.Essential["assistance"] = 1;
-
         recipe.PreSlots = new List<SphereSpec> { preslot };
     }
 }

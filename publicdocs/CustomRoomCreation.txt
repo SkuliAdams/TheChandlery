@@ -1,0 +1,346 @@
+CUSTOM ROOM CREATION
+====================
+
+The Chandlery's Lionsmith module can create entirely new rooms at runtime.
+Define them in the "terrain" array of a JSON file in your mod's content
+folder (e.g. mymod/content/terrain/rooms.json).
+
+
+BASIC STRUCTURE
+---------------
+
+    {
+      "terrain": [
+        {
+          "id": "myroomid",
+          "posx": 1000.0,
+          "posy": 500.0,
+          // optional fields...
+        }
+      ]
+    }
+
+1. REQUIRED FIELDS
+------------------
+
+    "id": "<unique-room-id>"
+    "posx": <float>,
+    "posy": <float>
+
+The room ID must be unique across all mods. Prefix it with a mod-specific
+namespace (e.g. "mymod.roomname") to avoid collisions.
+
+Posx and posy define the bottom-left corner of the room on the world map.
+Coordinates use the same system as the base game rooms documented in
+publicdocs/VanillaRoomReference.md. Positive X goes right, positive Y goes up.
+
+
+2. SPRITES
+----------
+
+Sprites are loaded from the images and chandlery folders, and
+should be named <roomid> and <roomid>_shrouded.
+
+If no sprite is found, a solid black placeholder is generated
+automatically (sized to match the room dimensions).
+
+    "sprite": "<custom-name-without-extension>",
+    "shroudsprite": "<custom-name-2-without-extension>"
+
+By default, the room ID is used as the sprite name. Set explicit sprite
+fields to use a different name.
+
+Sprites should be (room_width * 4.2) x (room_height * 4.2).
+For example, a 400x200 room's images should be 1680x840 px.
+
+
+3. ROOM SIZE
+------------
+
+You can set size explicitly:
+
+    "width": 400.0,
+    "height": 200.0
+
+Or use the roomsize shorthand for grid-based sizing (each block is
+400x200 with a 20px gap):
+
+    "roomsize": "1x1"    -> 400 x 200
+    "roomsize": "2x1"    -> 820 x 200
+    "roomsize": "1x2"    -> 400 x 420
+    "roomsize": "2x2"    -> 820 x 420
+
+If neither is provided, the default is 400 x 200. If width/height and
+roomsize are both set, roomsize takes precedence.
+
+
+4. START STATE
+--------------
+
+    "startsopen": false,
+    "startsunsealed": true
+
+- startsopen: whether the room starts open and contents are generated from the start
+  (default false)
+- startsunsealed: whether the room starts available for unlocking.
+  Sealed rooms need a connected room to be unlocked before they are visible.
+  (default true)
+
+
+5. ASPECTS
+----------
+
+Aspects give the room itself properties (usually just a room's period, such as period.baronial, or open air)
+If omitted, the room has no aspects.
+
+    "aspects": { "period.baronial": 1 }
+
+
+6. CONNECTIONS
+--------------
+
+Rooms connected via connectedto are automatically unsealed when this room
+is opened. Not bi-directional; if room B is listed on room A's connectedto list,
+opening room A unseals room B, but opening B does not unseal room A.
+
+    "connectedto": ["otherroom1", "otherroom2"]
+
+
+7. UNLOCK RECIPE
+----------------
+
+Generate a recipe to unlock the room. The recipe is registered under the
+ID "terrain.<room-id>".
+
+    "unlockrecipe": {
+      "label": "Room Label",
+      "preface": "Room Preface",
+      "startdescription": "Description shown in the verb slot.",
+      "description": "Longer description.",
+      "aspects": { "knock": 2, "forge": 2 },
+      "essential": { "assistance": 1 },
+      "forbidden": { "moth": 1 },
+      "warmup": 60
+    }
+
+- "aspects" — required aspects to place in the slot
+- "essential" — required essences (e.g. "assistance")
+- "forbidden" — forbidden aspects
+- "warmup" — duration in seconds (default 30)
+
+Set "startsunsealed": false on the room definition when using a recipe,
+so the room starts locked.
+
+
+8. SPHERE CONTENTS
+------------------
+
+Rooms can contain spheres (surfaces, shelves, comfort items spots, wall art room) and
+workstations. Define them under "contents".
+
+    "contents": {
+      "spheres": [ ... ],
+      "workstations": [ ... ]
+    }
+
+
+8a. Sphere Types
+-----------------
+
+Each sphere entry requires a "spheretype". Four types are supported:
+
+| spheretype  | Behavior                                             |
+|-------------|------------------------------------------------------|
+| "normal"    | Thing slot (PhysicalSphere) — regular item space     |
+| "bookshelf" | Shelf (ShelfSpaceSphere) — has bookshelf properties  |
+| "comfort"   | Comfort item (ComfortSphere) — holds a single item   |
+| "wall"      | Wall art (PhysicalSphere) — holds paintings/windows  |
+
+Sphere fields:
+
+    {
+      "id": "<unique-sphere-id>",
+      "spheretype": "normal | bookshelf | comfort | wall",
+      "label": "Display Name",
+      "description": "Tooltip description",
+      "posx": 34.0,
+      "posy": 180.0,
+      "width": 90.0,
+      "height": 18.0,
+      "required": { "aspect": 1 },
+      "essential": { "aspect": 1 },
+      "forbidden": { "aspect": 1 },
+      "greedy": false,
+      "lockdrag": false,
+      "showglowonhover": false,
+      "showinteractionglow": false,
+      "seeds": [ ... ]
+    }
+
+- posx, posy: position relative to the room's top-left corner (Y
+  increases downward)
+- required: aspects the placed item must have
+- essential: aspects the placed item must provide beyond requirements
+- forbidden: aspects that cannot be placed here
+- lockdrag: if true, items in this sphere cannot be dragged out
+  (requires "fixed" aspect on the element seed for individual items)
+- showglowonhover: whether the sphere highlights on hover
+- showinteractionglow: whether the sphere glows when interactable
+- seeds: initial items to spawn (see section 8c)
+
+Note that the spheretype does not give the "required", "essential", or "forbidden" fields any values.
+They only replicate vanilla sphere behavior without adding aspect restrictions.
+For example, the spheretype: wallart does not restrict dropped items to only wall art by default.
+It causes the sphere to behave like a wallart sphere in that you can drag items vertically as well as horizontally.
+
+
+8b. Workstations
+-----------------
+
+Workstations (FitmentWorkstationSphere) are verb slots that let the
+player perform actions.
+
+    {
+      "id": "desk",
+      "label": "Candlemaker's Desk",
+      "description": "A desk for candlemaking.",
+      "verb": "library.desk.natan.consider",
+      "posx": 270.0,
+      "posy": 200.0,
+      "width": 100.0,
+      "height": 100.0
+    }
+
+- "verb" is the verb ID to seed this workstation with when created.
+  The sprite for the workstation is determined by the verb — it loads
+  from `Resources/prefabs/workstations/{verbId}` (the same visual used
+  by that verb's workstation in the base game).
+
+8c. Seed Entries
+----------------
+
+Seeds define items that spawn in a sphere when the room is first loaded.
+
+    "seeds": [
+      { "id": "elementid1", "posx": 0, "posy": 0 },
+      { "id": "elementid1", "posx": -15, "posy": 10 },
+      { "id": "elementid2", "side": "left" },
+      { "id": "elementid3", "side": "right" }
+    ]
+
+- "id": the element ID (e.g. "candle.holderthree", "typewriter",
+  "uncatbook.baronial", "window.meniscate", "painting.annointing")
+- "posx", "posy": position relative to the sphere's top-left corner. For non-wall-art spheres, 
+  only posx matters, as the vertical position is forced to the sphere's bottom edge.
+- "side": "left" or "right" — positions the item at the left or right
+  edge of the sphere for bookshelf spheres.
+
+If an element has the "fixed" aspect in its definition, the spawned
+item will be immovable (cannot be dragged).
+
+
+FULL EXAMPLE
+------------
+
+    {
+      "terrain": [
+        {
+          "id": "thechandlery",
+          "posx": 2850.0,
+          "posy": 360.0,
+          "width": 400.0,
+          "height": 200.0,
+          "startsopen": false,
+          "startsunsealed": true,
+          "connectedto": ["thechandlery.example2"],
+          "aspects": { "forge": 1, "lantern": 1 },
+          "unlockrecipe": {
+            "label": "The Chandlery",
+            "preface": "The Chandlery",
+            "startdescription": "Filled with candles.",
+            "description": "A workshop for light.",
+            "aspects": { "forge": 1 },
+            "warmup": 30
+          },
+          "contents": {
+            "spheres": [
+              {
+                "id": "things",
+                "spheretype": "normal",
+                "label": "THINGS",
+                "seeds": [
+                  { "id": "typewriter", "posx": -15, "posy": 0 },
+                  { "id": "candle.holderthree", "posx": 15, "posy": 0 }
+                ],
+                "posx": 34,
+                "posy": 180,
+                "width": 90,
+                "height": 18
+              },
+              {
+                "id": "shelf1",
+                "spheretype": "bookshelf",
+                "label": "Candle Shelf",
+                "description": "Once for candles, now for books.",
+                "seeds": [
+                  { "id": "uncatbook.baronial", "side": "left" },
+                  { "id": "uncatbook.baronial", "side": "right" }
+                ],
+                "posx": 29,
+                "posy": 57,
+                "width": 72,
+                "height": 34.4
+              },
+              {
+                "id": "seat",
+                "spheretype": "comfort",
+                "label": "Stool",
+                "description": "Space for a stool.",
+                "posx": 120,
+                "posy": 200,
+                "width": 100,
+                "height": 100
+              }
+            ],
+            "workstations": [
+              {
+                "id": "desk",
+                "label": "Candlemaker's Desk",
+                "verb": "library.desk.natan.consider",
+                "posx": 270,
+                "posy": 200,
+                "width": 100,
+                "height": 100
+              }
+            ]
+          }
+        },
+        {
+          "id": "thechandlery.example2",
+          "posx": 3270.0,
+          "posy": 360.0,
+          "roomsize": "2x1",
+          "startsopen": false,
+          "startsunsealed": false,
+          "unlockrecipe": {
+            "label": "Example 2",
+            "aspects": { "rose": 1 },
+            "warmup": 30
+          }
+        }
+      ]
+    }
+
+
+NOTES
+-----
+- Room IDs should be namespaced (e.g. "mymod.roomname") to avoid
+  collisions with other mods.
+- A black placeholder sprite is generated if no sprite file is found.
+- The room template is watchmanstower1. If that room is missing from the
+  base game (e.g. due to another mod removing it), room creation fails.
+- Mid-game changes to room definitions are not guaranteed to take effect until a new game.
+- For vanilla room overrides (modifying existing rooms instead of
+  creating new ones), see VanillaRoomOverrides.txt.
+- For base game room IDs, positions, and sphere references, see
+  VanillaRoomReference.md.

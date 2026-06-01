@@ -60,7 +60,7 @@
         ],
         "workstations": [
           {
-            "id": "desk",
+            "id": "modded.desk",
             "label": "Candlemaker's Desk",
             "verb": "library.desk.natan.consider",
             "posx": 270,
