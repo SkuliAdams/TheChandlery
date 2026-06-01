@@ -1,0 +1,63 @@
+REMOVING VANILLA ROOMS (WOLFDIVIDED)
+=====================================
+
+The Chandlery's WolfDivided module can disable base-game rooms at startup.
+It reads config from `chandlery/wolfdivided.json` in each enabled mod's
+root folder. Configs from all mods are merged (union of preserve/disable
+lists, OR of cleanSlate flag).
+
+
+CONFIG FILE: chandlery/wolfdivided.json
+----------------------------------------
+
+    {
+      "cleanSlate": false,
+      "preserve": [],
+      "disableTerrain": []
+    }
+
+
+1. cleanSlate (bool)
+--------------------
+
+When true, disables EVERY room except those listed in "preserve". Use this
+to build a world from scratch, keeping only the rooms you explicitly want.
+
+Example — keep only the dormitory and the kitchen:
+
+    {
+      "cleanSlate": true,
+      "preserve": ["dormitory", "kitchen"]
+    }
+
+
+2. preserve (list of strings)
+-----------------------------
+
+Room IDs to keep when cleanSlate is true. Use the base-game room IDs from
+publicdocs/VanillaRoomReference.md. Configs merged across mods: if any
+mod lists a room in preserve, it is kept.
+
+
+3. disableTerrain (list of strings)
+------------------------------------
+
+Selectively disable specific rooms without using cleanSlate. Independent
+of cleanSlate — listed rooms are disabled even if cleanSlate is false.
+
+Example — remove just the well and the shrine:
+
+    {
+      "disableTerrain": ["well", "shrine"]
+    }
+
+
+NOTES
+-----
+- Rooms are disabled via SetActive(false), not destroyed. They are hidden
+  from the map and their contents are not accessible, but they still exist
+  in the scene hierarchy.
+- Configs are merged across all enabled mods. A room listed in preserve
+  by any mod will be kept even if another mod's cleanSlate is true.
+- Room IDs are the game's internal IDs (e.g. "pantry", "nave",
+  "watchmanstower1"), listed in VanillaRoomReference.md.

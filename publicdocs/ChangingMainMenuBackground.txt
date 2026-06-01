@@ -1,0 +1,14 @@
+CHANGING THE MAIN MENU BACKGROUND (FLOWERMAKER)
+================================================
+
+The Chandlery's Flowermaker module replaces the main menu background image.
+
+The background is loaded from any enabled mod's `chandlery/` folder.
+Place your image at:
+
+    <mod-root>/chandlery/mainmenu.png
+    
+Only one mod should provide `chandlery/mainmenu.png`. If multiple mods
+have it, the last one in load order wins.
+
+Only PNG images are supported.
