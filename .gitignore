@@ -20,6 +20,12 @@ packages/
 ## Project-specific
 BookOfHoursTesting/
 
+## Generated / research folders
+docs/
+data/
+exported/
+plans/
+
 ## OS files
 Thumbs.db
 .DS_Store
