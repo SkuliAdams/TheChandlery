@@ -62,8 +62,8 @@
             <HintPath>$(BOHGamePath)\bh_Data\Managed\Newtonsoft.Json.dll</HintPath>
             <Private>false</Private>
         </Reference>
-        <Reference Include="Chandlery">
-            <HintPath>$(BOHModsPath)\Chandlery\dll\Chandlery.dll</HintPath>
+        <Reference Include="TheChandlery">
+            <HintPath>$(BOHModsPath)\Chandlery\dll\TheChandlery.dll</HintPath>
             <Private>false</Private>
         </Reference>
     </ItemGroup>

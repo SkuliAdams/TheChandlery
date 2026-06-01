@@ -4,7 +4,7 @@
         <TargetFramework>net472</TargetFramework>
         <OutputType>Library</OutputType>
         <RootNamespace>Chandlery</RootNamespace>
-        <AssemblyName>Chandlery</AssemblyName>
+        <AssemblyName>TheChandlery</AssemblyName>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <LangVersion>latest</LangVersion>
         <BOHGamePath>$(BOHGamePath)</BOHGamePath>
@@ -20,7 +20,7 @@
 
     <Target Name="CleanupOutput" AfterTargets="AfterBuild" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
         <ItemGroup>
-            <_ExtraFiles Include="$(OutDir)*.dll" Exclude="$(OutDir)Chandlery.dll;$(OutDir)0Harmony.dll" />
+            <_ExtraFiles Include="$(OutDir)*.dll" Exclude="$(OutDir)TheChandlery.dll;$(OutDir)0Harmony.dll" />
         </ItemGroup>
         <Delete Files="@(_ExtraFiles)" />
     </Target>
@@ -35,13 +35,14 @@
             <_ExampleModFiles Include="$(ExampleModSourceDir)\**\*" />
         </ItemGroup>
         <Copy SourceFiles="@(_ExampleModFiles)" DestinationFiles="@(_ExampleModFiles->'$(ExampleModTargetDir)%(RecursiveDir)%(Filename)%(Extension)')" />
+        <Copy SourceFiles="$(ExampleModSourceDir)\serapeum_catalogue_number.txt" DestinationFolder="$(ExampleModTargetDir)" SkipUnchangedFiles="true" />
     </Target>
 
     <Target Name="DeployChandleryManifest" AfterTargets="AfterBuild" Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
         <PropertyGroup>
             <ChandleryTargetDir>$([MSBuild]::EnsureTrailingSlash('$([System.IO.Path]::GetFullPath('$(OutDir)\..'))'))</ChandleryTargetDir>
         </PropertyGroup>
-        <Copy SourceFiles="$(MSBuildProjectDirectory)\cover.png;$(MSBuildProjectDirectory)\synopsis.json" DestinationFolder="$(ChandleryTargetDir)" SkipUnchangedFiles="true" />
+        <Copy SourceFiles="$(MSBuildProjectDirectory)\cover.png;$(MSBuildProjectDirectory)\synopsis.json;$(MSBuildProjectDirectory)\serapeum_catalogue_number.txt" DestinationFolder="$(ChandleryTargetDir)" SkipUnchangedFiles="true" />
     </Target>
 
     <ItemGroup Condition="'$(ExcludeLionsmith)' == 'true'">

@@ -7,7 +7,7 @@ using TheHouse.WolfDivided;
 using UnityEngine;
 
 // Main entry point for the mod
-public static class Chandlery
+public static class TheChandlery
 {
     private static Harmony _harmony;
 
