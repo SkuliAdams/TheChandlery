@@ -81,6 +81,10 @@ internal class RoomInstance
                 if (token.gameObject != clone)
                     UnityEngine.Object.DestroyImmediate(token.gameObject);
 
+            foreach (var t in clone.GetComponentsInChildren<Transform>(true))
+                if (t != clone.transform && t.name.StartsWith("Seed"))
+                    UnityEngine.Object.DestroyImmediate(t.gameObject);
+
             clone.SetActive(false);
             return clone;
         }
@@ -169,6 +173,11 @@ internal class RoomInstance
         var oldSpec = go.GetComponent<PermanentSphereSpec>();
         if (oldSpec != null)
             UnityEngine.Object.DestroyImmediate(oldSpec);
+
+        var oldLazy = go.GetComponentsInChildren<ILazyEdenable>(true);
+        foreach (var s in oldLazy)
+            if (s is MonoBehaviour mb)
+                UnityEngine.Object.DestroyImmediate(mb);
 
         AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
         ConfigureCanvasGroup(go);

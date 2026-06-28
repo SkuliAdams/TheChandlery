@@ -94,16 +94,14 @@ internal class TerrainFactory
     private static Sphere FindParentSphere()
     {
         var ha = Watchman.Get<HornedAxe>();
-        foreach (var sphere in ha.GetSpheres())
+        var librarySphere = ha.GetSpheres().FirstOrDefault(s => s.Id == "Library");
+        if (librarySphere != null)
         {
-            var match = sphere.GetTokens().FirstOrDefault(t => t.Payload is TerrainFeature && t.IsValid());
-            if (match != null)
-            {
-                Debug.Log($"Chandlery Lionsmith: Found parent sphere '{sphere.Id}' via token '{match.PayloadId}'");
-                return sphere;
-            }
+            Debug.Log($"Chandlery Lionsmith: Found parent sphere 'Library'");
+            return librarySphere;
         }
-        Debug.LogError("Chandlery Lionsmith: No sphere found containing any TerrainFeature token");
+
+        Debug.LogError("Chandlery Lionsmith: No sphere named 'Library' found");
         return null;
     }
 
