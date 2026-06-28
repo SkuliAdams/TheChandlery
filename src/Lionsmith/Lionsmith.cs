@@ -42,6 +42,8 @@ internal static class Lionsmith
             AccessTools.Method(typeof(Token), "CanBeDragged"),
             prefix: new HarmonyMethod(typeof(Lionsmith), nameof(OnCanBeDraggedPrefix))
         );
+
+        WorkstationSpriteFallback.Enact(harmony);
     }
 
     private static void OnTokenCreationCommandExecute(TokenCreationCommand __instance, Sphere sphere)

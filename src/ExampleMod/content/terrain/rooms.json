@@ -62,7 +62,7 @@
           {
             "id": "modded.desk",
             "label": "Candlemaker's Desk",
-            "verb": "library.desk.natan.consider",
+            "verb": "chandlery.crafting.desk",
             "posx": 270,
             "posy": 200,
             "width": 100,
