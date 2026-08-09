@@ -251,7 +251,7 @@ internal class TerrainFactory
                     break;
 
                 case "ShroudedImage":
-                    var shroudKey = (def.ShroudSprite ?? def.Id) + "_shrouded";
+                    var shroudKey = def.ShroudSprite ?? ((def.Sprite ?? def.Id) + "_shrouded");
                     img.sprite = TerrainRegistry.FindSprite(shroudKey)
                                  ?? CreatePlaceholder(def.Id + "_shrouded", spriteWidth, spriteHeight);
                     break;
