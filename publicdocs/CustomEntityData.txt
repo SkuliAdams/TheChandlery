@@ -1,0 +1,154 @@
+CUSTOM ENTITY DATA (WHEEL)
+=========================
+
+The Wheel module is an adaptation of The Roost Machine's "Beachcomber"
+data-loading module for Cultist Simulator. Design and original
+implementation by Chelnoque.
+
+The Chandlery's Wheel module extends Book of Hours' content-loading
+pipeline so mods can:
+
+  1. Define entirely new entity types that load from JSON alongside the
+     game's native types (Element, Recipe, Verb, etc.).
+  2. Attach custom JSON-serializable properties to native entity types,
+     readable at runtime.
+
+Both features are available to any mod DLL that references Chandlery.
+Registration is done from your mod's entry point (Initialise).
+
+
+1. CUSTOM ENTITY TYPES
+----------------------
+
+Declare a class marked [FucineImportable("tagname")] that extends
+AbstractEntity<T>. The tag becomes the JSON root key for that type.
+
+    [FucineImportable("mymod_things")]
+    public class MyThing : AbstractEntity<MyThing>
+    {
+        [FucineValue(DefaultValue = 0)]
+        public int Number { get; set; }
+
+        [FucineValue(DefaultValue = "", Localise = true)]
+        public string Text { get; set; }
+
+        public MyThing(EntityData importDataForEntity, ContentImportLog log)
+            : base(importDataForEntity, log) { }
+    }
+
+JSON is loaded from any .json file in your mod's content folder:
+
+    { "mymod_things": [ { "id": "my_thing", "number": 5, "text": "Hello" } ] }
+
+Optional custom Fucine attributes for richer import behaviour:
+
+    [WheelFucineEverValue]        // auto-detect type, default Fucine import
+    [WheelFucineEverValue(42)]    // ...with a default value
+    [WheelFucineNullable]         // nullable value type; "null" in JSON maps to null
+
+    [WheelFucineNullable]
+    public float? PosX { get; set; }
+
+Note: FucinePath-typed properties use Chandlery's extended path syntax
+automatically (no attribute needed).
+
+
+2. CUSTOM PROPERTIES ON EXISTING ENTITIES
+-----------------------------------------
+
+Register a "claim" from your mod's entry point:
+
+    Wheel.ClaimProperty<Element, string>("myCustomProperty");
+    Wheel.ClaimProperty<Element, int>("myIntProperty", defaultValue: 42);
+
+Then write those keys in JSON. Keys are case-insensitive (lowercased on
+import), so "mycustomproperty" in JSON maps to the claim above.
+
+    { "elements": [
+        { "id": "myelem", "mycustomproperty": "hello", "myintproperty": 7 }
+    ] }
+
+Read the value at runtime via the extension methods on IEntityWithId:
+
+    element.RetrieveProperty<string>("myCustomProperty");      // "hello"
+    element.RetrieveProperty<int>("myIntProperty");            // 7
+    element.TryRetrieveProperty<int>("myIntProperty", out int v);
+
+
+3. REGISTRATION API (Wheel class)
+---------------------------------
+
+    ClaimProperty<TEntity, TProperty>(string propertyName,
+        bool localize = false, TProperty defaultValue = default)
+        where TEntity : AbstractEntity<TEntity>
+
+    ClaimProperty<TEntity, TProperty>(string propertyName,
+        bool localize, TProperty defaultValue, Fucine importer)
+
+    AddImportMolding<TEntity>(Action<EntityData> molding)
+        where TEntity : AbstractEntity<TEntity>
+
+    IgnoreProperty<TEntity>(string propertyName)
+    IgnoreEntityGroup(string groupId)
+
+
+4. EXTENSION METHODS (on IEntityWithId)
+---------------------------------------
+
+    RetrieveProperty<T>(string name)
+    TryRetrieveProperty<T>(string name, out T result)
+    SetCustomProperty(string name, object value)
+    HasCustomProperty(string name)
+    RemoveCustomProperty(string name)
+    GetCustomProperties()
+
+
+5. IMPORT MOLDINGS
+------------------
+
+Moldings run on the raw EntityData before an entity is constructed,
+letting you rename or migrate legacy JSON keys.
+
+    Wheel.AddImportMolding<Element>(entityData =>
+    {
+        if (entityData.ValuesTable.ContainsKey("oldkey"))
+        {
+            entityData.ValuesTable["mycustomproperty"] = entityData.ValuesTable["oldkey"];
+            entityData.ValuesTable.Remove("oldkey");
+        }
+    });
+
+IMPORTANT: JSON property keys are lowercased on import, so molding
+callbacks must use lowercase keys when checking ValuesTable.ContainsKey().
+
+
+6. SUPPRESSING UNKNOWN-PROPERTY WARNINGS
+----------------------------------------
+
+By default, unrecognised JSON keys produce "UNKNOWN PROPERTY" warnings.
+Silence them for keys you don't care about:
+
+    Wheel.IgnoreProperty<Element>("legacyfield");
+    Wheel.IgnoreEntityGroup("mymod_configs");   // by FucineImportable tag
+
+
+7. INHERITANCE
+--------------
+
+Custom properties propagate through both inheritance systems:
+
+  - JSON-time: "$extends" / "$derives" (and the bare "extends" shorthand)
+  - Runtime: the "inherits" field on Elements and Recipes
+
+Child values override parent values; otherwise the parent value is
+inherited.
+
+
+8. NAMESPACES
+-------------
+
+    TheHouse.Wheel                    // Wheel, WheelEntityExtensions,
+                                      // WheelFucineEverValue, WheelFucineNullable
+    SecretHistories.Fucine            // AbstractEntity<T>, FucineImportable,
+                                      // FucineValue, Fucine, FucinePath, IEntityWithId
+    SecretHistories.Fucine.DataImport // EntityData, ContentImportLog

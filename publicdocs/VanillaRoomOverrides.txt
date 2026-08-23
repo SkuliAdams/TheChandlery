@@ -151,7 +151,7 @@ Hide a sphere (slot, shelf, workstation, comfort, or wall art) from the room.
       "remove_spheres": ["<sphere-spec-id>", ...]
     }
 
-The sphere ID is the spec ApplyId shown in base-game-rooms.md (e.g.
+The sphere ID is the spec ApplyId shown in VanillaRoomReference.md (e.g.
 "ComfortSlotDocBag", "ThingSlotBedsideTable"). Find the exact ID in the
 room's entry.
 
@@ -166,14 +166,15 @@ Example:
 ----------------------------------------
 
 Change the items that spawn in an existing sphere. List the sphere
-definition under the matching content type (slots, shelves, etc.) with
-only the "id" and "seeds" fields. All other fields (posx, posy, etc.)
+definition under "spheres" with the matching "spheretype", providing only
+the "id" and "seeds" fields. All other fields (posx, posy, etc.)
 are left unchanged.
 
     "contents": {
-      "slots": [
+      "spheres": [
         {
           "id": "<existing-sphere-spec-id>",
+          "spheretype": "normal",
           "seeds": [
             { "id": "<element-id>", "posx": <float>, "posy": <float> },
             { "id": "<element-id>", "side": "left" }
@@ -182,7 +183,7 @@ are left unchanged.
       ]
     }
 
-The "id" must match the sphere's spec ID from base-game-rooms.md exactly.
+The "id" must match the sphere's spec ID from VanillaRoomReference.md exactly.
 The "seeds" array fully replaces all existing seeds on that sphere.
 
 Seed entries support:
@@ -192,9 +193,10 @@ Seed entries support:
 Example (replacing the seeds on ThingSlotNatanDesk in motleytower3):
 
     "contents": {
-      "slots": [
+      "spheres": [
         {
           "id": "ThingSlotNatanDesk",
+          "spheretype": "normal",
           "seeds": [
             { "id": "candle.holderthree", "posx": -20, "posy": 0 },
             { "id": "typewriter", "posx": 0, "posy": -15 }
@@ -232,9 +234,10 @@ sphere, and replaces the seeds on Natan's desk.
           },
           "contents": {
             "remove_spheres": ["ComfortSlotDocBag"],
-            "slots": [
+            "spheres": [
               {
                 "id": "ThingSlotNatanDesk",
+                "spheretype": "normal",
                 "seeds": [
                   { "id": "candle.holderthree", "posx": -20, "posy": 0 },
                   { "id": "typewriter", "posx": 20, "posy": 0 }
