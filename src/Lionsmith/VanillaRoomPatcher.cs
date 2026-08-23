@@ -1,21 +1,17 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using SecretHistories;
 using SecretHistories.Abstract;
 using SecretHistories.Assets.Scripts.Application.Spheres.Dominions;
 using SecretHistories.Entities;
-using SecretHistories.Infrastructure.Modding;
-using SecretHistories.Manifestations;
-using SecretHistories.Services;
 using SecretHistories.Spheres;
 using SecretHistories.Spheres.Choreographers;
-using SecretHistories.Tokens;
 using SecretHistories.Tokens.Payloads;
 using SecretHistories.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace TheHouse;
 
@@ -121,11 +117,10 @@ internal class VanillaRoomPatcher
         if (aspectsField == null)
             return;
 
-        if (def.Aspects.Count == 0)
-            aspectsField.SetValue(terrainFeature, Array.Empty<AspectSpec>());
-        else
-            aspectsField.SetValue(terrainFeature,
-                def.Aspects.Select(kv => new AspectSpec { name = kv.Key, level = kv.Value }).ToArray());
+        aspectsField.SetValue(terrainFeature,
+            def.Aspects.Count == 0
+                ? Array.Empty<AspectSpec>()
+                : def.Aspects.Select(kv => new AspectSpec { name = kv.Key, level = kv.Value }).ToArray());
     }
 
     private static void PatchContents(GameObject roomGo, CustomTerrainDefinition def)
@@ -187,13 +182,13 @@ internal class VanillaRoomPatcher
         var dominion = FindDominion(roomGo, false);
         if (dominion == null) return;
 
-        var go = UnityEngine.Object.Instantiate(archetype, dominion.transform, false);
+        var go = Object.Instantiate(archetype, dominion.transform, false);
         go.SetActive(false);
         go.name = "workstation_" + def.Id;
 
         var oldSpec = go.GetComponent<PermanentSphereSpec>();
         if (oldSpec != null)
-            UnityEngine.Object.DestroyImmediate(oldSpec);
+            Object.DestroyImmediate(oldSpec);
 
         ApplySphereTransform(go, roomGo, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
 
@@ -238,13 +233,13 @@ internal class VanillaRoomPatcher
             return;
         }
 
-        var go = UnityEngine.Object.Instantiate(archetype, dominion.transform, false);
+        var go = Object.Instantiate(archetype, dominion.transform, false);
         go.SetActive(false);
         go.name = def.Id + "_override";
 
         var oldSpec = go.GetComponent<PermanentSphereSpec>();
         if (oldSpec != null)
-            UnityEngine.Object.DestroyImmediate(oldSpec);
+            Object.DestroyImmediate(oldSpec);
 
         ApplySphereTransform(go, roomGo, def.PosX ?? 0f, def.PosY ?? 0f,
             def.Width ?? 120f, def.Height ?? 120f);
@@ -308,7 +303,7 @@ internal class VanillaRoomPatcher
             var oldSeeds = sphereGo.GetComponentsInChildren<ILazyEdenable>(true);
             foreach (var s in oldSeeds)
                 if (s is MonoBehaviour mb)
-                    GameObject.DestroyImmediate(mb);
+                    Object.DestroyImmediate(mb);
 
             if (def.Seeds.Count > 0)
                 RoomInstance.AddSeeds(sphereGo, def.Seeds);
@@ -319,7 +314,7 @@ internal class VanillaRoomPatcher
             var oldSpec = sphereGo.GetComponent<PermanentSphereSpec>();
             if (oldSpec != null)
             {
-                GameObject.DestroyImmediate(oldSpec);
+                Object.DestroyImmediate(oldSpec);
                 RoomInstance.AddSphereSpec(sphereGo, def.Id,
                     def.Label ?? oldSpec.Title,
                     def.Description ?? oldSpec.Description,

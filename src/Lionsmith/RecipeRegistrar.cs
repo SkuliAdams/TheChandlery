@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using SecretHistories;
 using SecretHistories.Core;
 using SecretHistories.Entities;
-using SecretHistories.Services;
-using SecretHistories.Spheres;
 using SecretHistories.UI;
 using UnityEngine;
 
@@ -28,7 +25,7 @@ internal static class RecipeRegistrar
                 if (TerrainRegistry.IsOverride(def.Id))
                 {
                     var existing = compendium.GetEntityById<Recipe>(recipeId);
-                    ApplyUnlockToRecipe(existing, unlock, recipeId, def.Id);
+                    ApplyUnlockToRecipe(existing, unlock, def.Id);
                     Debug.Log($"Chandlery Lionsmith: Replaced unlock recipe for override room '{def.Id}'");
                 }
                 else
@@ -40,7 +37,7 @@ internal static class RecipeRegistrar
 
             var recipe = new Recipe();
             recipe.SetId(recipeId);
-            ApplyUnlockToRecipe(recipe, unlock, recipeId, def.Id);
+            ApplyUnlockToRecipe(recipe, unlock, def.Id);
 
             if (compendium.TryAddEntity(recipe))
                 Debug.Log($"Chandlery Lionsmith: Registered unlock recipe for '{def.Id}'");
@@ -49,7 +46,7 @@ internal static class RecipeRegistrar
         }
     }
 
-    private static void ApplyUnlockToRecipe(Recipe recipe, UnlockRecipeDefinition unlock, string recipeId, string roomId)
+    private static void ApplyUnlockToRecipe(Recipe recipe, UnlockRecipeDefinition unlock, string roomId)
     {
         recipe.ActionId = "terrain.unlock";
         recipe.Label = unlock.Label ?? recipe.Label ?? roomId;
@@ -72,27 +69,29 @@ internal static class RecipeRegistrar
         recipe.HaltVerb ??= new Dictionary<string, int>();
         recipe.DeleteVerb ??= new Dictionary<string, int>();
         recipe.Aspects ??= new AspectsDictionary();
-        recipe.Achievements ??= new List<string>();
-        recipe.Mutations ??= new List<MutationEffect>();
-        recipe.Alt ??= new List<LinkedRecipeDetails>();
-        recipe.Lalt ??= new List<LinkedRecipeDetails>();
-        recipe.Inductions ??= new List<LinkedRecipeDetails>();
-        recipe.Linked ??= new List<LinkedRecipeDetails>();
-        recipe.Slots ??= new List<SphereSpec>();
+        recipe.Achievements ??= [];
+        recipe.Mutations ??= [];
+        recipe.Alt ??= [];
+        recipe.Lalt ??= [];
+        recipe.Inductions ??= [];
+        recipe.Linked ??= [];
+        recipe.Slots ??= [];
 
-        var preslot = new SphereSpec(typeof(ThresholdSphere), "infoRecipeInput");
-        preslot.Label = "#UI_ROOMINPUT_LABEL#";
-        preslot.Description = "#UI_ROOMINPUT_DESCRIPTION#";
-        preslot.Required = unlock.Aspects != null
-            ? new AspectsDictionary(unlock.Aspects)
-            : new AspectsDictionary();
-        preslot.Essential = unlock.Essential != null
-            ? new AspectsDictionary(unlock.Essential)
-            : new AspectsDictionary();
-        preslot.Forbidden = unlock.Forbidden != null
-            ? new AspectsDictionary(unlock.Forbidden)
-            : new AspectsDictionary();
+        var preslot = new SphereSpec(typeof(ThresholdSphere), "infoRecipeInput")
+        {
+            Label = "#UI_ROOMINPUT_LABEL#",
+            Description = "#UI_ROOMINPUT_DESCRIPTION#",
+            Required = unlock.Aspects != null
+                ? new AspectsDictionary(unlock.Aspects)
+                : new AspectsDictionary(),
+            Essential = unlock.Essential != null
+                ? new AspectsDictionary(unlock.Essential)
+                : new AspectsDictionary(),
+            Forbidden = unlock.Forbidden != null
+                ? new AspectsDictionary(unlock.Forbidden)
+                : new AspectsDictionary()
+        };
 
-        recipe.PreSlots = new List<SphereSpec> { preslot };
+        recipe.PreSlots = [preslot];
     }
 }

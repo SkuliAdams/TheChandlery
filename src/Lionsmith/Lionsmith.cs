@@ -18,7 +18,7 @@ internal static class Lionsmith
     {
         harmony.Patch(
             AccessTools.Method(typeof(TokenCreationCommand), "Execute",
-                new[] { typeof(Context), typeof(Sphere) }),
+                [typeof(Context), typeof(Sphere)]),
             prefix: new HarmonyMethod(typeof(Lionsmith), nameof(OnTokenCreationCommandExecute))
         );
 
@@ -29,7 +29,7 @@ internal static class Lionsmith
 
         harmony.Patch(
             AccessTools.Method(typeof(TerrainFeature), "Unshroud",
-                new[] { typeof(bool) }),
+                [typeof(bool)]),
             postfix: new HarmonyMethod(typeof(Lionsmith), nameof(OnUnshroudPostfix))
         );
 
@@ -44,9 +44,9 @@ internal static class Lionsmith
         );
     }
 
-    private static void OnTokenCreationCommandExecute(TokenCreationCommand __instance, Sphere sphere)
+    private static void OnTokenCreationCommandExecute(TokenCreationCommand instance, Sphere sphere)
     {
-        if (__instance.Payload is PopulateTerrainFeatureCommand ptfc)
+        if (instance.Payload is PopulateTerrainFeatureCommand ptfc)
         {
             if (!TerrainRegistry.HasAny())
             {
@@ -73,12 +73,12 @@ internal static class Lionsmith
         }
     }
 
-    private static void OnUnshroudPostfix(TerrainFeature __instance)
+    private static void OnUnshroudPostfix(TerrainFeature instance)
     {
-        if (__instance == null || string.IsNullOrEmpty(__instance.Id))
+        if (instance == null || string.IsNullOrEmpty(instance.Id))
             return;
 
-        if (!TerrainRegistry.TryGetConnections(__instance.Id, out var connectedIds))
+        if (!TerrainRegistry.TryGetConnections(instance.Id, out var connectedIds))
             return;
 
         var ha = Watchman.Get<HornedAxe>();
@@ -87,21 +87,21 @@ internal static class Lionsmith
             var token = ha.FindSingleOrDefaultTokenById(connectedId);
             if (token == null || !token.IsValid())
             {
-                Debug.LogWarning($"Chandlery Lionsmith: Connected room '{connectedId}' not found from '{__instance.Id}'");
+                Debug.LogWarning($"Chandlery Lionsmith: Connected room '{connectedId}' not found from '{instance.Id}'");
                 continue;
             }
 
             if (token.Payload is TerrainFeature connectedRoom)
             {
                 connectedRoom.Unseal();
-                Debug.Log($"Chandlery Lionsmith: Unsealed connected room '{connectedId}' from '{__instance.Id}'");
+                Debug.Log($"Chandlery Lionsmith: Unsealed connected room '{connectedId}' from '{instance.Id}'");
             }
         }
     }
 
-    private static void OnRecipeExecuted(Situation __instance)
+    private static void OnRecipeExecuted(Situation instance)
     {
-        var recipe = __instance.GetCurrentRecipe();
+        var recipe = instance.GetCurrentRecipe();
         if (recipe == null || recipe.ActionId != "terrain.unlock")
             return;
 
@@ -113,21 +113,19 @@ internal static class Lionsmith
             return;
 
         var token = Watchman.Get<HornedAxe>().FindSingleOrDefaultTokenById(roomId);
-        if (token?.Payload is TerrainFeature tf)
-        {
-            var fx = new EnviroFxCommand(roomId + ".open", "1");
-            Watchman.Get<LocalNexus>().BroadcastFx(fx);
-        }
+        
+        if (token?.Payload is not TerrainFeature) return;
+        
+        var fx = new EnviroFxCommand(roomId + ".open", "1");
+        Watchman.Get<LocalNexus>().BroadcastFx(fx);
     }
 
-    private static bool OnCanBeDraggedPrefix(Token __instance, ref bool __result)
+    private static bool OnCanBeDraggedPrefix(Token instance, ref bool result)
     {
-        if (__instance.GetComponent<NoDragMarker>() != null)
-        {
-            __result = false;
-            return false;
-        }
-        return true;
+        if (instance.GetComponent<NoDragMarker>() == null) return true;
+        
+        result = false;
+        return false;
     }
 
     // Most fogs are in the MistsAndSmokes layer, but the cucurbit fog is an exception.
@@ -198,7 +196,7 @@ internal static class Lionsmith
             {
                 patcher.Patch(def);
 
-                if (def.ConnectedTo != null && def.ConnectedTo.Count > 0)
+                if (def.ConnectedTo is { Count: > 0 })
                     TerrainRegistry.RegisterConnection(def.Id, def.ConnectedTo);
             }
         }

@@ -6,14 +6,13 @@ using SecretHistories;
 using SecretHistories.Abstract;
 using SecretHistories.Entities;
 using SecretHistories.Infrastructure.Modding;
-using SecretHistories.Manifestations;
-using SecretHistories.Services;
 using SecretHistories.Spheres;
 using SecretHistories.Tokens;
 using SecretHistories.Tokens.Payloads;
 using SecretHistories.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace TheHouse;
 
@@ -58,7 +57,7 @@ internal class TerrainFactory
             }
 
             var terrainFeature = root.GetComponent<TerrainFeature>();
-            (terrainFeature as IEdenable)?.EdenSetup(withLogging: false);
+            ((IEdenable)terrainFeature)?.EdenSetup(withLogging: false);
 
             Debug.Log($"Chandlery Lionsmith: Created room '{def.Id}' at ({def.PosX}, {def.PosY})");
         }
@@ -136,20 +135,20 @@ internal class TerrainFactory
             return null;
         }
 
-        var clone = GameObject.Instantiate(templatePayload.gameObject, sphere.transform);
+        var clone = Object.Instantiate(templatePayload.gameObject, sphere.transform);
         clone.name = def.Id + "_token";
 
         var terrainFeature = clone.GetComponent<TerrainFeature>();
         if (terrainFeature == null)
         {
             Debug.LogWarning($"Chandlery Lionsmith: Clone has no TerrainFeature");
-            GameObject.DestroyImmediate(clone);
+            Object.DestroyImmediate(clone);
             return null;
         }
 
         var existingToken = clone.GetComponent<Token>();
         if (existingToken != null)
-            GameObject.DestroyImmediate(existingToken);
+            Object.DestroyImmediate(existingToken);
 
         var initialiseField = typeof(AbstractPermanentPayload)
             .GetField("InitialiseWithIdentifier", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -166,7 +165,7 @@ internal class TerrainFactory
         roomInstance.ExtractArchetypes();
         StripInteractiveChildren(clone);
 
-        def.ResolveSize(out var resolvedW, out var resolvedH, 400f, 200f);
+        def.ResolveSize(out var resolvedW, out var resolvedH);
         roomInstance.PopulateContents(resolvedW, resolvedH);
 
         var rt = clone.GetComponent<RectTransform>();
@@ -211,7 +210,7 @@ internal class TerrainFactory
 
         foreach (var dom in root.GetComponentsInChildren<AbstractDominion>(true))
         {
-            var mb = dom as MonoBehaviour;
+            var mb = (MonoBehaviour)dom;
             if (mb != null && !IsProtected(mb.gameObject))
                 toDestroy.Add(mb.gameObject);
         }
@@ -237,7 +236,7 @@ internal class TerrainFactory
         }
 
         foreach (var go in toDestroy)
-            GameObject.DestroyImmediate(go);
+            Object.DestroyImmediate(go);
     }
 
     private static void ConfigureRoomLayer(GameObject clone)
@@ -309,21 +308,17 @@ internal class TerrainFactory
         }
     }
 
-    private static Sprite LoadModSprite(ModManager modManager, string path)
-    {
-        var sprite = modManager.GetSprite(path);
-        return sprite;
-    }
-
-    private static readonly Dictionary<string, Sprite> _placeholderCache = new();
+    private static readonly Dictionary<string, Sprite> PlaceholderCache = new();
 
     private static Sprite CreatePlaceholder(string key, int width, int height)
     {
-        if (_placeholderCache.TryGetValue(key, out var cached))
+        if (PlaceholderCache.TryGetValue(key, out var cached))
             return cached;
 
-        var texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
-        texture.hideFlags = HideFlags.HideAndDontSave;
+        var texture = new Texture2D(width, height, TextureFormat.RGBA32, false)
+        {
+            hideFlags = HideFlags.HideAndDontSave
+        };
         var pixels = new Color32[width * height];
         for (var i = 0; i < pixels.Length; i++)
             pixels[i] = new Color32(0, 0, 0, byte.MaxValue);
@@ -332,7 +327,7 @@ internal class TerrainFactory
 
         var sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f));
         sprite.hideFlags = HideFlags.HideAndDontSave;
-        _placeholderCache[key] = sprite;
+        PlaceholderCache[key] = sprite;
 
         Debug.Log($"Chandlery Lionsmith: Created white placeholder for '{key}' ({width}x{height})");
         return sprite;

@@ -38,7 +38,7 @@ internal static class TerrainRegistry
 
                 _definitions[def.Id] = def;
 
-                if (def.ConnectedTo != null && def.ConnectedTo.Count > 0)
+                if (def.ConnectedTo is { Count: > 0 })
                     _connections[def.Id] = def.ConnectedTo;
             }
         }
@@ -75,8 +75,7 @@ internal static class TerrainRegistry
 
     internal static void RegisterConnection(string roomId, List<string> connectedIds)
     {
-        if (_connections == null)
-            _connections = new Dictionary<string, List<string>>();
+        _connections ??= new Dictionary<string, List<string>>();
         _connections[roomId] = connectedIds;
     }
 
