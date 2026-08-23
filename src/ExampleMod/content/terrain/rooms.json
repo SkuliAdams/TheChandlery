@@ -89,6 +89,23 @@
       }
     },
     {
+      "id": "thechandlery.over-tree",
+      "posx": 7621.0,
+      "posy": 193.0,
+      "width": 400.0,
+      "height": 200.0,
+      "startsopen": false,
+      "startsunsealed": true,
+      "unlockrecipe": {
+        "label": "Over the Tree",
+        "preface": "An Unlikely Position",
+        "startdescription": "There was a tree here, once. You are fairly sure of it.",
+        "description": "The room hangs exactly where a tree used to stand.",
+        "aspects": { "lantern": 1 },
+        "warmup": 30
+      }
+    },
+    {
       "id": "thechandlery.example3",
       "posx": 2850.0,
       "posy": 580.0,

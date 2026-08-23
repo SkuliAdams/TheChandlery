@@ -4,11 +4,11 @@ using HarmonyLib;
 using SecretHistories.Commands;
 using SecretHistories.Entities;
 using SecretHistories.Infrastructure;
-using SecretHistories.Services;
 using SecretHistories.Spheres;
 using SecretHistories.Tokens.Payloads;
 using SecretHistories.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TheHouse;
 
@@ -130,10 +130,55 @@ internal static class Lionsmith
         return true;
     }
 
+    // Most fogs are in the MistsAndSmokes layer, but the cucurbit fog is an exception.
+    // Move it up so custom rooms in its vicinity will visually be below the fog.
+    private static void RaiseCucurbitFogToFogLayer()
+    {
+        var fogLayerId = SortingLayer.NameToID("MistsAndSmokes");
+
+        foreach (var img in UnityEngine.Object.FindObjectsOfType<Image>(true))
+        {
+            if (img.name != "ShroudedObscurerImage1")
+                continue;
+
+            if (!HasAncestorNamed(img.transform, "cucurbitbridge_token"))
+                continue;
+
+            var container = img.transform.parent;
+            if (container == null || (container.name != "Shrouded" && container.name != "Sealed"))
+                continue;
+
+            var go = container.gameObject;
+            if (go.GetComponent<Canvas>() != null)
+                continue;
+
+            var canvas = go.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.WorldSpace;
+            canvas.overrideSorting = true;
+            canvas.sortingLayerID = fogLayerId;
+            go.AddComponent<GraphicRaycaster>();
+            Debug.Log($"Chandlery Lionsmith: Raised Cucurbit fog container '{go.name}' to 'MistsAndSmokes'");
+        }
+    }
+
+    private static bool HasAncestorNamed(Transform t, string name)
+    {
+        var cur = t.parent;
+        while (cur != null)
+        {
+            if (cur.name == name)
+                return true;
+            cur = cur.parent;
+        }
+        return false;
+    }
+
     private static void OnEnvironmentPopulated()
     {
         try
         {
+            RaiseCucurbitFogToFogLayer();
+
             if (!TerrainRegistry.HasAny())
                 TerrainRegistry.LoadAll();
             if (!TerrainRegistry.HasAny())

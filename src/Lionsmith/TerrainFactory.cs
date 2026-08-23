@@ -17,6 +17,17 @@ using UnityEngine.UI;
 
 namespace TheHouse;
 
+// We use the MostProminentPhysicalWorldObjects layer for custom objects since it's unused and in roughly the right place
+// Things can then be sorted within this layer depending on their purpose
+internal static class FauxLayer
+{
+    public const string BaseLayer = "MostProminentPhysicalWorldObjects";
+
+    public const int Background = 0;
+    public const int Room = 1000;
+    public const int Foreground = 2000;
+}
+
 internal class TerrainFactory
 {
     private const string DefaultTemplateId = "watchmanstower1";
@@ -166,6 +177,7 @@ internal class TerrainFactory
         rt.pivot = new Vector2(0.5f, 0.5f);
 
         ApplySprites(terrainFeature, resolvedW, resolvedH, def);
+        ConfigureRoomLayer(clone);
 
         terrainFeature.SetUpAsTokenWithId(sphere);
 
@@ -226,6 +238,20 @@ internal class TerrainFactory
 
         foreach (var go in toDestroy)
             GameObject.DestroyImmediate(go);
+    }
+
+    private static void ConfigureRoomLayer(GameObject clone)
+    {
+        var canvas = clone.GetComponent<Canvas>();
+        if (canvas == null)
+        {
+            Debug.LogWarning($"Chandlery Lionsmith: No Canvas on room clone '{clone.name}' — cannot set sorting layer");
+            return;
+        }
+
+        canvas.overrideSorting = true;
+        canvas.sortingLayerID = SortingLayer.NameToID(FauxLayer.BaseLayer);
+        canvas.sortingOrder = FauxLayer.Room;
     }
 
     private static void ApplySprites(TerrainFeature terrainFeature, float resolvedW, float resolvedH, CustomTerrainDefinition def)

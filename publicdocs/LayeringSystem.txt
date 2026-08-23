@@ -1,0 +1,39 @@
+LAYERING SYSTEM
+===============
+
+The Chandlery places custom rooms on the base game's unused
+"MostProminentPhysicalWorldObjects" sorting layer. Within that layer,
+sorting order is divided into three bands so custom
+content can be layered relative to itself:
+
+    Sorting layer:  MostProminentPhysicalWorldObjects
+    Sorting order:  0     - Background  (placeholder — not yet used)
+                    1000  - Room        (custom rooms)
+                    2000  - Foreground  (placeholder — not yet used)
+
+Custom rooms are assigned to the "Room" band (order 1000). The
+Background and Foreground bands are reserved for future use.
+
+These values are defined in the code as constants in `FauxLayer`
+(src/Lionsmith/TerrainFactory.cs):
+
+    FauxLayer.BaseLayer  = "MostProminentPhysicalWorldObjects"
+    FauxLayer.Background = 0
+    FauxLayer.Room       = 1000
+    FauxLayer.Foreground = 2000
+
+
+RELATIONSHIP TO VANILLA LAYERS
+------------------------------
+
+"MostProminentPhysicalWorldObjects" sits BELOW the base game's
+"MistsAndSmokes" layer, which is what the game uses for fog-of-war.
+This causes custom rooms to render beneath the fog, as they should
+
+Reference (render order, top to bottom):
+
+    MistsAndSmokes               fog, shrouds, unlock mists
+    MostProminentPhysicalWorldObjects   <-- Chandlery custom rooms
+    FiresAndLights               torches, fires
+    TreesAndOutsideItems         trees
+    Default                      vanilla rooms, terrain
