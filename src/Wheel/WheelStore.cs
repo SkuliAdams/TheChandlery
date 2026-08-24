@@ -27,6 +27,7 @@ internal static class WheelStore
 
     private static readonly Dictionary<Type, Dictionary<string, PropertySlot>> _claimed = new();
     private static readonly ConditionalWeakTable<IEntityWithId, Dictionary<string, object>> _data = new();
+    private static readonly ConditionalWeakTable<IEntityWithId, HashSet<string>> _specified = new();
     private static readonly Dictionary<Type, List<Action<EntityData>>> _moldings = new();
 
     internal static void AddClaim<TEntity>(string propertyName, Type propertyType,
@@ -179,6 +180,17 @@ internal static class WheelStore
                 childDict[kvp.Key] = kvp.Value;
         }
     }
+
+    internal static void MarkPropertySpecified(IEntityWithId entity, string propertyName)
+    {
+        var set = _specified.GetOrCreateValue(entity);
+        set.Add(propertyName.ToLower());
+    }
+
+    internal static bool WasPropertySpecified(IEntityWithId entity, string propertyName)
+    {
+        return _specified.TryGetValue(entity, out var set) && set.Contains(propertyName.ToLower());
+    }
 }
 
 public static class WheelEntityExtensions
@@ -221,5 +233,10 @@ public static class WheelEntityExtensions
     public static Dictionary<string, object> GetCustomProperties(this IEntityWithId entity)
     {
         return WheelStore.GetCustomProperties(entity);
+    }
+
+    public static bool WasPropertySpecified(this IEntityWithId entity, string propertyName)
+    {
+        return WheelStore.WasPropertySpecified(entity, propertyName);
     }
 }

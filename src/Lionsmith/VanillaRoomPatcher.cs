@@ -9,6 +9,7 @@ using SecretHistories.Spheres;
 using SecretHistories.Spheres.Choreographers;
 using SecretHistories.Tokens.Payloads;
 using SecretHistories.UI;
+using TheHouse.Wheel;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -109,7 +110,7 @@ internal class VanillaRoomPatcher
 
     private static void PatchAspects(TerrainFeature terrainFeature, CustomTerrainDefinition def)
     {
-        if (def.Aspects == null)
+        if (!def.WasPropertySpecified("aspects"))
             return;
 
         var aspectsField = typeof(AbstractPermanentPayload)
@@ -201,6 +202,10 @@ internal class VanillaRoomPatcher
                 BindingFlags.Instance | BindingFlags.NonPublic)
                 ?.SetValue(ws, def.Verb);
 
+        RoomInstance.AddSphereSpec(go, def.Id, def.Label, def.Description,
+            def.Required, def.Essential, def.Forbidden);
+        RegisterSphereInRoom(go, dominion, roomGo);
+
         go.SetActive(true);
     }
 
@@ -241,6 +246,12 @@ internal class VanillaRoomPatcher
         if (oldSpec != null)
             Object.DestroyImmediate(oldSpec);
 
+        foreach (var token in go.GetComponentsInChildren<Token>(true))
+            if (token.gameObject != go)
+                Object.DestroyImmediate(token.gameObject);
+
+        DestroySeeds(go);
+
         ApplySphereTransform(go, roomGo, def.PosX ?? 0f, def.PosY ?? 0f,
             def.Width ?? 120f, def.Height ?? 120f);
 
@@ -251,6 +262,7 @@ internal class VanillaRoomPatcher
 
         RoomInstance.AddSphereSpec(go, def.Id, def.Label, def.Description,
             def.Required, def.Essential, def.Forbidden);
+        RegisterSphereInRoom(go, dominion, roomGo);
         RoomInstance.AddSeeds(go, def.Seeds);
 
         RoomInstance.ConfigureSphereDropCatcher(go);
@@ -267,59 +279,115 @@ internal class VanillaRoomPatcher
 
         if (def.PosX != null || def.PosY != null || def.Width != null || def.Height != null)
         {
-            var posX = def.PosX ?? 0f;
-            var posY = def.PosY ?? 0f;
             var width = def.Width ?? rt?.sizeDelta.x ?? 120f;
             var height = def.Height ?? rt?.sizeDelta.y ?? 120f;
-            var centerX = posX - roomW * 0.5f + width * 0.5f;
-            var centerY = roomH * 0.5f - posY + height * 0.5f;
             if (rt != null)
             {
                 if (def.PosX != null || def.PosY != null)
+                {
+                    var posX = def.PosX ?? (rt.anchoredPosition.x + roomW * 0.5f - width * 0.5f);
+                    var posY = def.PosY ?? (roomH * 0.5f - rt.anchoredPosition.y + height * 0.5f);
+                    var centerX = posX - roomW * 0.5f + width * 0.5f;
+                    var centerY = roomH * 0.5f - posY + height * 0.5f;
                     rt.anchoredPosition = new Vector2(centerX, centerY);
+                }
                 if (def.Width != null || def.Height != null)
                     rt.sizeDelta = new Vector2(width, height);
             }
         }
 
-        if (def.Greedy != null)
-        {
-            var sphere = sphereGo.GetComponent<PhysicalSphere>();
-            if (sphere != null)
-                typeof(PhysicalSphere).GetField("Greedy", BindingFlags.Instance | BindingFlags.NonPublic)
-                    ?.SetValue(sphere, def.Greedy.Value);
-        }
-
         if (def.LockDrag != null || def.ShowGlowOnHover != null || def.ShowInteractionGlow != null)
         {
             RoomInstance.ConfigurePhysicalSphereFields(sphereGo,
-                def.LockDrag ?? false,
-                def.ShowGlowOnHover ?? false,
-                def.ShowInteractionGlow ?? false);
+                def.LockDrag ?? GetPhysicalSphereField(sphereGo, "LockDrag"),
+                def.ShowGlowOnHover ?? GetPhysicalSphereField(sphereGo, "ShowGlowOnHover"),
+                def.ShowInteractionGlow ?? GetPhysicalSphereField(sphereGo, "ShowInteractionGlow"));
         }
 
-        if (def.Seeds != null)
+        if (def.WasPropertySpecified("seeds"))
         {
-            var oldSeeds = sphereGo.GetComponentsInChildren<ILazyEdenable>(true);
-            foreach (var s in oldSeeds)
-                if (s is MonoBehaviour mb)
-                    Object.DestroyImmediate(mb);
+            DestroySeeds(sphereGo);
 
             if (def.Seeds.Count > 0)
                 RoomInstance.AddSeeds(sphereGo, def.Seeds);
         }
 
-        if (def.Required != null || def.Essential != null || def.Forbidden != null)
+        if (def.WasPropertySpecified("required") || def.WasPropertySpecified("essential")
+            || def.WasPropertySpecified("forbidden")
+            || def.Label != null || def.Description != null)
         {
-            var oldSpec = sphereGo.GetComponent<PermanentSphereSpec>();
-            if (oldSpec != null)
+            var spec = sphereGo.GetComponent<PermanentSphereSpec>();
+            if (spec != null)
             {
-                Object.DestroyImmediate(oldSpec);
-                RoomInstance.AddSphereSpec(sphereGo, def.Id,
-                    def.Label ?? oldSpec.Title,
-                    def.Description ?? oldSpec.Description,
-                    def.Required, def.Essential, def.Forbidden);
+                if (def.Label != null)
+                    spec.Title = def.Label;
+                if (def.Description != null)
+                    spec.Description = def.Description;
+                if (def.WasPropertySpecified("required"))
+                    spec.Required = RoomInstance.AspectSpecsFromDict(def.Required);
+                if (def.WasPropertySpecified("essential"))
+                    spec.Essential = RoomInstance.AspectSpecsFromDict(def.Essential);
+                if (def.WasPropertySpecified("forbidden"))
+                    spec.Forbidden = RoomInstance.AspectSpecsFromDict(def.Forbidden);
+
+                EnsurePermanentPayloads(spec);
+                spec.ApplySpecToSphere(sphereGo.GetComponent<Sphere>());
             }
+        }
+    }
+
+    private static void RegisterSphereInRoom(GameObject sphereGo, GameObject dominionGo, GameObject roomGo)
+    {
+        var sphere = sphereGo.GetComponent<Sphere>();
+        var spec = sphereGo.GetComponent<PermanentSphereSpec>();
+        if (sphere == null || spec == null)
+            return;
+
+        spec.ApplySpecToSphere(sphere);
+
+        var dominion = dominionGo?.GetComponent<AbstractDominion>();
+        if (dominion != null)
+        {
+            var spheres = typeof(AbstractDominion)
+                .GetField("_spheres", BindingFlags.Instance | BindingFlags.NonPublic)
+                ?.GetValue(dominion) as System.Collections.IList;
+            if (spheres != null && !spheres.Contains(sphere))
+                spheres.Add(sphere);
+
+            sphere.Subscribe(dominion);
+        }
+
+        roomGo.GetComponent<TerrainFeature>()?.AttachSphere(sphere);
+    }
+
+    private static bool GetPhysicalSphereField(GameObject go, string fieldName)
+    {
+        var sphere = go.GetComponent<PhysicalSphere>();
+        if (sphere == null)
+            return false;
+
+        return (bool)(typeof(PhysicalSphere)
+            .GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic)
+            ?.GetValue(sphere) ?? false);
+    }
+
+    private static void EnsurePermanentPayloads(PermanentSphereSpec spec)
+    {
+        // Re-applying a spec must not re-run InitialisePermanentPayloads, which
+        // would spawn duplicate tokens for already-initialised permanent payloads.
+        typeof(PermanentSphereSpec)
+            .GetField("_cachedPermanentPayloads", BindingFlags.Instance | BindingFlags.NonPublic)
+            ?.SetValue(spec, Array.Empty<AbstractPermanentPayload>());
+    }
+
+    private static void DestroySeeds(GameObject root)
+    {
+        foreach (var lazy in root.GetComponentsInChildren<ILazyEdenable>(true))
+        {
+            if (lazy is not MonoBehaviour mb || mb is Sphere || mb.gameObject == root)
+                continue;
+
+            Object.DestroyImmediate(mb.gameObject);
         }
     }
 
@@ -356,7 +424,8 @@ internal class VanillaRoomPatcher
             case "comfort":
                 return FindArchetypeByComponent(roomGo, typeof(ComfortSphere));
             case "wall":
-                return FindArchetypeByComponent(roomGo, typeof(PhysicalSphere));
+                return FindArchetypeByComponentWithFilter(roomGo, typeof(PhysicalSphere),
+                    s => !(s is FitmentWorkstationSphere) && !(s is ComfortSphere));
             default:
                 return FindArchetypeByComponentWithFilter(roomGo, typeof(PhysicalSphere),
                     s => !(s is FitmentWorkstationSphere) && !(s is ComfortSphere));

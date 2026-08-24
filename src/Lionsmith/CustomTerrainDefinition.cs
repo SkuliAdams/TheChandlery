@@ -33,7 +33,7 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
 
     [FucineList] public List<string> ConnectedTo { get; set; }
 
-    [FucineDict] public Dictionary<string, int> Aspects { get; set; }
+    [WheelFucineTracked] public Dictionary<string, int> Aspects { get; set; }
 
     [FucineSubEntity]
     public UnlockRecipeDefinition UnlockRecipe { get; set; }
@@ -77,4 +77,10 @@ public class UnlockRecipeDefinition : AbstractEntity<UnlockRecipeDefinition>
     [FucineDict] public Dictionary<string, int> Essential { get; set; }
     [FucineDict] public Dictionary<string, int> Forbidden { get; set; }
     [FucineValue(30)] public int Warmup { get; set; }
+
+    public bool IsEmpty =>
+        Label == null && Preface == null && StartDescription == null && Description == null
+        && (Aspects == null || Aspects.Count == 0)
+        && (Essential == null || Essential.Count == 0)
+        && (Forbidden == null || Forbidden.Count == 0);
 }

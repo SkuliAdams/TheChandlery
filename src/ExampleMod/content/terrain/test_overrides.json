@@ -19,6 +19,31 @@
           }
         ]
       }
+    },
+    {
+      "id": "physicgarden",
+      "override": true,
+      "contents": {
+        "spheres": [
+          {
+            "id": "ThingSlotSeeded",
+            "spheretype": "normal",
+            "required": { "beverage": 1 },
+            "seeds": [
+              { "id": "glass.water.numa", "posx": 0, "posy": 0 }
+            ]
+          },
+          {
+            "id": "WallArtSlotChandlery",
+            "spheretype": "wall",
+            "label": "Garden Wall",
+            "posx": 675.75,
+            "posy": 120.0,
+            "width": 107.35,
+            "height": 60.0
+          }
+        ]
+      }
     }
   ]
 }

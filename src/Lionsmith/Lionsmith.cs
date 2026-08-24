@@ -44,9 +44,9 @@ internal static class Lionsmith
         );
     }
 
-    private static void OnTokenCreationCommandExecute(TokenCreationCommand instance, Sphere sphere)
+    private static void OnTokenCreationCommandExecute(TokenCreationCommand __instance, Sphere sphere)
     {
-        if (instance.Payload is PopulateTerrainFeatureCommand ptfc)
+        if (__instance.Payload is PopulateTerrainFeatureCommand ptfc)
         {
             if (!TerrainRegistry.HasAny())
             {
@@ -73,12 +73,12 @@ internal static class Lionsmith
         }
     }
 
-    private static void OnUnshroudPostfix(TerrainFeature instance)
+    private static void OnUnshroudPostfix(TerrainFeature __instance)
     {
-        if (instance == null || string.IsNullOrEmpty(instance.Id))
+        if (__instance == null || string.IsNullOrEmpty(__instance.Id))
             return;
 
-        if (!TerrainRegistry.TryGetConnections(instance.Id, out var connectedIds))
+        if (!TerrainRegistry.TryGetConnections(__instance.Id, out var connectedIds))
             return;
 
         var ha = Watchman.Get<HornedAxe>();
@@ -87,21 +87,21 @@ internal static class Lionsmith
             var token = ha.FindSingleOrDefaultTokenById(connectedId);
             if (token == null || !token.IsValid())
             {
-                Debug.LogWarning($"Chandlery Lionsmith: Connected room '{connectedId}' not found from '{instance.Id}'");
+                Debug.LogWarning($"Chandlery Lionsmith: Connected room '{connectedId}' not found from '{__instance.Id}'");
                 continue;
             }
 
             if (token.Payload is TerrainFeature connectedRoom)
             {
                 connectedRoom.Unseal();
-                Debug.Log($"Chandlery Lionsmith: Unsealed connected room '{connectedId}' from '{instance.Id}'");
+                Debug.Log($"Chandlery Lionsmith: Unsealed connected room '{connectedId}' from '{__instance.Id}'");
             }
         }
     }
 
-    private static void OnRecipeExecuted(Situation instance)
+    private static void OnRecipeExecuted(Situation __instance)
     {
-        var recipe = instance.GetCurrentRecipe();
+        var recipe = __instance.GetCurrentRecipe();
         if (recipe == null || recipe.ActionId != "terrain.unlock")
             return;
 
@@ -120,11 +120,11 @@ internal static class Lionsmith
         Watchman.Get<LocalNexus>().BroadcastFx(fx);
     }
 
-    private static bool OnCanBeDraggedPrefix(Token instance, ref bool result)
+    private static bool OnCanBeDraggedPrefix(Token __instance, ref bool __result)
     {
-        if (instance.GetComponent<NoDragMarker>() == null) return true;
+        if (__instance.GetComponent<NoDragMarker>() == null) return true;
         
-        result = false;
+        __result = false;
         return false;
     }
 

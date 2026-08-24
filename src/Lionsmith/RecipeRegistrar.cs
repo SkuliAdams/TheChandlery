@@ -15,7 +15,7 @@ internal static class RecipeRegistrar
         foreach (var def in TerrainRegistry.GetAll())
         {
             var unlock = def.UnlockRecipe;
-            if (unlock == null)
+            if (unlock == null || unlock.IsEmpty)
                 continue;
 
             var recipeId = "terrain." + def.Id;

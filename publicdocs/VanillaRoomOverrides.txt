@@ -206,6 +206,106 @@ Example (replacing the seeds on ThingSlotNatanDesk in motleytower3):
     }
 
 
+8. OVERRIDING EXISTING SPHERE PROPERTIES
+-----------------------------------------
+
+In addition to replacing seeds, you can change an existing sphere's
+position, size, aspect requirements, label, description, and drag/glow
+behaviour. List the sphere under "spheres" with its existing "id" and
+"spheretype" and the fields you want to change. Omitted fields are left
+unchanged.
+
+    "contents": {
+      "spheres": [
+        {
+          "id": "<existing-sphere-spec-id>",
+          "spheretype": "normal | bookshelf | comfort | wall",
+          "label": "New Display Name",
+          "description": "New tooltip",
+          "posx": 100.0,
+          "posy": 120.0,
+          "width": 90.0,
+          "height": 18.0,
+          "required": { "<aspect>": 1 },
+          "essential": { "<aspect>": 1 },
+          "forbidden": { "<aspect>": 1 },
+          "lockdrag": true,
+          "showglowonhover": false,
+          "showinteractionglow": false,
+          "seeds": [ ... ]
+        }
+      ]
+    }
+
+- posx, posy: position relative to the room's top-left corner (Y increases
+  downward), in the same scheme as VanillaRoomReference.md.
+- width, height: sphere dimensions.
+- required / essential / forbidden: replace the sphere's aspect
+  requirements. Set to {} to clear them.
+- label / description: replace the sphere's tooltip text.
+- lockdrag: if true, items in this sphere cannot be dragged out.
+- showglowonhover / showinteractionglow: toggle the sphere's highlight/glow.
+- seeds: replaces all existing seeds (see section 7).
+
+Note: the "greedy" property is not supported for room spheres
+
+9. ADDING NEW SPHERES
+---------------------
+
+Add a brand-new sphere (slot, shelf, comfort spot, or wall art) to an
+existing room. Use an "id" that does not match any existing sphere in the
+room.
+
+    "contents": {
+      "spheres": [
+        {
+          "id": "<new-sphere-id>",
+          "spheretype": "normal | bookshelf | comfort | wall",
+          "label": "Display Name",
+          "description": "Tooltip description",
+          "posx": 100.0,
+          "posy": 120.0,
+          "width": 90.0,
+          "height": 18.0,
+          "required": { "<aspect>": 1 },
+          "essential": { "<aspect>": 1 },
+          "forbidden": { "<aspect>": 1 },
+          "lockdrag": false,
+          "showglowonhover": false,
+          "showinteractionglow": false,
+          "seeds": [ ... ]
+        }
+      ]
+    }
+
+All sphere fields from CustomRoomCreation.txt are supported. posx, posy,
+width, and height default to 0/0/120/120 if omitted.
+
+The new sphere is cloned from an existing sphere of the same type in the
+room; the room must contain at least one such sphere to act as a template.
+
+10. ADDING NEW WORKSTATIONS
+---------------------------
+
+Add a workstation (FitmentWorkstationSphere) to an existing room.
+
+    "contents": {
+      "workstations": [
+        {
+          "id": "<new-workstation-id>",
+          "verb": "<verb-id>",
+          "posx": 270.0,
+          "posy": 200.0,
+          "width": 100.0,
+          "height": 100.0
+        }
+      ]
+    }
+
+- "verb" is the verb ID to seed this workstation with. The sprite is
+  resolved from the verb, as described in CustomRoomCreation.txt.
+
+
 COMPLETE EXAMPLE
 ----------------
 
@@ -256,3 +356,7 @@ NOTES
   is treated as a new custom room to create.
 - Omitted fields are never changed. Only explicitly provided fields
   are applied to the existing room.
+- Content overrides (removing spheres, changing seeds or sphere
+  properties, and adding spheres/workstations) take effect when the room
+  is populated. As with new rooms, mid-game changes are not guaranteed to
+  apply until a new game.

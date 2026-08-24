@@ -301,7 +301,7 @@ internal class RoomInstance(GameObject root, CustomTerrainDefinition def)
             ?.SetValue(spec, Array.Empty<AbstractPermanentPayload>());
     }
 
-    private static AspectSpec[] AspectSpecsFromDict(Dictionary<string, int> dict)
+    internal static AspectSpec[] AspectSpecsFromDict(Dictionary<string, int> dict)
     {
         if (dict == null || dict.Count == 0)
             return null;
