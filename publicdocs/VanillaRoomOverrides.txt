@@ -281,8 +281,9 @@ room.
 All sphere fields from CustomRoomCreation.txt are supported. posx, posy,
 width, and height default to 0/0/120/120 if omitted.
 
-The new sphere is cloned from an existing sphere of the same type in the
-room; the room must contain at least one such sphere to act as a template.
+The new sphere is cloned from an existing sphere of the same type. A sphere
+of the same type in the target room is preferred; if none exists there, a
+matching sphere from any other room in the game is used as the template.
 
 10. ADDING NEW WORKSTATIONS
 ---------------------------

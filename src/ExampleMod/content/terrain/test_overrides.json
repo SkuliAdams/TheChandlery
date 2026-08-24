@@ -41,6 +41,19 @@
             "posy": 120.0,
             "width": 107.35,
             "height": 60.0
+          },
+          {
+            "id": "ShelfChandlery",
+            "spheretype": "bookshelf",
+            "label": "Garden Shelf",
+            "posx": 60.0,
+            "posy": 140.0,
+            "width": 120.0,
+            "height": 40.0,
+            "seeds": [
+              { "id": "uncatbook.baronial", "side": "left" },
+              { "id": "uncatbook.baronial", "side": "right" }
+            ]
           }
         ]
       }

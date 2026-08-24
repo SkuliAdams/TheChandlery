@@ -173,7 +173,7 @@ internal class VanillaRoomPatcher
             return;
         }
 
-        var archetype = FindArchetypeByComponent(roomGo, typeof(FitmentWorkstationSphere));
+        var archetype = FindArchetype(roomGo, typeof(FitmentWorkstationSphere), null);
         if (archetype == null)
         {
             Debug.LogWarning($"Chandlery Lionsmith: Cannot add workstation '{def.Id}' — no archetype in room '{roomId}'");
@@ -420,36 +420,46 @@ internal class VanillaRoomPatcher
         switch (sphereType ?? "normal")
         {
             case "bookshelf":
-                return FindArchetypeByComponent(roomGo, typeof(ShelfSpaceSphere));
+                return FindArchetype(roomGo, typeof(ShelfSpaceSphere), null);
             case "comfort":
-                return FindArchetypeByComponent(roomGo, typeof(ComfortSphere));
+                return FindArchetype(roomGo, typeof(ComfortSphere), null);
             case "wall":
-                return FindArchetypeByComponentWithFilter(roomGo, typeof(PhysicalSphere),
+                return FindArchetype(roomGo, typeof(PhysicalSphere),
                     s => !(s is FitmentWorkstationSphere) && !(s is ComfortSphere));
             default:
-                return FindArchetypeByComponentWithFilter(roomGo, typeof(PhysicalSphere),
+                return FindArchetype(roomGo, typeof(PhysicalSphere),
                     s => !(s is FitmentWorkstationSphere) && !(s is ComfortSphere));
         }
     }
 
-    private static GameObject FindArchetypeByComponent(GameObject roomGo, Type componentType)
+    private static GameObject FindArchetype(GameObject roomGo, Type componentType, Func<Component, bool> filter)
     {
-        foreach (var comp in roomGo.GetComponentsInChildren(componentType, true))
+        var found = FindInRoot(roomGo, componentType, filter);
+        if (found != null)
+            return found;
+
+        foreach (var tf in Resources.FindObjectsOfTypeAll<TerrainFeature>())
         {
-            var go = comp.gameObject;
-            if (go != roomGo && !go.name.StartsWith("__archetype_") && !go.name.EndsWith("_override"))
-                return go;
+            if (!tf.gameObject.scene.IsValid() || tf.gameObject == roomGo)
+                continue;
+
+            found = FindInRoot(tf.gameObject, componentType, filter);
+            if (found != null)
+                return found;
         }
+
         return null;
     }
 
-    private static GameObject FindArchetypeByComponentWithFilter(GameObject roomGo, Type componentType, Func<Component, bool> filter)
+    private static GameObject FindInRoot(GameObject root, Type componentType, Func<Component, bool> filter)
     {
-        foreach (var comp in roomGo.GetComponentsInChildren(componentType, true))
+        foreach (var comp in root.GetComponentsInChildren(componentType, true))
         {
-            if (!filter(comp)) continue;
+            if (filter != null && !filter(comp))
+                continue;
+
             var go = comp.gameObject;
-            if (go != roomGo && !go.name.StartsWith("__archetype_") && !go.name.EndsWith("_override"))
+            if (go != root && !go.name.StartsWith("__archetype_") && !go.name.EndsWith("_override"))
                 return go;
         }
         return null;
