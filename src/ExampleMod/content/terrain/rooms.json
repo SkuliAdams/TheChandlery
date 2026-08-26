@@ -25,11 +25,11 @@
             "spheretype": "normal",
             "label": "THINGS",
             "seeds": [
-              {"id": "typewriter", "posx": -15, "posy": 0},
-              {"id": "candle.holderthree", "posx": 15, "posy": 0}
+              {"id": "typewriter", "posx": 30, "posy": 9},
+              {"id": "candle.holderthree", "posx": 60, "posy": 9}
             ],
             "posx": 34,
-            "posy": 180,
+            "posy": 20,
             "width": 90,
             "height": 18
           },
@@ -43,7 +43,7 @@
               {"id": "uncatbook.baronial", "side": "right"}
             ],
             "posx": 29,
-            "posy": 57,
+            "posy": 143,
             "width": 72,
             "height": 34.4
           },
@@ -53,7 +53,7 @@
             "label": "Stool",
             "description": "Space for a stool.",
             "posx": 120,
-            "posy": 200,
+            "posy": 0,
             "width": 100,
             "height": 100
           }
@@ -64,7 +64,7 @@
             "label": "Candlemaker's Desk",
             "verb": "library.desk.natan.consider",
             "posx": 270,
-            "posy": 200,
+            "posy": 0,
             "width": 100,
             "height": 100
           }
@@ -128,14 +128,14 @@
             "label": "Spire Wall Art",
             "description": "The bare walls of the spire, waiting to be adorned.",
             "seeds": [
-              {"id": "painting.annointing", "posx": -150, "posy": 150},
-              {"id": "painting.annointing", "posx": 150, "posy": 150},
-              {"id": "painting.annointing", "posx": -150, "posy": -150},
-              {"id": "painting.annointing", "posx": 150, "posy": -150},
+              {"id": "painting.annointing", "posx": 50, "posy": 360},
+              {"id": "painting.annointing", "posx": 350, "posy": 360},
+              {"id": "painting.annointing", "posx": 50, "posy": 60},
+              {"id": "painting.annointing", "posx": 350, "posy": 60},
               {"id": "window.meniscate"}
             ],
             "posx": 0,
-            "posy": 420,
+            "posy": 0,
             "width": 400,
             "height": 420,
             "required": { "wallart": 1 }

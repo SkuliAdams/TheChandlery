@@ -164,7 +164,7 @@ Sphere fields:
       "label": "Display Name",
       "description": "Tooltip description",
       "posx": 34.0,
-      "posy": 180.0,
+      "posy": 20.0,
       "width": 90.0,
       "height": 18.0,
       "required": { "aspect": 1 },
@@ -177,8 +177,8 @@ Sphere fields:
       "seeds": [ ... ]
     }
 
-- posx, posy: position relative to the room's top-left corner (Y
-  increases downward)
+- posx, posy: position of the sphere's bottom-left corner, relative to
+  the room's bottom-left corner (Y increases upward)
 - required: aspects the placed item must have
 - essential: aspects the placed item must provide beyond requirements
 - forbidden: aspects that cannot be placed here
@@ -206,7 +206,7 @@ player perform actions.
       "description": "A desk for candlemaking.",
       "verb": "library.desk.natan.consider",
       "posx": 270.0,
-      "posy": 200.0,
+      "posy": 0.0,
       "width": 100.0,
       "height": 100.0
     }
@@ -223,15 +223,17 @@ Seeds define items that spawn in a sphere when the room is first loaded.
 
     "seeds": [
       { "id": "elementid1", "posx": 0, "posy": 0 },
-      { "id": "elementid1", "posx": -15, "posy": 10 },
+      { "id": "elementid1", "posx": 15, "posy": 10 },
       { "id": "elementid2", "side": "left" },
       { "id": "elementid3", "side": "right" }
     ]
 
 - "id": the element ID (e.g. "candle.holderthree", "typewriter",
   "uncatbook.baronial", "window.meniscate", "painting.annointing")
-- "posx", "posy": position relative to the sphere's top-left corner. For non-wall-art spheres, 
-  only posx matters, as the vertical position is forced to the sphere's bottom edge.
+- "posx", "posy": position relative to the sphere's bottom-left corner,
+  increasing to the right and upward. For non-wall-art spheres, only posx
+  matters, as the vertical position is forced to the sphere's bottom edge.
+  If both are omitted, the item spawns at the centre of the sphere.
 - "side": "left" or "right" — positions the item at the left or right
   edge of the sphere for bookshelf spheres.
 
@@ -269,11 +271,11 @@ FULL EXAMPLE
                 "spheretype": "normal",
                 "label": "THINGS",
                 "seeds": [
-                  { "id": "typewriter", "posx": -15, "posy": 0 },
-                  { "id": "candle.holderthree", "posx": 15, "posy": 0 }
+                  { "id": "typewriter", "posx": 30, "posy": 9 },
+                  { "id": "candle.holderthree", "posx": 60, "posy": 9 }
                 ],
                 "posx": 34,
-                "posy": 180,
+                "posy": 20,
                 "width": 90,
                 "height": 18
               },
@@ -287,7 +289,7 @@ FULL EXAMPLE
                   { "id": "uncatbook.baronial", "side": "right" }
                 ],
                 "posx": 29,
-                "posy": 57,
+                "posy": 143,
                 "width": 72,
                 "height": 34.4
               },
@@ -297,7 +299,7 @@ FULL EXAMPLE
                 "label": "Stool",
                 "description": "Space for a stool.",
                 "posx": 120,
-                "posy": 200,
+                "posy": 0,
                 "width": 100,
                 "height": 100
               }
@@ -308,7 +310,7 @@ FULL EXAMPLE
                 "label": "Candlemaker's Desk",
                 "verb": "library.desk.natan.consider",
                 "posx": 270,
-                "posy": 200,
+                "posy": 0,
                 "width": 100,
                 "height": 100
               }

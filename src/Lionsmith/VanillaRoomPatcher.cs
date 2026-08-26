@@ -286,9 +286,9 @@ internal class VanillaRoomPatcher
                 if (def.PosX != null || def.PosY != null)
                 {
                     var posX = def.PosX ?? (rt.anchoredPosition.x + roomW * 0.5f - width * 0.5f);
-                    var posY = def.PosY ?? (roomH * 0.5f - rt.anchoredPosition.y + height * 0.5f);
+                    var posY = def.PosY ?? (rt.anchoredPosition.y + roomH * 0.5f - height * 0.5f);
                     var centerX = posX - roomW * 0.5f + width * 0.5f;
-                    var centerY = roomH * 0.5f - posY + height * 0.5f;
+                    var centerY = posY - roomH * 0.5f + height * 0.5f;
                     rt.anchoredPosition = new Vector2(centerX, centerY);
                 }
                 if (def.Width != null || def.Height != null)
@@ -398,8 +398,9 @@ internal class VanillaRoomPatcher
         var roomRt = roomGo.GetComponent<RectTransform>();
         var roomW = roomRt?.sizeDelta.x ?? 400f;
         var roomH = roomRt?.sizeDelta.y ?? 200f;
+        // JSON: (posX, posY) = item's bottom-left corner, (0,0) = room's bottom-left, Y increases upward
         var centerX = posX - roomW * 0.5f + width * 0.5f;
-        var centerY = roomH * 0.5f - posY + height * 0.5f;
+        var centerY = posY - roomH * 0.5f + height * 0.5f;
         rt.anchoredPosition = new Vector2(centerX, centerY);
         rt.sizeDelta = new Vector2(width, height);
     }

@@ -92,7 +92,7 @@ public class SeedEntry : AbstractEntity<SeedEntry>
     public SeedEntry(EntityData d, ContentImportLog l) : base(d, l) { }
     protected override void OnPostImportForSpecificEntity(ContentImportLog log, Compendium populatedCompendium) { }
 
-    [FucineValue] public float PosX { get; set; }
-    [FucineValue] public float PosY { get; set; }
+    [WheelFucineNullable] public float? PosX { get; set; }
+    [WheelFucineNullable] public float? PosY { get; set; }
     [FucineValue] public string Side { get; set; }
 }

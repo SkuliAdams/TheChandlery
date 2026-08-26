@@ -214,10 +214,10 @@ internal class RoomInstance(GameObject root, CustomTerrainDefinition def)
         
         if (rt == null) return;
         
-        // JSON: (posX, posY) = item's bottom-left corner, (0,0) = room's top-left, Y increases downward
+        // JSON: (posX, posY) = item's bottom-left corner, (0,0) = room's bottom-left, Y increases upward
         // Unity: anchoredPosition = item's center relative to room's center, Y increases upward
         var centerX = posX - _roomW * 0.5f + width * 0.5f;
-        var centerY = _roomH * 0.5f - posY + height * 0.5f;
+        var centerY = posY - _roomH * 0.5f + height * 0.5f;
         rt.anchoredPosition = new Vector2(centerX, centerY);
         rt.sizeDelta = new Vector2(width, height);
     }
