@@ -30,13 +30,12 @@ public class RoomContentsDefinition : AbstractEntity<RoomContentsDefinition>
     }
 }
 
-internal interface ISphereOverrideTarget
+internal interface ISphereOverrideTarget : IEntityWithId
 {
     float? PosX { get; }
     float? PosY { get; }
     float? Width { get; }
     float? Height { get; }
-    string Id { get; }
     string Label { get; }
     string Description { get; }
     bool? Greedy { get; }
@@ -61,11 +60,11 @@ public abstract class SphereDefinitionBase<T> : AbstractEntity<T>, ISphereOverri
     [WheelFucineNullable] public float? Height { get; set; }
     [FucineValue] public string Label { get; set; }
     [FucineValue] public string Description { get; set; }
-    [FucineDict] public Dictionary<string, int> Required { get; set; }
-    [FucineDict] public Dictionary<string, int> Essential { get; set; }
-    [FucineDict] public Dictionary<string, int> Forbidden { get; set; }
+    [WheelFucineTracked] public Dictionary<string, int> Required { get; set; }
+    [WheelFucineTracked] public Dictionary<string, int> Essential { get; set; }
+    [WheelFucineTracked] public Dictionary<string, int> Forbidden { get; set; }
     [WheelFucineNullable] public bool? Greedy { get; set; }
-    [FucineList] public List<SeedEntry> Seeds { get; set; }
+    [WheelFucineTracked] public List<SeedEntry> Seeds { get; set; }
     [WheelFucineNullable] public bool? LockDrag { get; set; }
     [WheelFucineNullable] public bool? ShowGlowOnHover { get; set; }
     [WheelFucineNullable] public bool? ShowInteractionGlow { get; set; }
@@ -93,7 +92,7 @@ public class SeedEntry : AbstractEntity<SeedEntry>
     public SeedEntry(EntityData d, ContentImportLog l) : base(d, l) { }
     protected override void OnPostImportForSpecificEntity(ContentImportLog log, Compendium populatedCompendium) { }
 
-    [FucineValue] public float PosX { get; set; }
-    [FucineValue] public float PosY { get; set; }
+    [WheelFucineNullable] public float? PosX { get; set; }
+    [WheelFucineNullable] public float? PosY { get; set; }
     [FucineValue] public string Side { get; set; }
 }

@@ -1,0 +1,21 @@
+{
+  "mapFeatures": [
+    {
+      "id": "examplemod.treeglade",
+      "sprite": "green",
+      "layer": "background",
+      "posx": 7561.0,
+      "posy": 133.0,
+      "width": 520.0,
+      "height": 320.0
+    },
+    {
+      "id": "examplemod.halloverlay",
+      "layer": "foreground",
+      "posx": 3420.0,
+      "posy": 360.0,
+      "width": 300.0,
+      "height": 100.0
+    }
+  ]
+}

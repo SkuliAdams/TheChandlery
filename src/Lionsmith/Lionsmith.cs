@@ -4,11 +4,13 @@ using HarmonyLib;
 using SecretHistories.Commands;
 using SecretHistories.Entities;
 using SecretHistories.Infrastructure;
-using SecretHistories.Services;
 using SecretHistories.Spheres;
 using SecretHistories.Tokens.Payloads;
 using SecretHistories.UI;
+using TheHouse.Colonel;
+using ColonelApi = TheHouse.Colonel.Colonel;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TheHouse;
 
@@ -18,7 +20,7 @@ internal static class Lionsmith
     {
         harmony.Patch(
             AccessTools.Method(typeof(TokenCreationCommand), "Execute",
-                new[] { typeof(Context), typeof(Sphere) }),
+                [typeof(Context), typeof(Sphere)]),
             prefix: new HarmonyMethod(typeof(Lionsmith), nameof(OnTokenCreationCommandExecute))
         );
 
@@ -29,7 +31,7 @@ internal static class Lionsmith
 
         harmony.Patch(
             AccessTools.Method(typeof(TerrainFeature), "Unshroud",
-                new[] { typeof(bool) }),
+                [typeof(bool)]),
             postfix: new HarmonyMethod(typeof(Lionsmith), nameof(OnUnshroudPostfix))
         );
 
@@ -113,27 +115,70 @@ internal static class Lionsmith
             return;
 
         var token = Watchman.Get<HornedAxe>().FindSingleOrDefaultTokenById(roomId);
-        if (token?.Payload is TerrainFeature tf)
-        {
-            var fx = new EnviroFxCommand(roomId + ".open", "1");
-            Watchman.Get<LocalNexus>().BroadcastFx(fx);
-        }
+        
+        if (token?.Payload is not TerrainFeature) return;
+        
+        var fx = new EnviroFxCommand(roomId + ".open", "1");
+        Watchman.Get<LocalNexus>().BroadcastFx(fx);
     }
 
     private static bool OnCanBeDraggedPrefix(Token __instance, ref bool __result)
     {
-        if (__instance.GetComponent<NoDragMarker>() != null)
+        if (__instance.GetComponent<NoDragMarker>() == null) return true;
+        
+        __result = false;
+        return false;
+    }
+
+    // Most fogs are in the MistsAndSmokes layer, but the cucurbit fog is an exception.
+    // Move it up so custom rooms in its vicinity will visually be below the fog.
+    private static void RaiseCucurbitFogToFogLayer()
+    {
+        var fogLayerId = SortingLayer.NameToID("MistsAndSmokes");
+
+        foreach (var img in UnityEngine.Object.FindObjectsOfType<Image>(true))
         {
-            __result = false;
-            return false;
+            if (img.name != "ShroudedObscurerImage1")
+                continue;
+
+            if (!HasAncestorNamed(img.transform, "cucurbitbridge_token"))
+                continue;
+
+            var container = img.transform.parent;
+            if (container == null || (container.name != "Shrouded" && container.name != "Sealed"))
+                continue;
+
+            var go = container.gameObject;
+            if (go.GetComponent<Canvas>() != null)
+                continue;
+
+            var canvas = go.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.WorldSpace;
+            canvas.overrideSorting = true;
+            canvas.sortingLayerID = fogLayerId;
+            go.AddComponent<GraphicRaycaster>();
+            Debug.Log($"Chandlery Lionsmith: Raised Cucurbit fog container '{go.name}' to 'MistsAndSmokes'");
         }
-        return true;
+    }
+
+    private static bool HasAncestorNamed(Transform t, string name)
+    {
+        var cur = t.parent;
+        while (cur != null)
+        {
+            if (cur.name == name)
+                return true;
+            cur = cur.parent;
+        }
+        return false;
     }
 
     private static void OnEnvironmentPopulated()
     {
         try
         {
+            RaiseCucurbitFogToFogLayer();
+
             if (!TerrainRegistry.HasAny())
                 TerrainRegistry.LoadAll();
             if (!TerrainRegistry.HasAny())
@@ -146,20 +191,44 @@ internal static class Lionsmith
 
             var factory = new TerrainFactory();
             foreach (var def in newDefs)
+            {
                 factory.Create(def);
+                RegisterBackground(def);
+            }
 
             var patcher = new VanillaRoomPatcher();
             foreach (var def in overrideDefs)
             {
                 patcher.Patch(def);
 
-                if (def.ConnectedTo != null && def.ConnectedTo.Count > 0)
+                if (def.ConnectedTo is { Count: > 0 })
                     TerrainRegistry.RegisterConnection(def.Id, def.ConnectedTo);
             }
+
+            ColonelApi.Refresh();
         }
         catch (Exception ex)
         {
             Debug.LogError($"Chandlery Lionsmith: Error during terrain injection: {ex.Message}\n{ex.StackTrace}");
         }
+    }
+
+    private static void RegisterBackground(CustomTerrainDefinition def)
+    {
+        var bg = def.Background;
+        if (bg == null || bg.IsEmpty)
+            return;
+
+        ColonelApi.AddMapFeature(new MapFeatureDefinition(def.Id + ".background")
+        {
+            Sprite = bg.Sprite,
+            Layer = "background",
+            Width = bg.Width,
+            Height = bg.Height,
+            PosX = (def.PosX ?? 0f) + (bg.OffsetX ?? 0f),
+            PosY = (def.PosY ?? 0f) + (bg.OffsetY ?? 0f),
+            Scale = bg.Scale,
+            ClickBlocking = false
+        });
     }
 }

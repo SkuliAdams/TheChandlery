@@ -57,27 +57,44 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
 
     private static Vector3 ResolvePosition(SeedEntry def, RectTransform rt)
     {
-        var hasX = !float.IsNaN(def.PosX);
-        var hasY = !float.IsNaN(def.PosY);
+        var hasX = def.PosX.HasValue;
+        var hasY = def.PosY.HasValue;
 
+        var width = rt != null ? rt.rect.width : 60f;
+        var height = rt != null ? rt.rect.height : 60f;
+        var halfW = width * 0.5f;
+        var halfH = height * 0.5f;
+
+        // All coordinates are bottom-left origin, Y up: (0,0) is the sphere's
+        // bottom-left corner, X increases right, Y increases up.
+        float x, y;
         if (!string.IsNullOrEmpty(def.Side))
         {
-            var halfW = rt != null ? rt.rect.width * 0.5f : 30f;
-            var x = def.Side == "left" ? -halfW + 10f : halfW - 10f;
-            var y = hasY ? def.PosY : 0f;
-            return new Vector3(x, y, 0f);
+            // "side" anchors a seed to the left/right edge of the sphere, centred
+            // vertically unless an explicit (bottom-left origin) Y is supplied.
+            x = def.Side == "left" ? 10f : width - 10f;
+            y = hasY ? def.PosY.Value : height * 0.5f;
         }
-
-        if (hasX && hasY)
-            return new Vector3(def.PosX, def.PosY, 0f);
-
-        if (hasX)
+        else if (hasX && hasY)
         {
-            var y = rt != null ? -rt.rect.height * 0.5f + 10f : 0f;
-            return new Vector3(def.PosX, y, 0f);
+            x = def.PosX.Value;
+            y = def.PosY.Value;
+        }
+        else if (hasX)
+        {
+            // Only X given: Y defaults to the bottom edge.
+            x = def.PosX.Value;
+            y = 0f;
+        }
+        else
+        {
+            // No position specified — center of the sphere.
+            x = width * 0.5f;
+            y = height * 0.5f;
         }
 
-        return Vector3.zero;
+        // Convert bottom-left-origin coords to local space (origin at the pivot, the sphere's centre).
+        return new Vector3(x - halfW, y - halfH, 0f);
     }
 
     public void NotFreshSetup() { }

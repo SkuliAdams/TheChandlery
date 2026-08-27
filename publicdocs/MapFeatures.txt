@@ -1,0 +1,134 @@
+MAP FEATURES (COLONEL)
+======================
+
+The Chandlery's Colonel module places world-space images ("map
+features") onto the tabletop. Their layering order amongst eachother
+and the game's rooms is configurable.
+
+Map features are defined in the "mapFeatures" array of any JSON file in a
+mod's content folder (e.g. mymod/content/mapfeatures/decals.json). Multiple
+JSON files anywhere within the content folder are merged automatically.
+
+
+BASIC STRUCTURE
+---------------
+
+    {
+      "mapFeatures": [
+        {
+          "id": "mymod.statue",
+          "sprite": "chandlery\\statue",
+          "layer": "background",
+          "posx": 1200.0,
+          "posy": -300.0,
+          "width": 400.0,
+          "height": 500.0,
+          "order": 25
+        }
+      ]
+    }
+
+
+1. REQUIRED FIELDS
+------------------
+
+    "id": "<unique-feature-id>"
+
+All other fields are optional. IDs must be unique across all mods; prefix
+them with a mod-specific namespace to avoid collisions.
+
+
+2. POSITION AND SIZE
+--------------------
+
+    "posx": <float>,
+    "posy": <float>,
+    "width": <float>,
+    "height": <float>
+
+Posx and posy define the bottom-left corner of the feature on the world map,
+using the same coordinate system as rooms (see CustomRoomCreation.txt and
+VanillaRoomReference.md). Positive X goes right, positive Y goes up.
+
+Width and height default to the sprite's pixel size divided by the feature's
+scale, so the sprite will be rendered 1:1 with no rescaling. 
+If width and height are specified, the sprite is stretched to these values.
+
+The scale defaults to 4.2 (the value the vanilla game uses) and can be
+overridden per feature:
+
+    "scale": 2.0
+
+
+3. SPRITE
+---------
+
+    "sprite": "<name-without-extension>"
+
+Sprites are loaded from the images and chandlery folders, matched exactly
+(case-insensitive) against the file name, ignoring the folder.
+If ommited, defaults to the id.
+If no sprite is found, an obvious magenta checkerboard placeholder is generated.
+
+Sprites should be (width * scale) x (height * scale), matching the room
+sprite convention. For example, a 400x200 feature's image should be
+1680x840 px at the default 4.2 scale.
+
+
+4. LAYER
+--------
+
+    "layer": "background" | "room" | "foreground"
+    "order": <int>
+
+Layer selects which band of the sorting layer the feature sits on:
+
+| layer       | meaning                          |
+|-------------|----------------------------------|
+| background  | behind rooms (default)           |
+| room        | same band as rooms               |
+| foreground  | in front of rooms                |
+
+Order is an optional explicit sorting-order override. When omitted, the
+feature uses its band's default order.
+
+
+5. CLICK-BLOCKING
+-----------------
+
+Map features block mouse clicks by default, so clicking a feature doesn't
+pass through to the room/tabletop behind it. Set clickblocking to false to
+make a feature click-transparent.
+
+    "clickblocking": false
+
+(default true)
+
+
+6. HIDING VANILLA BACKGROUNDS
+-----------------------------
+
+To hide the vanilla map backgrounds and building overlay, add a flag file at
+<mymod>/chandlery/colonel.json:
+
+    { "clearVanilla": true }
+
+If any enabled mod sets this flag, vanilla backgrounds are hidden globally.
+
+
+PROGRAMMATIC API
+----------------
+
+Colonel also exposes a C# API:
+
+    Colonel.AddMapFeature(new MapFeatureDefinition("mymod.statue")
+    {
+        Sprite = "chandlery\\statue",
+        Layer = "background",
+        PosX = 1200, PosY = -300, Width = 400, Height = 500, Order = 25
+    });
+
+    Colonel.AddMapFeature("mymod.statue", "chandlery\\statue",
+        FauxLayerBand.Background, 1200, -300, 400, 500, order: 25);
+
+Programmatic features override JSON features with the same id.

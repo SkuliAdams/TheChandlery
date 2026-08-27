@@ -6,14 +6,13 @@ using SecretHistories;
 using SecretHistories.Abstract;
 using SecretHistories.Entities;
 using SecretHistories.Infrastructure.Modding;
-using SecretHistories.Manifestations;
-using SecretHistories.Services;
 using SecretHistories.Spheres;
 using SecretHistories.Tokens;
 using SecretHistories.Tokens.Payloads;
 using SecretHistories.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace TheHouse;
 
@@ -47,7 +46,7 @@ internal class TerrainFactory
             }
 
             var terrainFeature = root.GetComponent<TerrainFeature>();
-            (terrainFeature as IEdenable)?.EdenSetup(withLogging: false);
+            ((IEdenable)terrainFeature)?.EdenSetup(withLogging: false);
 
             Debug.Log($"Chandlery Lionsmith: Created room '{def.Id}' at ({def.PosX}, {def.PosY})");
         }
@@ -125,20 +124,20 @@ internal class TerrainFactory
             return null;
         }
 
-        var clone = GameObject.Instantiate(templatePayload.gameObject, sphere.transform);
+        var clone = Object.Instantiate(templatePayload.gameObject, sphere.transform);
         clone.name = def.Id + "_token";
 
         var terrainFeature = clone.GetComponent<TerrainFeature>();
         if (terrainFeature == null)
         {
             Debug.LogWarning($"Chandlery Lionsmith: Clone has no TerrainFeature");
-            GameObject.DestroyImmediate(clone);
+            Object.DestroyImmediate(clone);
             return null;
         }
 
         var existingToken = clone.GetComponent<Token>();
         if (existingToken != null)
-            GameObject.DestroyImmediate(existingToken);
+            Object.DestroyImmediate(existingToken);
 
         var initialiseField = typeof(AbstractPermanentPayload)
             .GetField("InitialiseWithIdentifier", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -155,7 +154,10 @@ internal class TerrainFactory
         roomInstance.ExtractArchetypes();
         StripInteractiveChildren(clone);
 
-        def.ResolveSize(out var resolvedW, out var resolvedH, 400f, 200f);
+        var roomSprite = SpriteLookup.Find(def.Sprite ?? def.Id);
+        def.ResolveSize(out var resolvedW, out var resolvedH,
+            roomSprite != null ? roomSprite.rect.width : 0f,
+            roomSprite != null ? roomSprite.rect.height : 0f);
         roomInstance.PopulateContents(resolvedW, resolvedH);
 
         var rt = clone.GetComponent<RectTransform>();
@@ -166,6 +168,7 @@ internal class TerrainFactory
         rt.pivot = new Vector2(0.5f, 0.5f);
 
         ApplySprites(terrainFeature, resolvedW, resolvedH, def);
+        ConfigureRoomLayer(clone);
 
         terrainFeature.SetUpAsTokenWithId(sphere);
 
@@ -199,7 +202,7 @@ internal class TerrainFactory
 
         foreach (var dom in root.GetComponentsInChildren<AbstractDominion>(true))
         {
-            var mb = dom as MonoBehaviour;
+            var mb = (MonoBehaviour)dom;
             if (mb != null && !IsProtected(mb.gameObject))
                 toDestroy.Add(mb.gameObject);
         }
@@ -225,7 +228,21 @@ internal class TerrainFactory
         }
 
         foreach (var go in toDestroy)
-            GameObject.DestroyImmediate(go);
+            Object.DestroyImmediate(go);
+    }
+
+    private static void ConfigureRoomLayer(GameObject clone)
+    {
+        var canvas = clone.GetComponent<Canvas>();
+        if (canvas == null)
+        {
+            Debug.LogWarning($"Chandlery Lionsmith: No Canvas on room clone '{clone.name}' — cannot set sorting layer");
+            return;
+        }
+
+        canvas.overrideSorting = true;
+        canvas.sortingLayerID = SortingLayer.NameToID(FauxLayer.BaseLayer);
+        canvas.sortingOrder = (int)FauxLayerBand.Room;
     }
 
     private static void ApplySprites(TerrainFeature terrainFeature, float resolvedW, float resolvedH, CustomTerrainDefinition def)
@@ -234,8 +251,9 @@ internal class TerrainFactory
         if (manifestationGo == null)
             return;
 
-        var spriteWidth = Mathf.RoundToInt(resolvedW * 4.2f);
-        var spriteHeight = Mathf.RoundToInt(resolvedH * 4.2f);
+        var scale = def.Scale.HasValue && def.Scale.Value > 0f ? def.Scale.Value : 4.2f;
+        var spriteWidth = Mathf.RoundToInt(resolvedW * scale);
+        var spriteHeight = Mathf.RoundToInt(resolvedH * scale);
 
         foreach (var img in manifestationGo.GetComponentsInChildren<Image>(true))
         {
@@ -246,13 +264,13 @@ internal class TerrainFactory
             {
                 case "RoomImage":
                     var spriteKey = def.Sprite ?? def.Id;
-                    img.sprite = TerrainRegistry.FindSprite(spriteKey)
+                    img.sprite = SpriteLookup.Find(spriteKey)
                                  ?? CreatePlaceholder(def.Id + "_unshrouded", spriteWidth, spriteHeight);
                     break;
 
                 case "ShroudedImage":
                     var shroudKey = def.ShroudSprite ?? ((def.Sprite ?? def.Id) + "_shrouded");
-                    img.sprite = TerrainRegistry.FindSprite(shroudKey)
+                    img.sprite = SpriteLookup.Find(shroudKey)
                                  ?? CreatePlaceholder(def.Id + "_shrouded", spriteWidth, spriteHeight);
                     break;
 
@@ -283,21 +301,17 @@ internal class TerrainFactory
         }
     }
 
-    private static Sprite LoadModSprite(ModManager modManager, string path)
-    {
-        var sprite = modManager.GetSprite(path);
-        return sprite;
-    }
-
-    private static readonly Dictionary<string, Sprite> _placeholderCache = new();
+    private static readonly Dictionary<string, Sprite> PlaceholderCache = new();
 
     private static Sprite CreatePlaceholder(string key, int width, int height)
     {
-        if (_placeholderCache.TryGetValue(key, out var cached))
+        if (PlaceholderCache.TryGetValue(key, out var cached))
             return cached;
 
-        var texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
-        texture.hideFlags = HideFlags.HideAndDontSave;
+        var texture = new Texture2D(width, height, TextureFormat.RGBA32, false)
+        {
+            hideFlags = HideFlags.HideAndDontSave
+        };
         var pixels = new Color32[width * height];
         for (var i = 0; i < pixels.Length; i++)
             pixels[i] = new Color32(0, 0, 0, byte.MaxValue);
@@ -306,7 +320,7 @@ internal class TerrainFactory
 
         var sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f));
         sprite.hideFlags = HideFlags.HideAndDontSave;
-        _placeholderCache[key] = sprite;
+        PlaceholderCache[key] = sprite;
 
         Debug.Log($"Chandlery Lionsmith: Created white placeholder for '{key}' ({width}x{height})");
         return sprite;

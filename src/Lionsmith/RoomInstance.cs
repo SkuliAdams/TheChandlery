@@ -11,11 +11,8 @@ using UnityEngine;
 
 namespace TheHouse;
 
-internal class RoomInstance
+internal class RoomInstance(GameObject root, CustomTerrainDefinition def)
 {
-    private readonly GameObject _root;
-    private readonly CustomTerrainDefinition _def;
-
     private GameObject _slotArchetype;
     private GameObject _workstationArchetype;
     private GameObject _shelfArchetype;
@@ -26,12 +23,6 @@ internal class RoomInstance
     private GameObject _shelfDominion;
     private float _roomW;
     private float _roomH;
-
-    public RoomInstance(GameObject root, CustomTerrainDefinition def)
-    {
-        _root = root;
-        _def = def;
-    }
 
     public void ExtractArchetypes()
     {
@@ -48,7 +39,7 @@ internal class RoomInstance
     {
         _roomW = roomW;
         _roomH = roomH;
-        var contents = _def.Contents;
+        var contents = def.Contents;
         if (contents == null)
             return;
 
@@ -69,12 +60,12 @@ internal class RoomInstance
 
     private GameObject FindAndCloneArchetype<T>(string name, Func<T, bool> filter = null) where T : MonoBehaviour
     {
-        foreach (var comp in _root.GetComponentsInChildren<T>(true))
+        foreach (var comp in root.GetComponentsInChildren<T>(true))
         {
             if (filter != null && !filter(comp))
                 continue;
 
-            var clone = UnityEngine.Object.Instantiate(comp.gameObject, _root.transform);
+            var clone = UnityEngine.Object.Instantiate(comp.gameObject, root.transform);
             clone.name = name;
 
             foreach (var token in clone.GetComponentsInChildren<Token>(true))
@@ -89,33 +80,32 @@ internal class RoomInstance
             return clone;
         }
 
-        Debug.LogError($"Chandlery RoomInstance: No archetype found for '{typeof(T).Name}' in room '{_def.Id}'");
+        Debug.LogError($"Chandlery RoomInstance: No archetype found for '{typeof(T).Name}' in room '{def.Id}'");
         return null;
     }
 
     private void BuildDominions()
     {
-        var parentTf = _root.transform.Find("RoomManifestation/Unshrouded") ?? _root.transform;
+        var parentTf = root.transform.Find("RoomManifestation/Unshrouded") ?? root.transform;
 
         var worldGo = new GameObject("dominion_world");
         worldGo.transform.SetParent(parentTf, false);
         _worldDominion = worldGo;
         _worldDominion.AddComponent<WorldDominion>();
 
-        if (_def.Contents != null && _def.Contents.HasShelves)
-        {
-            var shelfGo = new GameObject("dominion_shelves");
-            shelfGo.transform.SetParent(parentTf, false);
-            var shelfDom = shelfGo.AddComponent<ShelfDominion>();
-            typeof(AbstractDominion).GetProperty("Identifier", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                ?.SetValue(shelfDom, "dominion_shelves");
-            _shelfDominion = shelfGo;
-        }
+        if (def.Contents is not { HasShelves: true }) return;
+        
+        var shelfGo = new GameObject("dominion_shelves");
+        shelfGo.transform.SetParent(parentTf, false);
+        var shelfDom = shelfGo.AddComponent<ShelfDominion>();
+        typeof(AbstractDominion).GetProperty("Identifier", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+            ?.SetValue(shelfDom, "dominion_shelves");
+        _shelfDominion = shelfGo;
     }
 
-    private void BuildSphere(SphereDefinition def)
+    private void BuildSphere(SphereDefinition def1)
     {
-        var type = def.SphereType ?? "normal";
+        var type = def1.SphereType ?? "normal";
         GameObject archetype;
         GameObject dominion;
         Type choreographerType;
@@ -156,19 +146,19 @@ internal class RoomInstance
 
         if (dominion == null)
         {
-            Debug.LogError($"Chandlery RoomInstance: No dominion for room '{_def.Id}' — cannot build sphere '{def.Id}'");
+            Debug.LogError($"Chandlery RoomInstance: No dominion for room '{def.Id}' — cannot build sphere '{def1.Id}'");
             return;
         }
 
         if (archetype == null)
         {
-            Debug.LogError($"Chandlery RoomInstance: No {type} archetype for room '{_def.Id}' — cannot build sphere '{def.Id}'");
+            Debug.LogError($"Chandlery RoomInstance: No {type} archetype for room '{def.Id}' — cannot build sphere '{def1.Id}'");
             return;
         }
 
         var go = UnityEngine.Object.Instantiate(archetype, dominion.transform, false);
         go.SetActive(true);
-        go.name = prefix + def.Id;
+        go.name = prefix + def1.Id;
 
         var oldSpec = go.GetComponent<PermanentSphereSpec>();
         if (oldSpec != null)
@@ -179,57 +169,57 @@ internal class RoomInstance
             if (s is MonoBehaviour mb)
                 UnityEngine.Object.DestroyImmediate(mb);
 
-        AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
+        AssignPositionAndSize(go, def1.PosX ?? 0f, def1.PosY ?? 0f, def1.Width ?? 120f, def1.Height ?? 120f);
         ConfigureCanvasGroup(go);
         ReplaceChoreographerGeneric(choreographerType, go);
 
         if (applyFields)
         {
-            ConfigurePhysicalSphereFields(go, def.LockDrag ?? false, def.ShowGlowOnHover ?? false, def.ShowInteractionGlow ?? false);
+            ConfigurePhysicalSphereFields(go, def1.LockDrag ?? false, def1.ShowGlowOnHover ?? false, def1.ShowInteractionGlow ?? false);
             ConfigureSphereDropCatcher(go);
         }
 
-        AddSphereSpec(go, def.Id, def.Label, def.Description, def.Required, def.Essential, def.Forbidden);
-        AddSeeds(go, def.Seeds);
+        AddSphereSpec(go, def1.Id, def1.Label, def1.Description, def1.Required, def1.Essential, def1.Forbidden);
+        AddSeeds(go, def1.Seeds);
     }
 
-    private void BuildWorkstation(WorkstationDefinition def)
+    private void BuildWorkstation(WorkstationDefinition def1)
     {
         var dominion = _worldDominion;
         if (dominion == null) return;
 
         if (_workstationArchetype == null)
         {
-            Debug.LogError($"Chandlery RoomInstance: No workstation archetype for room '{_def.Id}' — cannot build workstation '{def.Id}'");
+            Debug.LogError($"Chandlery RoomInstance: No workstation archetype for room '{def.Id}' — cannot build workstation '{def1.Id}'");
             return;
         }
 
         var go = UnityEngine.Object.Instantiate(_workstationArchetype, dominion.transform, false);
         go.SetActive(true);
-        go.name = "workstation_" + def.Id;
+        go.name = "workstation_" + def1.Id;
 
-        AssignPositionAndSize(go, def.PosX ?? 0f, def.PosY ?? 0f, def.Width ?? 120f, def.Height ?? 120f);
+        AssignPositionAndSize(go, def1.PosX ?? 0f, def1.PosY ?? 0f, def1.Width ?? 120f, def1.Height ?? 120f);
         ConfigureCanvasGroup(go);
         ReplaceChoreographer<FitmentChoreographer>(go);
 
         var ws = go.GetComponent<FitmentWorkstationSphere>();
         if (ws != null)
             typeof(FitmentWorkstationSphere).GetField("seedWithVerbId", BindingFlags.Instance | BindingFlags.NonPublic)
-                ?.SetValue(ws, def.Verb);
+                ?.SetValue(ws, def1.Verb);
     }
 
-    internal void AssignPositionAndSize(GameObject go, float posX, float posY, float width, float height)
+    private void AssignPositionAndSize(GameObject go, float posX, float posY, float width, float height)
     {
         var rt = go.GetComponent<RectTransform>();
-        if (rt != null)
-        {
-            // JSON: (posX, posY) = item's bottom-left corner, (0,0) = room's top-left, Y increases downward
-            // Unity: anchoredPosition = item's center relative to room's center, Y increases upward
-            var centerX = posX - _roomW * 0.5f + width * 0.5f;
-            var centerY = _roomH * 0.5f - posY + height * 0.5f;
-            rt.anchoredPosition = new Vector2(centerX, centerY);
-            rt.sizeDelta = new Vector2(width, height);
-        }
+        
+        if (rt == null) return;
+        
+        // JSON: (posX, posY) = item's bottom-left corner, (0,0) = room's bottom-left, Y increases upward
+        // Unity: anchoredPosition = item's center relative to room's center, Y increases upward
+        var centerX = posX - _roomW * 0.5f + width * 0.5f;
+        var centerY = posY - _roomH * 0.5f + height * 0.5f;
+        rt.anchoredPosition = new Vector2(centerX, centerY);
+        rt.sizeDelta = new Vector2(width, height);
     }
 
     internal static void ConfigureCanvasGroup(GameObject go)

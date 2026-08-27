@@ -6,6 +6,237 @@
 
 ---
 
+## Coordinate System
+
+- X: positive = east / right, negative = west / left
+- Y: positive = north / up, negative = south / down
+- Standard room size: **400x200** (w×h), double-wide rooms **820×200**
+- Special sizes: Nave 820×420, Windlit Gallery 1660×200, backstairs 200×420
+
+## Room Grid by Tier
+
+### Tier -5094 (Offshore — not a room)
+| X | Room | Label |
+|---|------|-------|
+| -4336 | ocean | The Atlantic Ocean |
+
+### Tier -3052 (Beaches — not explorable rooms)
+| X | Room | Label |
+|---|------|-------|
+| 10232 | brancrugbeach | (beach W of Brancrug) |
+| 4934 | secondbeach | Crowcross Sands |
+| 5236 | cucurbitbridge | (bridge to Gaol) |
+
+### Tier -1520 (Deepest underground)
+| X | Room | Label |
+|---|------|-------|
+| -3740 | deeplightcaves | Deep-Light Caves |
+| -3320 | shrinetosttentreto | Shrine to St Tentreto |
+| -2480 | ironvault | Iron Vault |
+| -1640 | ivoryvault | Ivory Vault |
+
+### Tier -1300
+| X | Room | Label |
+|---|------|-------|
+| -3740 | seacaves | Sea-Caves |
+| -2480 | catacombs | Catacombs |
+| -1640 | columbiccrypt | Columbic Crypt |
+| -1220 | lowerpumproom | Lower Pump Room |
+
+### Tier -1080
+| X | Room | Label |
+|---|------|-------|
+| -3740 | boathouse | Boathouse |
+| -2900 | chapelmalachite | Chapel Malachite |
+| -2480 | chapelascite | Chapel Ascite |
+| -2060 | chapelcalicite | Chapel Calicite |
+| -1640 | hallofvoices | Hall of Voices |
+| -1220 | upperpumproom | Upper Pump Room |
+| -590 | rowenarium | Rowenarium |
+| 40 | silvervault | Silver Vault |
+
+### Tier -860
+| X | Room | Label |
+|---|------|-------|
+| -3740 | hermitcell | Hermit Cell |
+| -3320 | smuggler'sden | Smuggler's Den |
+| -2480 | ourladybeneath | Our Lady Beneath |
+| -1640 | narthex | Narthex |
+| -1220 | sacredspring | Sacred Spring |
+
+### Tier -640
+| X | Room | Label |
+|---|------|-------|
+| -3740 | gullcolony | Gull Colony |
+| -2480 | whisperingstair | Whispering Stair |
+| -1220 | deepwelldescent | Deep Well Descent |
+
+### Tier -420
+| X | Room | Label |
+|---|------|-------|
+| -2480 | hiddenstair | Hidden Stair |
+| -1220 | welldescent | Well Descent |
+
+### Tier -200 (Cellars)
+| X | Room | Label |
+|---|------|-------|
+| -3320 | earlbrian'sfield | Earl Brian's Field |
+| -2900 | earthcellar | Earth Cellar |
+| -2480 | winecellar | Wine Cellar |
+| -1850 | kitchengarden | Kitchen Garden |
+| -1220 | well | Well |
+| -800 | foundry | Foundry |
+
+### Tier 20 (Ground floor — servants quarters, kitchens, gardens)
+| X | Room | Label |
+|---|------|-------|
+| -4580 | oubliette | Oubliette |
+| -2890 | stairtenebrous | Stair Tenebrous |
+| -2060 | servantsquarters2 | Servants' Quarters - North |
+| -1640 | servantsquarters1 | Servants' Quarters - South |
+| -1220 | pantry | Pantry |
+| -800 | kitchen | Kitchen |
+| -380 | servantshall | Servants' Hall |
+| 250 | scentgarden | Scent Garden |
+| 1085 | practicgarden | Practic Garden |
+
+### Tier 130
+| X | Room | Label |
+|---|------|-------|
+| -2380 | backstairs | Back Stairs (200×420) |
+
+### Tier ~128 (Bridge to Gaol)
+| X | Room | Label |
+|---|------|-------|
+| 5236 | cucurbitbridge | Cucurbit Bridge |
+
+### Tier 240 (Ground floor main — entrance, refectory, stores)
+| X | Room | Label |
+|---|------|-------|
+| -5000 | loadingdock | Loading Dock |
+| -4580 | gaolcellar | Gaol Cellar |
+| -2900 | nightgallery | Night Gallery |
+| -2060 | stores | Stores |
+| -1640 | refectory | Refectory |
+| -1220 | mazarineroom | Mazarine Room |
+| -800 | readingroom | Reading Room |
+| -380 | grandascent.g | Grand Ascent - Ground |
+| 250 | entrancehall | Entrance Hall |
+| 1085 | cloister | Cloister |
+| 1710 | gatehouse | Gatehouse |
+
+### Tier 460 (First floor — chambers, map room)
+| X | Room | Label |
+|---|------|-------|
+| -4580 | gaolkitchen | Gaol Kitchen |
+| -4160 | gaolhall | Gaol Hall |
+| -3740 | gaolyard | Gaol Yard |
+| -3320 | gaolbridge | Gaol Bridge |
+| -2480 | vestibulumtransitus | Vestibulum Transitus |
+| -1850 | ballroomduellinghall | Ballroom / Duelling Hall |
+| -1220 | mapchamber | Map Room |
+| -800 | westcottroom | Westcott Room |
+| -380 | grandascent.1 | Grand Ascent - 1st |
+| 250 | physicgarden | Physic Garden |
+| 1295 | longtower1 | Long Tower: Solomon's Study |
+| 1710 | watchmanstower1 | Watchman's Tower |
+| 2430 | lodge | Keeper's Lodge |
+
+### Tier 680 (Second floor — chambers, infirmary)
+| X | Room | Label |
+|---|------|-------|
+| -4580 | cell-long | Long Cell |
+| -4160 | cell-adept | Adept's Cell |
+| -3740 | staff-room | Staff-Room |
+| -2900 | gullscryloggia | Gullscry Loggia |
+| -2060 | librarianquarters | Librarian's Quarters |
+| -1640 | palechamber | Pale Chamber |
+| -1222 | violetchamber | Violet Chamber |
+| -800 | severnchamber | Severn Chamber |
+| -380 | grandascent.2 | Grand Ascent - 2nd |
+| 250 | infirmaryg | Infirmary |
+| 1295 | longtower2 | Long Tower: Solomon's Quarters |
+| 1710 | watchmanstower2 | Watchman's Tower |
+
+### Tier 900 (Third floor — gallery, infirmary)
+| X | Room | Label |
+|---|------|-------|
+| -4580 | cell-worm-inhabited | Worm-Inhabited Cell |
+| -4160 | cell-unknown | Unknown Cell |
+| -3740 | crucibletower1 | Crucible Tower 1 |
+| -2900 | gullscrytower1 | Gullscry Tower: Florescot |
+| -1850 | hallofmirrors | Hall of Division |
+| -1010 | fluddgallery | Fludd Gallery |
+| -380 | grandascent.3 | Grand Ascent - 3rd |
+| 40 | infirmary1a | Examination Room |
+| 460 | infirmary1b | Patients' Lounge |
+
+### Tier 1120
+| X | Room | Label |
+|---|------|-------|
+| -3740 | crucibletower2 | Crucible Tower 2 |
+| -2902 | gullscrytower2 | Gullscry Tower: Eales' Room |
+| -380 | atrium | Atrium |
+| 460 | motleytower1 | Motley Tower: Illopoly's Nook |
+| -1640 | chancel | Chancel *(shifted: y=1125)* |
+
+### Tier 1230
+| X | Room | Label |
+|---|------|-------|
+| -1010 | nave | Nave of the Abbey Church (820×420) |
+
+### Tier 1340
+| X | Room | Label |
+|---|------|-------|
+| -3740 | crucibletower3 | Crucible Tower 3 |
+| -2902 | gullscrytower3 | Gullscry Tower: Summit |
+| -1640 | radiantstair | Radiant Stair |
+| -380 | gloriousstair | Glorious Stair |
+| 460 | motleytower2 | Motley Tower: Dispensary |
+
+### Tier 1560
+| X | Room | Label |
+|---|------|-------|
+| -2060 | chapterhouse | Chapter House |
+| -1010 | windlitgallery | Windlit Gallery (1660×200) |
+| 460 | motleytower3 | Motley Tower: Regensburg Room |
+
+### Tier 1780
+| X | Room | Label |
+|---|------|-------|
+| -2060 | solarium | Solarium |
+| -1640 | churchtower1 | Church Tower 1 |
+
+### Tier 2000
+| X | Room | Label |
+|---|------|-------|
+| -1640 | churchtower2 | Church Tower 2 |
+
+### Tier 2220
+| X | Room | Label |
+|---|------|-------|
+| -1640 | bells | Bells |
+
+### Tier 2440
+| X | Room | Label |
+|---|------|-------|
+| -1640 | spire | Spire |
+
+## Room Naming Conventions
+
+| Prefix | Type | Example terrain ID |
+|--------|------|-------------------|
+| `terrain.stately_` | House rooms (original Dewulf manor) | `terrain.lodge` |
+| `terrain.statelyhome_` | Entrance / backstairs | `terrain.entrancehall` |
+| `terrain.curia_` | Curia of the Isle rooms | `terrain.hallofmirrors` |
+| `terrain.solar_` | Abbey church & solar rooms | `terrain.nave` |
+| `terrain.nocturnal_` | Gaol / Nocturnal Branch | `terrain.gaolhall` |
+| `terrain.alfresco_` | Gardens & outdoor | `terrain.physicgarden` |
+| `terrain.underground_` | Caves & underworld | `terrain.seacaves` |
+| `terrain.` (bare) | Simple names | `terrain.ocean`, `terrain.backstairs` |
+
+---
+
 ## atrium
 
 **Room ID:** `atrium`  

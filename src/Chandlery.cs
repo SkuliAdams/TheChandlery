@@ -1,3 +1,4 @@
+using System;
 using HarmonyLib;
 using TheHouse;
 using TheHouse.Colonel;
@@ -17,16 +18,29 @@ public static class TheChandlery
         Debug.Log("Chandlery: Initialising...");
 
         // General data loading module, including port of some Roost functionality
-        Wheel.Enact(_harmony);
+        EnactModule("Wheel", () => Wheel.Enact(_harmony));
         // Main menu manipulation nodule
-        Flowermaker.Enact(_harmony);
+        EnactModule("Flowermaker", () => Flowermaker.Enact(_harmony));
         // Terrain feature disabling module
-        WolfDivided.Enact(_harmony);
+        EnactModule("WolfDivided", () => WolfDivided.Enact(_harmony));
         // Terrain feature creation module
-        Lionsmith.Enact(_harmony);
-        // In-game background manipulation module, in progress
-        // Colonel.Enact(_harmony);
+        EnactModule("Lionsmith", () => Lionsmith.Enact(_harmony));
+        // In-game background/map feature manipulation module
+        EnactModule("Colonel", () => Colonel.Enact(_harmony));
 
         Debug.Log("Chandlery: Ready");
+    }
+
+    private static void EnactModule(string name, Action action)
+    {
+        try
+        {
+            action();
+            Debug.Log($"Chandlery: {name} ready");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Chandlery: {name} failed to initialise:\n{ex}");
+        }
     }
 }

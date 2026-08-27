@@ -7,6 +7,7 @@
         <AssemblyName>TheChandlery</AssemblyName>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <LangVersion>latest</LangVersion>
+        <WarningsAsErrors>CS8019</WarningsAsErrors>
         <BOHGamePath>$(BOHGamePath)</BOHGamePath>
         <BOHModsPath>$(BOHModsPath)</BOHModsPath>
     </PropertyGroup>

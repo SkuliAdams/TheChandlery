@@ -65,6 +65,27 @@ public class WheelNullableImporter : AbstractImporter
     }
 }
 
+public class WheelTrackedImporter : AbstractImporter
+{
+    public override object Import(object data, Type type)
+    {
+        var import = ImportMethods.GetDefaultImportFuncForType(type);
+        return import(data, type);
+    }
+
+    public override object GetDefaultValue<T>(CachedFucineProperty<T> cachedFucineProperty)
+    {
+        return FactoryInstantiator.CreateObjectWithDefaultConstructor(cachedFucineProperty.ThisPropInfo.PropertyType);
+    }
+
+    public override void TryImportProperty<T>(T entity, CachedFucineProperty<T> cachedFucineProperty, EntityData entityData)
+    {
+        if (entityData.ValuesTable.Contains(cachedFucineProperty.LowerCaseName))
+            WheelStore.MarkPropertySpecified(entity, cachedFucineProperty.LowerCaseName);
+        base.TryImportProperty(entity, cachedFucineProperty, entityData);
+    }
+}
+
 public class WheelExtendedPathImporter : AbstractImporter
 {
     public override object Import(object data, Type type)
@@ -104,4 +125,12 @@ public class WheelFucineNullable : Fucine
     public WheelFucineNullable(object defaultValue) { DefaultValue = defaultValue; }
 
     public override AbstractImporter CreateImporterInstance() { return new WheelNullableImporter(); }
+}
+
+[AttributeUsage(AttributeTargets.Property)]
+public class WheelFucineTracked : Fucine
+{
+    public WheelFucineTracked() { }
+
+    public override AbstractImporter CreateImporterInstance() { return new WheelTrackedImporter(); }
 }
