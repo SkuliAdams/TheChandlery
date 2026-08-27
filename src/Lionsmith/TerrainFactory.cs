@@ -16,17 +16,6 @@ using Object = UnityEngine.Object;
 
 namespace TheHouse;
 
-// We use the MostProminentPhysicalWorldObjects layer for custom objects since it's unused and in roughly the right place
-// Things can then be sorted within this layer depending on their purpose
-internal static class FauxLayer
-{
-    public const string BaseLayer = "MostProminentPhysicalWorldObjects";
-
-    public const int Background = 0;
-    public const int Room = 1000;
-    public const int Foreground = 2000;
-}
-
 internal class TerrainFactory
 {
     private const string DefaultTemplateId = "watchmanstower1";
@@ -250,7 +239,7 @@ internal class TerrainFactory
 
         canvas.overrideSorting = true;
         canvas.sortingLayerID = SortingLayer.NameToID(FauxLayer.BaseLayer);
-        canvas.sortingOrder = FauxLayer.Room;
+        canvas.sortingOrder = (int)FauxLayerBand.Room;
     }
 
     private static void ApplySprites(TerrainFeature terrainFeature, float resolvedW, float resolvedH, CustomTerrainDefinition def)
@@ -271,13 +260,13 @@ internal class TerrainFactory
             {
                 case "RoomImage":
                     var spriteKey = def.Sprite ?? def.Id;
-                    img.sprite = TerrainRegistry.FindSprite(spriteKey)
+                    img.sprite = SpriteLookup.Find(spriteKey)
                                  ?? CreatePlaceholder(def.Id + "_unshrouded", spriteWidth, spriteHeight);
                     break;
 
                 case "ShroudedImage":
                     var shroudKey = def.ShroudSprite ?? ((def.Sprite ?? def.Id) + "_shrouded");
-                    img.sprite = TerrainRegistry.FindSprite(shroudKey)
+                    img.sprite = SpriteLookup.Find(shroudKey)
                                  ?? CreatePlaceholder(def.Id + "_shrouded", spriteWidth, spriteHeight);
                     break;
 

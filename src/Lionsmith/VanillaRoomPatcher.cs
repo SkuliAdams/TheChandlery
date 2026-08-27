@@ -60,7 +60,7 @@ internal class VanillaRoomPatcher
             switch (img.name)
             {
                 case "RoomImage" when def.Sprite != null:
-                    var newSprite = TerrainRegistry.FindSprite(def.Sprite);
+                    var newSprite = SpriteLookup.Find(def.Sprite);
                     if (newSprite != null)
                         img.sprite = newSprite;
                     else
@@ -68,7 +68,7 @@ internal class VanillaRoomPatcher
                     break;
 
                 case "ShroudedImage" when def.ShroudSprite != null:
-                    var newShroud = TerrainRegistry.FindSprite(def.ShroudSprite);
+                    var newShroud = SpriteLookup.Find(def.ShroudSprite);
                     if (newShroud != null)
                         img.sprite = newShroud;
                     else

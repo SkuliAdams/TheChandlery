@@ -25,8 +25,8 @@ public static class TheChandlery
         EnactModule("WolfDivided", () => WolfDivided.Enact(_harmony));
         // Terrain feature creation module
         EnactModule("Lionsmith", () => Lionsmith.Enact(_harmony));
-        // In-game background manipulation module, in progress
-        // EnactModule("Colonel", () => Colonel.Enact(_harmony));
+        // In-game background/map feature manipulation module
+        EnactModule("Colonel", () => Colonel.Enact(_harmony));
 
         Debug.Log("Chandlery: Ready");
     }
