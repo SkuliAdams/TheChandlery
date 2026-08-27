@@ -27,6 +27,7 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
     [FucineValue] public string ShroudSprite { get; set; }
     [FucineValue] public string TemplateId { get; set; }
     [FucineValue] public string RoomSize { get; set; }
+    [WheelFucineNullable] public float? Scale { get; set; }
 
     [FucineSubEntity]
     public RoomContentsDefinition Contents { get; set; }
@@ -45,7 +46,7 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
     private const float BlockHeight = 200f;
     private const float BlockGap = 20f;
 
-    public void ResolveSize(out float w, out float h, float defaultW = 400f, float defaultH = 200f)
+    public void ResolveSize(out float w, out float h, float spriteW = 0f, float spriteH = 0f)
     {
         if (!string.IsNullOrEmpty(RoomSize))
         {
@@ -59,10 +60,11 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
                 h = BlockHeight * rows + BlockGap * (rows - 1);
                 return;
             }
-            Debug.LogWarning($"Chandlery Lionsmith: Invalid RoomSize '{RoomSize}' for room '{Id}', falling back to Width/Height");
+            Debug.LogWarning($"Chandlery Lionsmith: Invalid RoomSize '{RoomSize}' for room '{Id}', falling back to sprite size or default");
         }
-        w = Width ?? defaultW;
-        h = Height ?? defaultH;
+        var scale = Scale.HasValue && Scale.Value > 0f ? Scale.Value : 4.2f;
+        w = Width ?? (spriteW > 0f ? spriteW / scale : 400f);
+        h = Height ?? (spriteH > 0f ? spriteH / scale : 200f);
     }
 }
 
@@ -99,8 +101,9 @@ public class BackgroundDefinition : AbstractEntity<BackgroundDefinition>
     [WheelFucineNullable] public float? Height { get; set; }
     [WheelFucineNullable] public float? OffsetX { get; set; }
     [WheelFucineNullable] public float? OffsetY { get; set; }
+    [WheelFucineNullable] public float? Scale { get; set; }
 
     public bool IsEmpty =>
         Sprite == null && Width == null && Height == null
-        && OffsetX == null && OffsetY == null;
+        && OffsetX == null && OffsetY == null && Scale == null;
 }

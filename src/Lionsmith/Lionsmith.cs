@@ -227,6 +227,7 @@ internal static class Lionsmith
             Height = bg.Height,
             PosX = (def.PosX ?? 0f) + (bg.OffsetX ?? 0f),
             PosY = (def.PosY ?? 0f) + (bg.OffsetY ?? 0f),
+            Scale = bg.Scale,
             ClickBlocking = false
         });
     }

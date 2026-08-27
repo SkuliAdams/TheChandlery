@@ -39,7 +39,8 @@ publicdocs/VanillaRoomReference.md. Positive X goes right, positive Y goes up.
 ----------
 
 Sprites are loaded from the images and chandlery folders, and
-should be named <roomid> and <roomid>_shrouded.
+should be named <roomid> and <roomid>_shrouded. Sprite names are matched
+exactly (case-insensitive) against the file name, ignoring the folder.
 
 If no sprite is found, a solid black placeholder is generated
 automatically (sized to match the room dimensions).
@@ -50,8 +51,12 @@ automatically (sized to match the room dimensions).
 By default, the room ID is used as the sprite name. Set explicit sprite
 fields to use a different name.
 
-Sprites should be (room_width * 4.2) x (room_height * 4.2).
-For example, a 400x200 room's images should be 1680x840 px.
+Sprite resolution uses a scale: sprite pixels = room units x scale. The
+default scale is 4.2 (the value the vanilla game uses), so a 400x200 room's
+images should be 1680x840 px. To use a different pixel density, set the scale
+on the room:
+
+    "scale": 2.0
 
 
 3. ROOM SIZE
@@ -70,8 +75,9 @@ Or use the roomsize shorthand for grid-based sizing (each block is
     "roomsize": "1x2"    -> 400 x 420
     "roomsize": "2x2"    -> 820 x 420
 
-If neither is provided, the default is 400 x 200. If width/height and
-roomsize are both set, roomsize takes precedence.
+If neither width/height nor roomsize is provided, the room size defaults to
+the room sprite's pixel size divided by the scale. If width/height and roomsize
+are both set, roomsize takes precedence.
 
 
 4. START STATE

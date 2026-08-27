@@ -19,10 +19,19 @@ internal static class SpriteLookup
         if (images == null)
             return null;
 
-        searchKey = searchKey.ToLowerInvariant();
+        searchKey = searchKey.Replace('/', '\\').ToLowerInvariant();
+        var lastSep = searchKey.LastIndexOf('\\');
+        var searchName = lastSep >= 0 ? searchKey.Substring(lastSep + 1) : searchKey;
+
         foreach (var kv in images)
-            if (kv.Key.ToLowerInvariant().EndsWith(searchKey))
+        {
+            var keyName = kv.Key.Replace('/', '\\').ToLowerInvariant();
+            var sep = keyName.LastIndexOf('\\');
+            keyName = sep >= 0 ? keyName.Substring(sep + 1) : keyName;
+
+            if (keyName == searchName)
                 return kv.Value;
+        }
 
         return null;
     }

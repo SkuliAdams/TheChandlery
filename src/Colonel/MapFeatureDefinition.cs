@@ -35,6 +35,8 @@ public class MapFeatureDefinition : AbstractEntity<MapFeatureDefinition>
 
     [WheelFucineNullable] public bool? ClickBlocking { get; set; }
 
+    [WheelFucineNullable] public float? Scale { get; set; }
+
     public FauxLayerBand ResolveBand()
     {
         FauxLayer.TryParse(Layer, out var band);

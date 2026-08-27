@@ -154,7 +154,10 @@ internal class TerrainFactory
         roomInstance.ExtractArchetypes();
         StripInteractiveChildren(clone);
 
-        def.ResolveSize(out var resolvedW, out var resolvedH);
+        var roomSprite = SpriteLookup.Find(def.Sprite ?? def.Id);
+        def.ResolveSize(out var resolvedW, out var resolvedH,
+            roomSprite != null ? roomSprite.rect.width : 0f,
+            roomSprite != null ? roomSprite.rect.height : 0f);
         roomInstance.PopulateContents(resolvedW, resolvedH);
 
         var rt = clone.GetComponent<RectTransform>();
@@ -248,8 +251,9 @@ internal class TerrainFactory
         if (manifestationGo == null)
             return;
 
-        var spriteWidth = Mathf.RoundToInt(resolvedW * 4.2f);
-        var spriteHeight = Mathf.RoundToInt(resolvedH * 4.2f);
+        var scale = def.Scale.HasValue && def.Scale.Value > 0f ? def.Scale.Value : 4.2f;
+        var spriteWidth = Mathf.RoundToInt(resolvedW * scale);
+        var spriteHeight = Mathf.RoundToInt(resolvedH * scale);
 
         foreach (var img in manifestationGo.GetComponentsInChildren<Image>(true))
         {

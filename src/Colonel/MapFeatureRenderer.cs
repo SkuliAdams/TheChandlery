@@ -41,12 +41,13 @@ internal static class MapFeatureRenderer
 
         var sprite = ResolveSprite(feature);
 
-        var w = feature.Width ?? (sprite != null ? sprite.rect.width / 4.2f : 400f);
-        var h = feature.Height ?? (sprite != null ? sprite.rect.height / 4.2f : 200f);
+        var scale = feature.Scale.HasValue && feature.Scale.Value > 0f ? feature.Scale.Value : 4.2f;
+        var w = feature.Width ?? (sprite != null ? sprite.rect.width / scale : 400f);
+        var h = feature.Height ?? (sprite != null ? sprite.rect.height / scale : 200f);
 
         if (sprite == null)
         {
-            sprite = CreatePlaceholder(feature.Id, Mathf.RoundToInt(w * 4.2f), Mathf.RoundToInt(h * 4.2f));
+            sprite = CreatePlaceholder(feature.Id, Mathf.RoundToInt(w * scale), Mathf.RoundToInt(h * scale));
             Debug.LogWarning($"Chandlery Colonel: No sprite found for map feature '{feature.Id}' — using placeholder");
         }
 
