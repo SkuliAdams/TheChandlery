@@ -38,6 +38,9 @@ public class CustomTerrainDefinition : AbstractEntity<CustomTerrainDefinition>
     [FucineSubEntity]
     public UnlockRecipeDefinition UnlockRecipe { get; set; }
 
+    [FucineSubEntity]
+    public BackgroundDefinition Background { get; set; }
+
     private const float BlockWidth = 400f;
     private const float BlockHeight = 200f;
     private const float BlockGap = 20f;
@@ -83,4 +86,21 @@ public class UnlockRecipeDefinition : AbstractEntity<UnlockRecipeDefinition>
         && (Aspects == null || Aspects.Count == 0)
         && (Essential == null || Essential.Count == 0)
         && (Forbidden == null || Forbidden.Count == 0);
+}
+
+public class BackgroundDefinition : AbstractEntity<BackgroundDefinition>
+{
+    public BackgroundDefinition() { }
+    public BackgroundDefinition(EntityData d, ContentImportLog l) : base(d, l) { }
+    protected override void OnPostImportForSpecificEntity(ContentImportLog log, Compendium populatedCompendium) { }
+
+    [FucineValue] public string Sprite { get; set; }
+    [WheelFucineNullable] public float? Width { get; set; }
+    [WheelFucineNullable] public float? Height { get; set; }
+    [WheelFucineNullable] public float? OffsetX { get; set; }
+    [WheelFucineNullable] public float? OffsetY { get; set; }
+
+    public bool IsEmpty =>
+        Sprite == null && Width == null && Height == null
+        && OffsetX == null && OffsetY == null;
 }

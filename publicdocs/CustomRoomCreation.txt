@@ -241,6 +241,32 @@ If an element has the "fixed" aspect in its definition, the spawned
 item will be immovable (cannot be dragged).
 
 
+9. BACKGROUND
+-------------
+
+A room can define a decorative background image behind it. The background
+is a map feature (see MapFeatures.txt) that is always on the "background"
+layer, positioned relative to the room's bottom-left corner.
+
+    "background": {
+      "sprite": "<name-without-extension>",
+      "width": 500.0,
+      "height": 300.0,
+      "offsetx": -50.0,
+      "offsety": -50.0
+    }
+
+- sprite: optional. Defaults to the background's id, "<roomid>.background".
+- width / height: optional. Default to the sprite's pixel size divided by 4.2
+  (falling back to 400 x 200 if no sprite is found).
+- offsetx / offsety: how far the background's bottom-left corner is offset from
+  the room's bottom-left corner. Negative is down/left, positive is up/right.
+  Default 0.
+
+The background's id is always "<roomid>.background" and its layer is always
+"background", so it renders behind the room. Backgrounds do not block clicks.
+
+
 FULL EXAMPLE
 ------------
 

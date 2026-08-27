@@ -34,6 +34,11 @@ public static class Colonel
         MapFeatureStore.AddProgrammatic(feature);
     }
 
+    public static void Refresh()
+    {
+        Rebuild();
+    }
+
     public static void AddMapFeature(string id, string sprite, FauxLayerBand layer,
         float posX, float posY, float width, float height, int? order = null)
     {

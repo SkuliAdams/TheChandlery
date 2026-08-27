@@ -10,6 +10,12 @@
       "startsunsealed": true,
       "connectedto": ["thechandlery.example2", "thechandlery.example3"],
       "aspects": { "forge": 1, "lantern": 1 },
+      "background": {
+        "width": 440.0,
+        "height": 240.0,
+        "offsetx": -20.0,
+        "offsety": -20.0
+      },
       "unlockrecipe": {
         "label": "The Chandlery",
         "preface": "The Chandlery",

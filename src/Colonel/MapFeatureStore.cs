@@ -34,6 +34,7 @@ internal static class MapFeatureStore
             return;
         }
 
+        Programmatic.RemoveAll(f => f.Id == feature.Id);
         Programmatic.Add(feature);
     }
 

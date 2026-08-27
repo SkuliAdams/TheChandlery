@@ -12,9 +12,9 @@
     {
       "id": "examplemod.halloverlay",
       "layer": "foreground",
-      "posx": 3270.0,
+      "posx": 3420.0,
       "posy": 360.0,
-      "width": 600.0,
+      "width": 300.0,
       "height": 100.0
     }
   ]

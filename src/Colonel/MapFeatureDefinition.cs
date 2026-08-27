@@ -33,6 +33,8 @@ public class MapFeatureDefinition : AbstractEntity<MapFeatureDefinition>
 
     [WheelFucineNullable] public int? Order { get; set; }
 
+    [WheelFucineNullable] public bool? ClickBlocking { get; set; }
+
     public FauxLayerBand ResolveBand()
     {
         FauxLayer.TryParse(Layer, out var band);

@@ -7,6 +7,8 @@ using SecretHistories.Infrastructure;
 using SecretHistories.Spheres;
 using SecretHistories.Tokens.Payloads;
 using SecretHistories.UI;
+using TheHouse.Colonel;
+using ColonelApi = TheHouse.Colonel.Colonel;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -189,7 +191,10 @@ internal static class Lionsmith
 
             var factory = new TerrainFactory();
             foreach (var def in newDefs)
+            {
                 factory.Create(def);
+                RegisterBackground(def);
+            }
 
             var patcher = new VanillaRoomPatcher();
             foreach (var def in overrideDefs)
@@ -199,10 +204,30 @@ internal static class Lionsmith
                 if (def.ConnectedTo is { Count: > 0 })
                     TerrainRegistry.RegisterConnection(def.Id, def.ConnectedTo);
             }
+
+            ColonelApi.Refresh();
         }
         catch (Exception ex)
         {
             Debug.LogError($"Chandlery Lionsmith: Error during terrain injection: {ex.Message}\n{ex.StackTrace}");
         }
+    }
+
+    private static void RegisterBackground(CustomTerrainDefinition def)
+    {
+        var bg = def.Background;
+        if (bg == null || bg.IsEmpty)
+            return;
+
+        ColonelApi.AddMapFeature(new MapFeatureDefinition(def.Id + ".background")
+        {
+            Sprite = bg.Sprite,
+            Layer = "background",
+            Width = bg.Width,
+            Height = bg.Height,
+            PosX = (def.PosX ?? 0f) + (bg.OffsetX ?? 0f),
+            PosY = (def.PosY ?? 0f) + (bg.OffsetY ?? 0f),
+            ClickBlocking = false
+        });
     }
 }

@@ -33,8 +33,6 @@ internal static class MapFeatureRenderer
 
     private static void Render(MapFeatureDefinition feature, Transform parent)
     {
-        var w = feature.Width ?? 400f;
-        var h = feature.Height ?? 200f;
         var posX = feature.PosX ?? 0f;
         var posY = feature.PosY ?? 0f;
 
@@ -42,6 +40,10 @@ internal static class MapFeatureRenderer
         var order = FauxLayer.ResolveOrder(band, feature.Order);
 
         var sprite = ResolveSprite(feature);
+
+        var w = feature.Width ?? (sprite != null ? sprite.rect.width / 4.2f : 400f);
+        var h = feature.Height ?? (sprite != null ? sprite.rect.height / 4.2f : 200f);
+
         if (sprite == null)
         {
             sprite = CreatePlaceholder(feature.Id, Mathf.RoundToInt(w * 4.2f), Mathf.RoundToInt(h * 4.2f));
@@ -74,7 +76,10 @@ internal static class MapFeatureRenderer
         var image = imageGo.AddComponent<Image>();
         image.sprite = sprite;
         image.preserveAspect = false;
-        image.raycastTarget = false;
+        image.raycastTarget = feature.ClickBlocking ?? true;
+
+        if (image.raycastTarget)
+            root.AddComponent<GraphicRaycaster>();
 
         Debug.Log($"Chandlery Colonel: Placed map feature '{feature.Id}' at ({posX}, {posY}) on {band} (order {order})");
     }

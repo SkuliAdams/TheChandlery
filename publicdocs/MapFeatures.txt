@@ -1,9 +1,9 @@
 MAP FEATURES (COLONEL)
 ======================
 
-The Chandlery's Colonel module places partial, world-space images ("map
-features") onto the tabletop behind or in front of rooms. They are additive
-decorations that pan with the camera and sort against rooms/terrain.
+The Chandlery's Colonel module places world-space images ("map
+features") onto the tabletop. Their layering order amongst eachother
+and the game's rooms is configurable.
 
 Map features are defined in the "mapFeatures" array of any JSON file in a
 mod's content folder (e.g. mymod/content/mapfeatures/decals.json). Multiple
@@ -50,7 +50,9 @@ Posx and posy define the bottom-left corner of the feature on the world map,
 using the same coordinate system as rooms (see CustomRoomCreation.txt and
 VanillaRoomReference.md). Positive X goes right, positive Y goes up.
 
-Width and height default to 400 x 200 if omitted.
+Width and height default to the sprite's pixel size divided by 4.2 (the same
+ratio rooms use), so a sprite is rendered 1:1 with no rescaling. If no sprite
+is found, they fall back to 400 x 200.
 
 
 3. SPRITE
@@ -84,7 +86,19 @@ Order is an optional explicit sorting-order override. When omitted, the
 feature uses its band's default order.
 
 
-5. HIDING VANILLA BACKGROUNDS
+5. CLICK-BLOCKING
+-----------------
+
+Map features block mouse clicks by default, so clicking a feature doesn't
+pass through to the room/tabletop behind it. Set clickblocking to false to
+make a feature click-transparent.
+
+    "clickblocking": false
+
+(default true)
+
+
+6. HIDING VANILLA BACKGROUNDS
 -----------------------------
 
 To hide the vanilla map backgrounds and building overlay, add a flag file at
