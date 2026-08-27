@@ -22,6 +22,8 @@ internal static class SpriteLookup
         searchKey = searchKey.Replace('/', '\\').ToLowerInvariant();
         var lastSep = searchKey.LastIndexOf('\\');
         var searchName = lastSep >= 0 ? searchKey.Substring(lastSep + 1) : searchKey;
+        if (searchName.EndsWith(".png"))
+            searchName = searchName.Substring(0, searchName.Length - 4);
 
         foreach (var kv in images)
         {
