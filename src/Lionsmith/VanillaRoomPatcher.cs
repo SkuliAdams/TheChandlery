@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using SecretHistories;
@@ -18,6 +19,47 @@ namespace TheHouse;
 
 internal class VanillaRoomPatcher
 {
+    // Canonical sphere archetypes used when adding spheres to vanilla rooms.
+    private const string CanonicalArchetypeRoomId = "watchmanstower1";
+
+    private static readonly Dictionary<string, string> CanonicalArchetypeSphereIds = new()
+    {
+        ["normal"] = "ThingSlotDesk",
+        ["bookshelf"] = "ShelfSpaceDeskMid",
+        ["comfort"] = "ComfortSlotRight",
+        ["wall"] = "WallArtSlot",
+    };
+
+    internal static bool RoomAlreadyPatched(CustomTerrainDefinition def)
+    {
+        var contents = def.Contents;
+        if (contents == null || contents.Spheres == null || contents.Spheres.Count == 0)
+            return false;
+
+        var token = Watchman.Get<HornedAxe>().FindSingleOrDefaultTokenById(def.Id);
+        if (token?.Payload is not TerrainFeature tf)
+            return false;
+
+        return contents.Spheres.Any(sd =>
+        {
+            var found = FindSphereBySpecId(tf.gameObject, sd.Id);
+            return found != null && found.name.EndsWith("_override");
+        });
+    }
+
+    internal static bool OverrideNeedsNewSpheres(CustomTerrainDefinition def)
+    {
+        var contents = def.Contents;
+        if (contents?.Spheres == null || contents.Spheres.Count == 0)
+            return false;
+
+        var token = Watchman.Get<HornedAxe>().FindSingleOrDefaultTokenById(def.Id);
+        if (token?.Payload is not TerrainFeature tf)
+            return false;
+
+        return contents.Spheres.Any(sd => FindSphereBySpecId(tf.gameObject, sd.Id) == null);
+    }
+
     internal void Patch(CustomTerrainDefinition def)
     {
         try
@@ -223,7 +265,7 @@ internal class VanillaRoomPatcher
     private static void AddNewSphere(GameObject roomGo, ISphereOverrideTarget def,
         string sphereType, string roomId)
     {
-        var archetype = FindArchetypeForOverride(roomGo, sphereType);
+        var archetype = FindArchetypeForOverride(sphereType);
         if (archetype == null)
         {
             Debug.LogWarning($"Chandlery Lionsmith: Cannot add sphere '{def.Id}' — no archetype in room '{roomId}'");
@@ -416,21 +458,72 @@ internal class VanillaRoomPatcher
         return null;
     }
 
-    private static GameObject FindArchetypeForOverride(GameObject roomGo, string sphereType)
+    private static GameObject FindArchetypeForOverride(string sphereType)
     {
+        var canonical = FindCanonicalArchetype(sphereType);
+        if (canonical != null)
+            return canonical;
+
+        // Just in case another mod destroys the canonical spheres
+        return FindFallbackArchetype(sphereType);
+    }
+
+    private static GameObject FindCanonicalArchetype(string sphereType)
+    {
+        var sphereId = CanonicalArchetypeSphereIds.TryGetValue(sphereType ?? "normal", out var id)
+            ? id
+            : CanonicalArchetypeSphereIds["normal"];
+
+        var towerToken = Watchman.Get<HornedAxe>().FindSingleOrDefaultTokenById(CanonicalArchetypeRoomId);
+        if (towerToken?.Payload is not TerrainFeature towerTf)
+            return null;
+
+        return FindSphereBySpecId(towerTf.gameObject, sphereId);
+    }
+
+    private static GameObject FindFallbackArchetype(string sphereType)
+    {
+        Type componentType;
+        Func<Component, bool> filter;
         switch (sphereType ?? "normal")
         {
             case "bookshelf":
-                return FindArchetype(roomGo, typeof(ShelfSpaceSphere), null);
+                componentType = typeof(ShelfSpaceSphere);
+                filter = null;
+                break;
             case "comfort":
-                return FindArchetype(roomGo, typeof(ComfortSphere), null);
-            case "wall":
-                return FindArchetype(roomGo, typeof(PhysicalSphere),
-                    s => !(s is FitmentWorkstationSphere) && !(s is ComfortSphere));
+                componentType = typeof(ComfortSphere);
+                filter = null;
+                break;
             default:
-                return FindArchetype(roomGo, typeof(PhysicalSphere),
-                    s => !(s is FitmentWorkstationSphere) && !(s is ComfortSphere));
+                componentType = typeof(PhysicalSphere);
+                filter = s => s is not FitmentWorkstationSphere && s is not ComfortSphere;
+                break;
         }
+
+        foreach (var tf in Resources.FindObjectsOfTypeAll<TerrainFeature>())
+        {
+            if (!tf.gameObject.scene.IsValid())
+                continue;
+
+            foreach (var comp in tf.gameObject.GetComponentsInChildren(componentType, true))
+            {
+                if (filter != null && !filter(comp))
+                    continue;
+
+                var go = comp.gameObject;
+                if (go == tf.gameObject || go.name.StartsWith("__archetype_") || go.name.EndsWith("_override"))
+                    continue;
+
+                // Make sure it's not a weird sphere without a drop catcher (advent spheres, for example)
+                if (comp.GetComponentInChildren<SphereDropCatcher>(true) == null)
+                    continue;
+
+                return go;
+            }
+        }
+
+        return null;
     }
 
     private static GameObject FindArchetype(GameObject roomGo, Type componentType, Func<Component, bool> filter)

@@ -48,29 +48,41 @@ internal static class Lionsmith
 
     private static void OnTokenCreationCommandExecute(TokenCreationCommand __instance, Sphere sphere)
     {
-        if (__instance.Payload is PopulateTerrainFeatureCommand ptfc)
-        {
-            if (!TerrainRegistry.HasAny())
-            {
-                TerrainRegistry.LoadAll();
-                RecipeRegistrar.RegisterAll();
-            }
+        if (__instance.Payload is not PopulateTerrainFeatureCommand ptfc)
+            return;
 
-            var def = TerrainRegistry.Get(ptfc.Id);
-            if (def != null)
+        if (!TerrainRegistry.HasAny())
+        {
+            TerrainRegistry.LoadAll();
+            RecipeRegistrar.RegisterAll();
+        }
+
+        var def = TerrainRegistry.Get(ptfc.Id);
+        if (def == null)
+            return;
+
+        if (def.Override == true)
+        {
+            // If the game is loading a room's contents that need to be patched
+            // to add new spheres, patch it now so the load can find the spheres
+            var existing = Watchman.Get<HornedAxe>().FindSingleOrDefaultTokenById(ptfc.Id);
+            if (existing?.Payload is TerrainFeature
+                && VanillaRoomPatcher.OverrideNeedsNewSpheres(def)
+                && !VanillaRoomPatcher.RoomAlreadyPatched(def))
+                new VanillaRoomPatcher().Patch(def);
+            return;
+        }
+
+        var token = Watchman.Get<HornedAxe>().FindSingleOrDefaultTokenById(ptfc.Id);
+        if (token == null || !token.IsValid())
+        {
+            try
             {
-                var existing = Watchman.Get<HornedAxe>().FindSingleOrDefaultTokenById(ptfc.Id);
-                if (existing == null || !existing.IsValid())
-                {
-                    try
-                    {
-                        new TerrainFactory().CreateForLoad(def, sphere);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError($"[Chandlery Lionsmith ERROR] Failed to restore room '{ptfc.Id}' from save: {ex.Message}");
-                    }
-                }
+                new TerrainFactory().CreateForLoad(def, sphere);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[Chandlery Lionsmith ERROR] Failed to restore room '{ptfc.Id}' from save: {ex.Message}");
             }
         }
     }
@@ -199,7 +211,8 @@ internal static class Lionsmith
             var patcher = new VanillaRoomPatcher();
             foreach (var def in overrideDefs)
             {
-                patcher.Patch(def);
+                if (!VanillaRoomPatcher.RoomAlreadyPatched(def))
+                    patcher.Patch(def);
 
                 if (def.ConnectedTo is { Count: > 0 })
                     TerrainRegistry.RegisterConnection(def.Id, def.ConnectedTo);

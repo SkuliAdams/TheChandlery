@@ -277,12 +277,13 @@ internal class RoomInstance(GameObject root, CustomTerrainDefinition def)
         if (sphere == null) return;
 
         var catcher = go.GetComponentInChildren<SphereDropCatcher>(true);
-        if (catcher != null)
+        if (catcher == null)
         {
-            catcher.Sphere = sphere;
+            catcher = go.AddComponent<SphereDropCatcher>();
+            Debug.Log($"Chandlery RoomInstance: Created SphereDropCatcher for '{go.name}'");
         }
-        else
-            Debug.LogWarning($"Chandlery RoomInstance: No SphereDropCatcher found in children of '{go.name}'");
+
+        catcher.Sphere = sphere;
     }
 
     internal static void AddSphereSpec(GameObject go, string id, string label, string description,
