@@ -1,7 +1,7 @@
 # Base Game Rooms — Sphere & Seed Reference
 
 > Auto-generated from `S4Library.unity.unity` via AssetRipper export.
-> Generated: 2026-05-31T20:56:02.268Z
+> Generated: 2026-08-27T03:26:30.746Z
 > Total: 215 rooms, 1396 spheres, 564 seeds
 
 ---
@@ -12,6 +12,8 @@
 - Y: positive = north / up, negative = south / down
 - Standard room size: **400x200** (w×h), double-wide rooms **820×200**
 - Special sizes: Nave 820×420, Windlit Gallery 1660×200, backstairs 200×420
+- Sphere positions ("Pos (BL)") are **bottom-left, relative to the room** — matches Chandlery terrain `posx`/`posy`
+- Seed positions (shown as `element @ (x, y)`) are **bottom-left, relative to the sphere** — matches Chandlery seed `posx`/`posy`
 
 ## Room Grid by Tier
 
@@ -252,10 +254,10 @@
 |-----------|------|----------|------|---------|---------|-------|
 | `ComfortSlotLeft` | ComfortSphere | `61.05, 0.3` | `58.4×85.66` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `256, 60.6` | `0×0` | `library.altar.atrium` | — | — |
-| `ThingSlotAltarL` | PhysicalSphere | `220.4, 51.84` | `25.9×48.16` | `—` | — | `candle.holdergold` |
-| `ThingSlotAltarR` | PhysicalSphere | `265.05, 51.84` | `25.9×48.16` | `—` | — | `candle.holdergold` |
-| `ThingSlotNicheL` | PhysicalSphere | `194.55, 108.3` | `13.28×25` | `—` | — | `candle.aglaophotis` |
-| `ThingSlotNicheR` | PhysicalSphere | `303.76, 108.3` | `13.28×25` | `—` | — | `candle.aglaophotis` |
+| `ThingSlotAltarL` | PhysicalSphere | `220.4, 51.84` | `25.9×48.16` | `—` | — | `candle.holdergold` @ `7.83, 0` |
+| `ThingSlotAltarR` | PhysicalSphere | `265.05, 51.84` | `25.9×48.16` | `—` | — | `candle.holdergold` @ `7.83, 0` |
+| `ThingSlotNicheL` | PhysicalSphere | `194.55, 108.3` | `13.28×25` | `—` | — | `candle.aglaophotis` @ `0.27, 0` |
+| `ThingSlotNicheR` | PhysicalSphere | `303.76, 108.3` | `13.28×25` | `—` | — | `candle.aglaophotis` @ `0.27, 0` |
 
 ---
 
@@ -272,7 +274,7 @@
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `82.46, 184.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `79.66, 245.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot` | ComfortSphere | `46.54, 0` | `81.72×109.29` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `130.8, 0` | `69.2×146.56` | `—` | — | — |
 | `ThingSlot` | PhysicalSphere | `157, 219.5` | `37.2×54.28` | `—` | — | — |
@@ -298,7 +300,7 @@
 | `ComfortSlotChairLeft` | ComfortSphere | `383.41, 0` | `45.38×77.21` | `—` | — | — |
 | `ComfortSlotChairLeft.1` | ComfortSphere | `472.11, 0` | `49.35×77.21` | `—` | — | — |
 | `FitmentSlot.alpha` | FitmentWorkstationSphere | `355.3, 54.1` | `0×0` | `library.duelhall` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `428.79, 38.05` | `41.73×55.27` | `—` | — | `bust.natalia` |
+| `ThingSlotSeeded` | PhysicalSphere | `428.79, 38.05` | `41.73×55.27` | `—` | — | `bust.natalia` @ `4.49, 0` |
 | `WallArtSlotSeeded` | WallArtSphere | `159.23, 31.45` | `96.19×119.54` | `—` | — | — |
 | `WallArtSlotSeeded.1` | WallArtSphere | `282.9, 31.45` | `95.34×119.54` | `—` | — | — |
 | `WallArtSlotSeeded.2` | WallArtSphere | `526.63, 31.45` | `95.72×119.54` | `—` | — | — |
@@ -355,28 +357,28 @@
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `3499.1, 2246.85` | `35.07×51.86` | `—` | — | — |
-| `AdventPostOffic` | PhysicalSphere | `3499.1, 2246.85` | `35.07×51.86` | `—` | — | — |
-| `AdventPub` | PhysicalSphere | `3499.1, 2246.85` | `35.07×51.86` | `—` | — | — |
-| `AdventRectoryBase` | PhysicalSphere | `3499.1, 2246.85` | `35.07×51.86` | `—` | — | — |
-| `AdventSmithy` | PhysicalSphere | `3499.1, 2246.85` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `3496.3, 2308.35` | `35.07×51.86` | `—` | — | — |
+| `AdventPostOffic` | PhysicalSphere | `3496.3, 2308.35` | `35.07×51.86` | `—` | — | — |
+| `AdventPub` | PhysicalSphere | `3496.3, 2308.35` | `35.07×51.86` | `—` | — | — |
+| `AdventRectoryBase` | PhysicalSphere | `3496.3, 2308.35` | `35.07×51.86` | `—` | — | — |
+| `AdventSmithy` | PhysicalSphere | `3496.3, 2308.35` | `35.07×51.86` | `—` | — | — |
 | `BuildingSlotKilles` | PhysicalSphere | `2018.13, 2887.94` | `755.02×591.68` | `—` | — | — |
 | `BuildingSlotPostOffice` | PhysicalSphere | `3777.14, 1942.79` | `759×612` | `—` | — | — |
 | `BuildingSlotRectory` | PhysicalSphere | `3855.89, 2964.39` | `1227.49×772.79` | `—` | — | — |
 | `BuildingSlotSmithy` | PhysicalSphere | `4253.34, 783.96` | `1148.59×673.66` | `—` | — | — |
 | `BuildingSlotSweetBones` | PhysicalSphere | `788.16, 1625.24` | `2194.94×839.09` | `—` | — | — |
-| `ChristmasSlot.10` | PhysicalSphere | `5305.6, 3680.25` | `35.07×51.86` | `—` | — | `mackerel` |
-| `ChristmasSlot.12` | PhysicalSphere | `5424.2, 3458.95` | `35.07×51.86` | `—` | — | `ambergris` |
-| `ChristmasSlot.14` | PhysicalSphere | `5279.8, 3289.05` | `35.07×51.86` | `—` | — | `pearl.rose` |
-| `ChristmasSlot.17` | PhysicalSphere | `5368.1, 3290.85` | `35.07×51.86` | `—` | — | `awakened.feather` |
-| `ChristmasSlot.19` | PhysicalSphere | `5289.3, 3489.35` | `35.07×51.86` | `—` | — | `flushed.mommet` |
-| `ChristmasSlot.2` | PhysicalSphere | `5362.9, 3430.65` | `35.07×51.86` | `—` | — | `seaglass` |
-| `ChristmasSlot.21` | PhysicalSphere | `5193.6, 3382.15` | `35.07×51.86` | `—` | — | `chronsicord` |
-| `ChristmasSlot.23` | PhysicalSphere | `5300.8, 3402.45` | `35.07×51.86` | `—` | — | `january.sanguinary` |
-| `ChristmasSlot.25` | PhysicalSphere | `5329.1, 3709.45` | `35.07×51.86` | `—` | — | `uzult` |
-| `ChristmasSlot.4` | PhysicalSphere | `5361.4, 3517.95` | `35.07×51.86` | `—` | — | `dearday.lens` |
-| `ChristmasSlot.6` | PhysicalSphere | `5349.6, 3364.65` | `35.07×51.86` | `—` | — | `moly` |
-| `ChristmasSlot.8` | PhysicalSphere | `5291.5, 3565.85` | `35.07×51.86` | `—` | — | `ham.canned` |
+| `ChristmasSlot.10` | PhysicalSphere | `5302.8, 3741.75` | `35.07×51.86` | `—` | — | `mackerel` @ `8.31, 0` |
+| `ChristmasSlot.12` | PhysicalSphere | `5421.4, 3520.45` | `35.07×51.86` | `—` | — | `ambergris` @ `7.81, 0` |
+| `ChristmasSlot.14` | PhysicalSphere | `5277, 3350.55` | `35.07×51.86` | `—` | — | `pearl.rose` @ `11.69, 0` |
+| `ChristmasSlot.17` | PhysicalSphere | `5365.3, 3352.35` | `35.07×51.86` | `—` | — | `awakened.feather` @ `7.69, 0` |
+| `ChristmasSlot.19` | PhysicalSphere | `5286.5, 3550.85` | `35.07×51.86` | `—` | — | `flushed.mommet` @ `7.94, 0` |
+| `ChristmasSlot.2` | PhysicalSphere | `5360.1, 3492.15` | `35.07×51.86` | `—` | — | `seaglass` @ `8.94, 0` |
+| `ChristmasSlot.21` | PhysicalSphere | `5190.8, 3443.65` | `35.07×51.86` | `—` | — | `chronsicord` @ `2.29, 0` |
+| `ChristmasSlot.23` | PhysicalSphere | `5298, 3463.95` | `35.07×51.86` | `—` | — | `january.sanguinary` @ `12.69, 0` |
+| `ChristmasSlot.25` | PhysicalSphere | `5326.3, 3770.95` | `35.07×51.86` | `—` | — | `uzult` @ `12.31, 0` |
+| `ChristmasSlot.4` | PhysicalSphere | `5358.6, 3579.45` | `35.07×51.86` | `—` | — | `dearday.lens` @ `9.06, 0` |
+| `ChristmasSlot.6` | PhysicalSphere | `5346.8, 3426.15` | `35.07×51.86` | `—` | — | `moly` @ `5.06, 0` |
+| `ChristmasSlot.8` | PhysicalSphere | `5288.7, 3627.35` | `35.07×51.86` | `—` | — | `ham.canned` @ `9.81, 0` |
 | `FitmentSlot` | FitmentWorkstationSphere | `7523.64, -749.21` | `0×0` | `world.moor` | — | — |
 
 ---
@@ -416,8 +418,8 @@
 | `ComfortSlot.3` | ComfortSphere | `637.34, 0` | `95.2×79.29` | `—` | — | — |
 | `ComfortSlot.4` | ComfortSphere | `1135.26, 0` | `56.47×100` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `689.2, 100` | `0×0` | `library.altar.catacombs` | — | — |
-| `ShelfSpaceSphereL` | ShelfSpaceSphere | `336.4, 64.12` | `117.51×36.38` | `—` | — | `candle.holderblack`<br>`sacrament.ascite`<br>`chalice.lambig`<br>`seaglass` |
-| `ShelfSpaceSphereR` | ShelfSpaceSphere | `1040.73, 25.22` | `81.86×34.48` | `—` | — | `atlantic.amber`<br>`evas.locks`<br>`candle.holderblack` |
+| `ShelfSpaceSphereL` | ShelfSpaceSphere | `336.4, 64.12` | `117.51×36.38` | `—` | — | `candle.holderblack` @ `105.96, -0.54`<br>`sacrament.ascite` @ `93.36, -0.54`<br>`chalice.lambig` @ `16.09, -0.54`<br>`seaglass` @ `71.89, -0.54` |
+| `ShelfSpaceSphereR` | ShelfSpaceSphere | `1040.73, 25.22` | `81.86×34.48` | `—` | — | `atlantic.amber` @ `57.42, 1.7`<br>`evas.locks` @ `1.62, 1.7`<br>`candle.holderblack` @ `44.91, 0` |
 
 ---
 
@@ -439,8 +441,8 @@
 | `ComfortSlotSeeded` | ComfortSphere | `253.93, 0` | `46.39×59.17` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `81.8, 24.9` | `0×0` | `library.bed.guest.cell.adept` | — | — |
 | `ShelfOverBed` | ShelfSpaceSphere | `56.72, 82.51` | `51.06×43.82` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `292.2, 82.51` | `51.87×45.66` | `—` | — | `quire.paper` |
-| `ThingSlotSeeded.1` | PhysicalSphere | `297.47, 32.87` | `54.92×45.47` | `—` | — | `candle.bottle`<br>`typewriter.winter` |
+| `ThingSlotSeeded` | PhysicalSphere | `292.2, 82.51` | `51.87×45.66` | `—` | — | `quire.paper` @ `12.68, 0` |
+| `ThingSlotSeeded.1` | PhysicalSphere | `297.47, 32.87` | `54.92×45.47` | `—` | — | `candle.bottle` @ `42.96, 0`<br>`typewriter.winter` @ `8.97, 0.3` |
 | `WallArtSlot` | WallArtSphere | `243.72, 145.57` | `56.59×50.13` | `—` | — | — |
 | `WallArtSlotSeeded` | WallArtSphere | `105.61, 82.51` | `46.14×60.24` | `—` | — | — |
 | `WallArtSlotSeeded.1` | WallArtSphere | `249.58, 82.51` | `42.62×60.24` | `—` | — | — |
@@ -482,7 +484,7 @@
 |-----------|------|----------|------|---------|---------|-------|
 | `ComfortSlot` | ComfortSphere | `230.8, 0` | `53.2×100` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `202.9, 86.1` | `0×0` | `library.chrysalis` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `15.6, 39.9` | `67.88×50.21` | `—` | — | `asimel`<br>`vase.lilies`<br>`rubywise.ruin` |
+| `ThingSlotSeeded` | PhysicalSphere | `15.6, 39.9` | `67.88×50.21` | `—` | — | `asimel` @ `40.99, 0`<br>`vase.lilies` @ `1.74, 0`<br>`rubywise.ruin` @ `53.71, 0` |
 | `WallArtSlot` | WallArtSphere | `315.43, 42.3` | `81.97×47.81` | `—` | — | — |
 
 ---
@@ -503,7 +505,7 @@
 | `ComfortSlot` | ComfortSphere | `135.54, 0` | `45.02×127.79` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `90.52, 0` | `45.02×58.65` | `—` | — | — |
 | `ComfortSlot.2` | ComfortSphere | `223.69, 0` | `50.68×54.25` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `40.5, 62.4` | `95.04×68.81` | `—` | — | `witchworms.desiccated`<br>`whispering.sand`<br>`midnight.mark`<br>`stargall.ink` |
+| `ThingSlotSeeded` | PhysicalSphere | `40.5, 62.4` | `95.04×68.81` | `—` | — | `witchworms.desiccated` @ `4.32, 0`<br>`whispering.sand` @ `21.57, 0`<br>`midnight.mark` @ `59.57, 0`<br>`stargall.ink` @ `43.52, 0` |
 | `WallArtSlot` | WallArtSphere | `312.76, 115.79` | `81.54×53.27` | `—` | — | — |
 | `WallArtSlot.1` | WallArtSphere | `231.22, 58.65` | `138.69×51.39` | `—` | — | — |
 
@@ -524,10 +526,10 @@
 |-----------|------|----------|------|---------|---------|-------|
 | `FitmentSlot` | FitmentWorkstationSphere | `200, 43.8` | `0×0` | `library.altar.chancel` | — | — |
 | `ShelfSpaceSphereL` | ShelfSpaceSphere | `134.4, 67.2` | `40.29×36` | `—` | — | — |
-| `ShelfSpaceSphereR` | ShelfSpaceSphere | `225.66, 66.9` | `40.29×36` | `—` | — | `ichor.auroral` |
-| `ThingSlotAltar` | PhysicalSphere | `205.04, 49.1` | `17.15×25` | `—` | — | `ichor.vitreous` |
-| `ThingSlotLNiche` | PhysicalSphere | `47.11, 121.83` | `20.82×25.17` | `—` | — | `candle.historywax` |
-| `ThingSlotRNiche` | PhysicalSphere | `334.39, 121.83` | `20.82×25.17` | `—` | — | `candle.historywax` |
+| `ShelfSpaceSphereR` | ShelfSpaceSphere | `225.66, 66.9` | `40.29×36` | `—` | — | `ichor.auroral` @ `9.89, 0` |
+| `ThingSlotAltar` | PhysicalSphere | `205.04, 49.1` | `17.15×25` | `—` | — | `ichor.vitreous` @ `3.07, 0` |
+| `ThingSlotLNiche` | PhysicalSphere | `47.11, 121.83` | `20.82×25.17` | `—` | — | `candle.historywax` @ `4.03, 0` |
+| `ThingSlotRNiche` | PhysicalSphere | `334.39, 121.83` | `20.82×25.17` | `—` | — | `candle.historywax` @ `4.03, 0` |
 
 ---
 
@@ -547,10 +549,10 @@
 | `ComfortSlot` | ComfortSphere | `151.2, 0` | `61.66×70` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `200, 111.2` | `0×0` | `library.altar.ascite` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `51.53, 106.68` | `65.27×35.37` | `—` | — | — |
-| `ThingSlotCrateBottom` | PhysicalSphere | `357.22, 42.36` | `34.38×28.5` | `—` | — | `slab.serpentinite` |
-| `ThingSlotCrateTop` | PhysicalSphere | `338.64, 70.86` | `32.23×43.67` | `—` | — | `slab.granite` |
-| `ThingSlotTableL` | PhysicalSphere | `90, 61.7` | `56.19×43.67` | `—` | — | `statuette.owl.moth` |
-| `ThingSlotTableR` | PhysicalSphere | `254.31, 61.7` | `56.19×43.67` | `—` | — | `statuette.cat.scale` |
+| `ThingSlotCrateBottom` | PhysicalSphere | `357.22, 42.36` | `34.38×28.5` | `—` | — | `slab.serpentinite` @ `4.94, 0` |
+| `ThingSlotCrateTop` | PhysicalSphere | `338.64, 70.86` | `32.23×43.67` | `—` | — | `slab.granite` @ `3.86, 0` |
+| `ThingSlotTableL` | PhysicalSphere | `90, 61.7` | `56.19×43.67` | `—` | — | `statuette.owl.moth` @ `14.72, 0` |
+| `ThingSlotTableR` | PhysicalSphere | `254.31, 61.7` | `56.19×43.67` | `—` | — | `statuette.cat.scale` @ `8.47, 0` |
 
 ---
 
@@ -570,9 +572,9 @@
 | `ComfortSlot` | ComfortSphere | `320.09, 0` | `34.51×47.63` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `200, 96.1` | `0×0` | `library.altar.calicite` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `56.07, 108.99` | `76.17×35.4` | `—` | — | — |
-| `ThingSlotL` | PhysicalSphere | `55.45, 49.6` | `74.05×33.04` | `—` | — | `statuette.bobo.nectar`<br>`candle.holderblack`<br>`chalice.lambig` |
-| `ThingSlotR1` | PhysicalSphere | `266.57, 109.28` | `81.85×41.2` | `—` | — | `bust.knot.moth`<br>`candle.holderblack`<br>`candle.holderblack` |
-| `ThingSlotR2` | PhysicalSphere | `266.57, 49.6` | `81.85×33.04` | `—` | — | `ambergris`<br>`sacrament.calicite`<br>`candle.holderblack` |
+| `ThingSlotL` | PhysicalSphere | `55.45, 49.6` | `74.05×33.04` | `—` | — | `statuette.bobo.nectar` @ `48.4, 0`<br>`candle.holderblack` @ `26.6, 0`<br>`chalice.lambig` @ `16.23, 0` |
+| `ThingSlotR1` | PhysicalSphere | `266.57, 109.28` | `81.85×41.2` | `—` | — | `bust.knot.moth` @ `32.3, 0`<br>`candle.holderblack` @ `19.1, 0`<br>`candle.holderblack` @ `51.8, 0` |
+| `ThingSlotR2` | PhysicalSphere | `266.57, 49.6` | `81.85×33.04` | `—` | — | `ambergris` @ `57.9, 0`<br>`sacrament.calicite` @ `21.57, 0`<br>`candle.holderblack` @ `47.2, 0` |
 
 ---
 
@@ -593,14 +595,14 @@
 | `ComfortSlot.1` | ComfortSphere | `122.49, 0.1` | `51.6×67.02` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `200, 94.5` | `0×0` | `library.altar.malachite` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `112.7, 70.1` | `33.1×29.9` | `—` | — | — |
-| `ThingSlotCentre` | PhysicalSphere | `175, 33.1` | `49.28×40.44` | `—` | — | `beeswax` |
-| `ThingSlotL1` | PhysicalSphere | `227, 119.2` | `25×25` | `—` | — | `skinshuck.mead` |
-| `ThingSlotL2` | PhysicalSphere | `242.14, 47.08` | `22.73×20.04` | `—` | — | `leathy` |
-| `ThingSlotL3` | PhysicalSphere | `254.99, 69.5` | `31.81×32.89` | `—` | — | `quartz.chunk` |
-| `ThingSlotL4` | PhysicalSphere | `305.73, 149.3` | `17.34×18.1` | `—` | — | `rubywise.ruin` |
-| `ThingSlotL5` | PhysicalSphere | `320.07, 110.8` | `21.63×25` | `—` | — | `curious.seashell` |
-| `ThingSlotR1` | PhysicalSphere | `126.67, 128.2` | `20.66×25` | `—` | — | `mortar.pestle` |
-| `ThingSlotR2` | PhysicalSphere | `61.1, 110.8` | `16.95×25` | `—` | — | `ampoule.wolfsnow` |
+| `ThingSlotCentre` | PhysicalSphere | `175, 33.1` | `49.28×40.44` | `—` | — | `beeswax` @ `28.09, 0` |
+| `ThingSlotL1` | PhysicalSphere | `227, 119.2` | `25×25` | `—` | — | `skinshuck.mead` @ `8.88, 0` |
+| `ThingSlotL2` | PhysicalSphere | `242.14, 47.08` | `22.73×20.04` | `—` | — | `leathy` @ `6.86, 0` |
+| `ThingSlotL3` | PhysicalSphere | `254.99, 69.5` | `31.81×32.89` | `—` | — | `quartz.chunk` @ `6.78, 0` |
+| `ThingSlotL4` | PhysicalSphere | `305.73, 149.3` | `17.34×18.1` | `—` | — | `rubywise.ruin` @ `3.54, 0` |
+| `ThingSlotL5` | PhysicalSphere | `320.07, 110.8` | `21.63×25` | `—` | — | `curious.seashell` @ `1.19, 0` |
+| `ThingSlotR1` | PhysicalSphere | `126.67, 128.2` | `20.66×25` | `—` | — | `mortar.pestle` @ `4.33, 0` |
+| `ThingSlotR2` | PhysicalSphere | `61.1, 110.8` | `16.95×25` | `—` | — | `ampoule.wolfsnow` @ `4.72, 0` |
 
 ---
 
@@ -620,9 +622,9 @@
 | `FitmentSlot` | FitmentWorkstationSphere | `362.7, 30.1` | `0×0` | `library.desk.nonna.consider` | — | — |
 | `SalonFitmentSlot` | FitmentWorkstationSphere | `250.3, 110.3` | `0×0` | `salon.chapter` | — | — |
 | `ShelfSpaceSphereTable` | ShelfSpaceSphere | `232.49, 32.08` | `91.56×47.47` | `—` | — | — |
-| `ThingSlotDesk` | PhysicalSphere | `349.96, 39.83` | `35.96×34.09` | `—` | — | `quire.paper`<br>`perhibiate` |
-| `ThingSlotNiche` | PhysicalSphere | `356.32, 79.55` | `32.61×45.15` | `—` | — | `statue.matilda.white` |
-| `ThingSlotTable` | PhysicalSphere | `32.5, 37.45` | `174.38×52.79` | `—` | — | `pot.tea.assam`<br>`cup.tea.assam`<br>`cup.tea.assam`<br>`candle.holdertall`<br>`candle.holdertall`<br>`cup.tea.assam`<br>`cup.tea.assam` |
+| `ThingSlotDesk` | PhysicalSphere | `349.96, 39.83` | `35.96×34.09` | `—` | — | `quire.paper` @ `0.03, 0`<br>`perhibiate` @ `27.61, 0.7` |
+| `ThingSlotNiche` | PhysicalSphere | `356.32, 79.55` | `32.61×45.15` | `—` | — | `statue.matilda.white` @ `8.56, 0` |
+| `ThingSlotTable` | PhysicalSphere | `32.5, 37.45` | `174.38×52.79` | `—` | — | `pot.tea.assam` @ `76.81, 0`<br>`cup.tea.assam` @ `154.69, 0`<br>`cup.tea.assam` @ `38.09, 0`<br>`candle.holdertall` @ `101.36, 0`<br>`candle.holdertall` @ `64.96, 0`<br>`cup.tea.assam` @ `9.09, 0`<br>`cup.tea.assam` @ `124.99, 0` |
 | `WallArtSlot` | WallArtSphere | `43.14, 148.26` | `45.31×39.18` | `—` | — | — |
 | `WallArtSlot.1` | WallArtSphere | `132.75, 148.26` | `45.31×39.18` | `—` | — | — |
 | `WallArtSlot.2` | WallArtSphere | `221.85, 148.26` | `45.31×39.18` | `—` | — | — |
@@ -647,7 +649,7 @@
 | `ComfortSlotL` | ComfortSphere | `75.03, 0` | `53.56×90.59` | `—` | — | — |
 | `ComfortSlotR` | ComfortSphere | `334.73, 0` | `62.33×75` | `—` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `239.44, 24` | `47.8×36` | `—` | — | — |
-| `ThingSlotTable` | PhysicalSphere | `288.7, 35` | `48.48×33.02` | `—` | — | `pot.tea.lapsang`<br>`cup.tea.lapsang` |
+| `ThingSlotTable` | PhysicalSphere | `288.7, 35` | `48.48×33.02` | `—` | — | `pot.tea.lapsang` @ `1.34, 0`<br>`cup.tea.lapsang` @ `34.34, 0` |
 | `WallArtSlot` | WallArtSphere | `267.97, 68.02` | `56.62×48.5` | `—` | — | — |
 
 ---
@@ -668,7 +670,7 @@
 | `ComfortSlot` | ComfortSphere | `99.51, -1.2` | `41.46×98.06` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `306.16, -1.2` | `93.84×127.22` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `257.6, 100` | `0×0` | `library.clock.great` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `70.44, 35.4` | `26.62×25` | `—` | — | `oil.moon` |
+| `ThingSlotSeeded` | PhysicalSphere | `70.44, 35.4` | `26.62×25` | `—` | — | `oil.moon` @ `1.68, 0` |
 
 ---
 
@@ -685,7 +687,7 @@
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `392.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `389.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `113.55, 0.41` | `96.85×30.88` | `—` | — | — |
 | `ComfortSlot.2` | ComfortSphere | `211.58, 0.41` | `96.85×30.88` | `—` | — | — |
 | `ComfortSlot.3` | ComfortSphere | `308.88, 0.41` | `195.4×30.88` | `—` | — | — |
@@ -731,8 +733,8 @@
 | `ComfortSlot` | ComfortSphere | `0, 0` | `76.25×96.68` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `161.5, 35.5` | `0×0` | `library.desk.governor.consider` | — | — |
 | `ShelfSpaceSphere` | ShelfSpaceSphere | `263.7, 48.99` | `35×34.71` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `7.7, 103.87` | `59.05×65.07` | `—` | — | `bust.david` |
-| `ThingSlotSeeded.1` | PhysicalSphere | `102.45, 40.71` | `92.08×32.29` | `—` | — | `typewriter`<br>`catwink`<br>`quire.paper` |
+| `ThingSlotSeeded` | PhysicalSphere | `7.7, 103.87` | `59.05×65.07` | `—` | — | `bust.david` @ `8.02, 0` |
+| `ThingSlotSeeded.1` | PhysicalSphere | `102.45, 40.71` | `92.08×32.29` | `—` | — | `typewriter` @ `7.84, 0`<br>`catwink` @ `84.62, -0.6`<br>`quire.paper` @ `53.79, 1.1` |
 | `WallArtSlotSeeded` | WallArtSphere | `136.58, 68.81` | `142.95×95.11` | `—` | — | — |
 
 ---
@@ -755,8 +757,8 @@
 | `FitmentSlot.1` | FitmentWorkstationSphere | `32.5, 75.3` | `0×0` | `library.phonograph.consider` | — | — |
 | `ShelfBureau` | ShelfSpaceSphere | `11.47, 4.33` | `36.32×24.72` | `—` | — | — |
 | `ShelfWindow` | ShelfSpaceSphere | `220.14, 29.54` | `38.52×31.73` | `—` | — | — |
-| `ThingSlotSeeded.2` | PhysicalSphere | `293.81, 24.14` | `23.34×30.81` | `—` | — | `glass.armagnac`<br>`arsenic` |
-| `ThingSlotSeeded.3` | PhysicalSphere | `71.71, 29.05` | `62.3×80.5` | `—` | — | `bust.gervinus` |
+| `ThingSlotSeeded.2` | PhysicalSphere | `293.81, 24.14` | `23.34×30.81` | `—` | — | `glass.armagnac` @ `11.95, 0`<br>`arsenic` @ `2.45, 0` |
+| `ThingSlotSeeded.3` | PhysicalSphere | `71.71, 29.05` | `62.3×80.5` | `—` | — | `bust.gervinus` @ `13.15, 0` |
 | `WallArtSlot` | WallArtSphere | `3.1, 109.55` | `55.68×50.1` | `—` | — | — |
 | `WallArtSlotSeeded` | WallArtSphere | `286.8, 61.27` | `82.08×95.9` | `—` | — | — |
 
@@ -779,9 +781,9 @@
 | `ComfortSlot.1` | ComfortSphere | `279.28, 0` | `41.06×106.44` | `—` | — | — |
 | `ComfortSlot.2` | ComfortSphere | `68.18, 14.1` | `53.04×60.51` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `169.8, 87.1` | `0×0` | `library.condignator` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `0, 80.4` | `97.64×59.2` | `—` | — | `black.sapphire.wash`<br>`jar.heart`<br>`scrapings.phosphorescent`<br>`tincture.labhitic`<br>`liquid.regensburg` |
-| `ThingSlotSeeded.1` | PhysicalSphere | `361.49, 109` | `38.51×50.36` | `—` | — | `liquid.gideon` |
-| `ThingSlotSeeded.2` | PhysicalSphere | `272.94, 131.02` | `11.52×20.63` | `—` | — | `ampoule.wolfsnow` |
+| `ThingSlotSeeded` | PhysicalSphere | `0, 80.4` | `97.64×59.2` | `—` | — | `black.sapphire.wash` @ `5.25, 0`<br>`jar.heart` @ `39.2, 0`<br>`scrapings.phosphorescent` @ `23.52, 0`<br>`tincture.labhitic` @ `82.52, 0`<br>`liquid.regensburg` @ `63.97, 0` |
+| `ThingSlotSeeded.1` | PhysicalSphere | `361.49, 109` | `38.51×50.36` | `—` | — | `liquid.gideon` @ `4.63, 0` |
+| `ThingSlotSeeded.2` | PhysicalSphere | `272.94, 131.02` | `11.52×20.63` | `—` | — | `ampoule.wolfsnow` @ `2.01, 0` |
 
 ---
 
@@ -798,7 +800,7 @@
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `outsidepile` | PhysicalSphere | `-640.71, 972.95` | `5000×50` | `—` | — | — |
+| `outsidepile` | PhysicalSphere | `-700, 972.95` | `5000×50` | `—` | — | — |
 
 ---
 
@@ -844,9 +846,9 @@
 | `ThingSlot.6` | PhysicalSphere | `71.19, 36.29` | `23.16×41.26` | `—` | — | — |
 | `ThingSlot.7` | PhysicalSphere | `94.35, 23.77` | `18.01×41.26` | `—` | — | — |
 | `ThingSlot.8` | PhysicalSphere | `131.23, 7.97` | `18.01×41.26` | `—` | — | — |
-| `ThingSlotBottom` | PhysicalSphere | `112.35, 13.6` | `18.88×44.36` | `—` | — | `parcel.tall` |
-| `ThingSlotMedium` | PhysicalSphere | `21.1, 62.5` | `33.3×44.95` | `—` | — | `atlantic.amber` |
-| `ThingSlotTop` | PhysicalSphere | `57.1, 141.6` | `37.25×49.1` | `—` | — | `sand` |
+| `ThingSlotBottom` | PhysicalSphere | `112.35, 13.6` | `18.88×44.36` | `—` | — | `parcel.tall` @ `1.94, 0` |
+| `ThingSlotMedium` | PhysicalSphere | `21.1, 62.5` | `33.3×44.95` | `—` | — | `atlantic.amber` @ `8.9, 0` |
+| `ThingSlotTop` | PhysicalSphere | `57.1, 141.6` | `37.25×49.1` | `—` | — | `sand` @ `12.87, 0` |
 
 ---
 
@@ -886,9 +888,9 @@ Perhaps this can be blown away, perhaps sung away, if I bring the right powers a
 |-----------|------|----------|------|---------|---------|-------|
 | `ComfortSlot` | ComfortSphere | `99.2, 0` | `75.14×37.9` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `177.43, 0` | `113.75×37.9` | `—` | — | — |
-| `ThingSlotCentre` | PhysicalSphere | `151.2, 37.9` | `98.6×54.91` | `—` | — | `veg.basket.onions`<br>`veg.basket` |
-| `ThingSlotLeft` | PhysicalSphere | `85.24, 37.9` | `56.19×54.91` | `—` | — | `veg.basket` |
-| `ThingSlotRight` | PhysicalSphere | `267.57, 37.9` | `51.12×57.38` | `—` | — | `veg.basket.leeks` |
+| `ThingSlotCentre` | PhysicalSphere | `151.2, 37.9` | `98.6×54.91` | `—` | — | `veg.basket.onions` @ `6.17, 0`<br>`veg.basket` @ `56.12, 0` |
+| `ThingSlotLeft` | PhysicalSphere | `85.24, 37.9` | `56.19×54.91` | `—` | — | `veg.basket` @ `10.72, 0` |
+| `ThingSlotRight` | PhysicalSphere | `267.57, 37.9` | `51.12×57.38` | `—` | — | `veg.basket.leeks` @ `0.68, 0` |
 
 ---
 
@@ -909,14 +911,14 @@ Perhaps this can be blown away, perhaps sung away, if I bring the right powers a
 | `ComfortSlot.1` | ComfortSphere | `139.2, -0.7` | `30.02×127.5` | `—` | — | — |
 | `ComfortSlot.2` | ComfortSphere | `503.73, 14` | `56.04×181.33` | `—` | — | — |
 | `ComfortSlot.3` | ComfortSphere | `613.51, 20.5` | `59.1×158.41` | `—` | — | — |
-| `ComfortSlot.4` | ComfortSphere | `672.74, 0` | `48.69×159.66` | `—` | — | — |
+| `ComfortSlot.4` | ComfortSphere | `672.73, 0` | `48.69×159.66` | `—` | — | — |
 | `FitmentSlot.alpha` | FitmentWorkstationSphere | `308.5, 34.3` | `0×0` | `library.fireplace.entrance` | — | — |
-| `ThingSlot.1` | PhysicalSphere | `89.52, 38.1` | `49.67×80.89` | `—` | — | `bust.melancthe` |
-| `ThingSlot.2` | PhysicalSphere | `169.22, 39.4` | `49.34×79.59` | `—` | — | `bust.abbot.thomas` |
-| `ThingSlot.3` | PhysicalSphere | `262.46, 86.9` | `94.3×72.76` | `—` | — | `lignum.vitae.blank`<br>`bust.abbot.geffrey` |
-| `ThingSlot.4` | PhysicalSphere | `405.42, 78.71` | `48.49×66.37` | `—` | — | `bust.knotabbess` |
-| `ThingSlot.5` | PhysicalSphere | `721.43, 78.71` | `40×59.67` | `—` | — | `bust.hendrik` |
-| `ThingSlot.6` | PhysicalSphere | `756.4, 39.3` | `39.68×67.52` | `—` | — | `bust.valentine` |
+| `ThingSlot.1` | PhysicalSphere | `89.52, 38.1` | `49.67×80.89` | `—` | — | `bust.melancthe` @ `7.84, 0` |
+| `ThingSlot.2` | PhysicalSphere | `169.22, 39.4` | `49.34×79.59` | `—` | — | `bust.abbot.thomas` @ `5.17, 0` |
+| `ThingSlot.3` | PhysicalSphere | `262.46, 86.9` | `94.3×72.76` | `—` | — | `lignum.vitae.blank` @ `10.95, 0`<br>`bust.abbot.geffrey` @ `46.22, 0` |
+| `ThingSlot.4` | PhysicalSphere | `405.42, 78.71` | `48.49×66.37` | `—` | — | `bust.knotabbess` @ `5.75, 0` |
+| `ThingSlot.5` | PhysicalSphere | `721.43, 78.71` | `40×59.67` | `—` | — | `bust.hendrik` @ `-1.87, 0` |
+| `ThingSlot.6` | PhysicalSphere | `756.4, 39.3` | `39.68×67.52` | `—` | — | `bust.valentine` @ `2.34, 0` |
 | `WallArtSlot1` | WallArtSphere | `38.95, 50.81` | `47.88×75.99` | `—` | — | — |
 | `WallArtSlot2` | WallArtSphere | `218.56, 50.81` | `47.88×75.99` | `—` | — | — |
 | `WallArtSlot3` | WallArtSphere | `356.76, 50.81` | `53.24×75.99` | `—` | — | — |
@@ -946,13 +948,13 @@ Perhaps this can be blown away, perhaps sung away, if I bring the right powers a
 | `ShelfSpaceB` | ShelfSpaceSphere | `436.13, 5.71` | `36.82×23.57` | `—` | — | — |
 | `ShelfSpaceC` | ShelfSpaceSphere | `682.99, 31.9` | `52.91×25.53` | `—` | — | — |
 | `ShelfSpaceD` | ShelfSpaceSphere | `691.11, 5.7` | `36.11×23.57` | `—` | — | — |
-| `ThingSlotArmoire` | PhysicalSphere | `26.3, 102.6` | `69.3×25` | `—` | — | `sacrament.ascite`<br>`rubywise.ruin`<br>`toxin.glassfinger`<br>`sacrament.malachite`<br>`sacrament.calicite` |
-| `ThingSlotArmoire.1` | PhysicalSphere | `26.3, 76.23` | `69.3×24.77` | `—` | — | `essence.xanthotic`<br>`perinculate`<br>`ampoule.wolfsnow`<br>`hourglass.scale.w` |
-| `ThingSlotArmoire.2` | PhysicalSphere | `26.3, 58.12` | `69.3×16.42` | `—` | — | `turpentine`<br>`liquid.solomon`<br>`quartz.chunk`<br>`ambergris` |
-| `ThingSlotCoffeeTable` | PhysicalSphere | `516.23, 27.7` | `111.93×25` | `—` | — | `bottle.armagnac`<br>`stargall.ink`<br>`bust.eva`<br>`glass.armagnac` |
+| `ThingSlotArmoire` | PhysicalSphere | `26.3, 102.6` | `69.3×25` | `—` | — | `sacrament.ascite` @ `2.03, 0`<br>`rubywise.ruin` @ `55.63, 0`<br>`toxin.glassfinger` @ `28.45, 0`<br>`sacrament.malachite` @ `42.35, 0`<br>`sacrament.calicite` @ `14.1, 0` |
+| `ThingSlotArmoire.1` | PhysicalSphere | `26.3, 76.23` | `69.3×24.77` | `—` | — | `essence.xanthotic` @ `4.08, 0`<br>`perinculate` @ `42.43, 0`<br>`ampoule.wolfsnow` @ `30.9, 0`<br>`hourglass.scale.w` @ `53.68, 0` |
+| `ThingSlotArmoire.2` | PhysicalSphere | `26.3, 58.12` | `69.3×16.42` | `—` | — | `turpentine` @ `2.1, 0`<br>`liquid.solomon` @ `33.45, 0`<br>`quartz.chunk` @ `10.63, 0`<br>`ambergris` @ `48.13, 0` |
+| `ThingSlotCoffeeTable` | PhysicalSphere | `516.23, 27.7` | `111.93×25` | `—` | — | `bottle.armagnac` @ `70.97, 0`<br>`stargall.ink` @ `17.67, 0`<br>`bust.eva` @ `39.77, 0`<br>`glass.armagnac` @ `84.24, 0` |
 | `WallArtSlotLeft` | WallArtSphere | `104.15, 45.64` | `87.47×143.84` | `—` | — | — |
 | `WallArtSlotMiddleL` | WallArtSphere | `218.14, 45.64` | `179.35×143.84` | `—` | — | — |
-| `WallArtSlotMiddleR` | WallArtSphere | `428.53, 45.64` | `175.63×143.84` | `—` | — | — |
+| `WallArtSlotMiddleR` | WallArtSphere | `428.54, 45.64` | `175.63×143.84` | `—` | — | — |
 | `WallArtSlotRight` | WallArtSphere | `629.4, 45.64` | `83.06×143.84` | `—` | — | — |
 
 ---
@@ -975,9 +977,9 @@ Perhaps this can be blown away, perhaps sung away, if I bring the right powers a
 | `ComfortSlotBucket2` | ComfortSphere | `214.41, 0` | `30.37×39.96` | `—` | — | — |
 | `ComfortSlotStool` | ComfortSphere | `305.3, 0` | `40×45.67` | `—` | — | — |
 | `FitmentSlot.alpha` | FitmentWorkstationSphere | `92.6, 37.7` | `0×0` | `library.foundry` | — | — |
-| `ThingSlotWorkbenchBottom` | PhysicalSphere | `187.03, 45.68` | `78.53×20.45` | `—` | — | `spanners`<br>`liquid.solomon` |
-| `ThingSlotWorkbenchMid` | PhysicalSphere | `189.41, 69.15` | `76.14×20.45` | `—` | — | `liquid.regensburg`<br>`saw`<br>`square.forge` |
-| `ThingSlotWorkbenchTop` | PhysicalSphere | `166.7, 92.91` | `82.13×42.1` | `—` | — | `candle.holderblack`<br>`box.rarities`<br>`candle.honeyscar`<br>`box.oddities` |
+| `ThingSlotWorkbenchBottom` | PhysicalSphere | `187.03, 45.68` | `78.53×20.45` | `—` | — | `spanners` @ `60.51, 0`<br>`liquid.solomon` @ `31.26, 0` |
+| `ThingSlotWorkbenchMid` | PhysicalSphere | `189.41, 69.15` | `76.14×20.45` | `—` | — | `liquid.regensburg` @ `61.82, 0`<br>`saw` @ `20.27, 0`<br>`square.forge` @ `-0.3, 0` |
+| `ThingSlotWorkbenchTop` | PhysicalSphere | `166.7, 92.91` | `82.13×42.1` | `—` | — | `candle.holderblack` @ `4.94, 0`<br>`box.rarities` @ `33.29, 0`<br>`candle.honeyscar` @ `14.94, 0`<br>`box.oddities` @ `54.16, 0` |
 
 ---
 
@@ -996,7 +998,7 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ThingSlot` | PhysicalSphere | `150.9, 78.6` | `245.46×43.09` | `—` | — | — |
 
 ---
@@ -1015,13 +1017,13 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
 | `ComfortSlot` | ComfortSphere | `143.7, 0` | `79.58×91.91` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `183.7, 141.8` | `54.65×41.44` | `—` | — | `bottle.sloegin`<br>`bottle.dandelionwine`<br>`bottle.jannings` |
-| `ThingSlotSeeded.1` | PhysicalSphere | `171.07, 103.88` | `67.28×35.78` | `—` | — | `wire.copper`<br>`packages.abandoned` |
-| `ThingSlotSeeded.2` | PhysicalSphere | `260.36, 108.71` | `62.45×41.65` | `—` | — | `jerry.kerosene`<br>`jerry.paraffin` |
-| `ThingSlotSeeded.3` | PhysicalSphere | `259.52, 86.07` | `63.29×20.05` | `—` | — | `box.oddities`<br>`arsenic`<br>`cordial.elderflower` |
-| `ThingSlotSeeded.4` | PhysicalSphere | `259.52, 60.87` | `64.55×22.99` | `—` | — | `mushrooms.pickled`<br>`hourglass.scale.g`<br>`ampoule.amethyst`<br>`oil.forge` |
-| `ThingSlotSeeded.5` | PhysicalSphere | `254.22, 40.61` | `89.63×17.73` | `—` | — | `essential.periost`<br>`liquid.solomon`<br>`saw` |
-| `ThingSlotSeeded.6` | PhysicalSphere | `357.64, 52.83` | `30.88×54.75` | `—` | — | `candle.holderblack` |
+| `ThingSlotSeeded` | PhysicalSphere | `183.7, 141.8` | `54.65×41.44` | `—` | — | `bottle.sloegin` @ `25.53, 0`<br>`bottle.dandelionwine` @ `15.4, 0`<br>`bottle.jannings` @ `-0.02, 0` |
+| `ThingSlotSeeded.1` | PhysicalSphere | `171.07, 103.88` | `67.28×35.78` | `—` | — | `wire.copper` @ `45.91, 0`<br>`packages.abandoned` @ `4.71, 0` |
+| `ThingSlotSeeded.2` | PhysicalSphere | `260.36, 108.71` | `62.45×41.65` | `—` | — | `jerry.kerosene` @ `4.73, 0`<br>`jerry.paraffin` @ `28.9, 0` |
+| `ThingSlotSeeded.3` | PhysicalSphere | `259.52, 86.07` | `63.29×20.05` | `—` | — | `box.oddities` @ `20.75, 0`<br>`arsenic` @ `10.12, 0`<br>`cordial.elderflower` @ `44.7, 0` |
+| `ThingSlotSeeded.4` | PhysicalSphere | `259.52, 60.87` | `64.55×22.99` | `—` | — | `mushrooms.pickled` @ `47.9, 0`<br>`hourglass.scale.g` @ `14.6, 0`<br>`ampoule.amethyst` @ `38.08, 0`<br>`oil.forge` @ `4.48, 0` |
+| `ThingSlotSeeded.5` | PhysicalSphere | `254.22, 40.61` | `89.63×17.73` | `—` | — | `essential.periost` @ `6.11, 0`<br>`liquid.solomon` @ `13.91, 0`<br>`saw` @ `28.71, 0` |
+| `ThingSlotSeeded.6` | PhysicalSphere | `357.64, 52.83` | `30.88×54.75` | `—` | — | `candle.holderblack` @ `10.31, 0` |
 
 ---
 
@@ -1042,8 +1044,8 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 | `ComfortSlotSeeded.1` | ComfortSphere | `-0.01, 0.1` | `24.8×99.9` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `174.1, 28` | `0×0` | `station.serving.gaol` | — | — |
 | `ShelfOverTable` | ShelfSpaceSphere | `157.77, 78.89` | `86.85×44.12` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `24.79, 40.26` | `112.34×34.78` | `—` | — | `chess.set`<br>`cup.coffee.dawnlion`<br>`cup.coffee.dawnlion` |
-| `ThingSlotSeeded.1` | PhysicalSphere | `241.93, 40.26` | `112.34×34.77` | `—` | — | `pitcher.water.isle`<br>`glass.water.isle`<br>`glass.water.isle` |
+| `ThingSlotSeeded` | PhysicalSphere | `24.79, 40.26` | `112.34×34.78` | `—` | — | `chess.set` @ `39.55, 0`<br>`cup.coffee.dawnlion` @ `96.3, 0`<br>`cup.coffee.dawnlion` @ `10.3, 0` |
+| `ThingSlotSeeded.1` | PhysicalSphere | `241.93, 40.26` | `112.34×34.77` | `—` | — | `pitcher.water.isle` @ `31.3, 0`<br>`glass.water.isle` @ `84.95, 0`<br>`glass.water.isle` @ `19.45, 0` |
 | `WallArtSlot` | WallArtSphere | `12.1, 79.19` | `102.2×51.11` | `—` | — | — |
 | `WallArtSlot.1` | WallArtSphere | `282.4, 79.19` | `76.66×51.11` | `—` | — | — |
 
@@ -1066,10 +1068,10 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 | `FitmentSlot` | FitmentWorkstationSphere | `193.5, 47.7` | `0×0` | `library.kitchen.gaol` | — | — |
 | `ThingSlot` | PhysicalSphere | `61.41, 63.69` | `32.54×29.52` | `—` | — | — |
 | `ThingSlot.1` | PhysicalSphere | `218.8, 88.69` | `38.26×29.52` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `133.89, 85.76` | `83.14×40.59` | `—` | — | `pilchards.pickled`<br>`honey.cuckoo`<br>`honey`<br>`skinshuck.mead`<br>`pot.coffee.dawnlion.h`<br>`tincture.labhitic` |
-| `ThingSlotSeeded.1` | PhysicalSphere | `17.13, 48.11` | `44.28×40.59` | `—` | — | `pitcher.water.numa` |
-| `ThingSlotSeeded.2` | PhysicalSphere | `300.96, 84.53` | `63.4×48.77` | `—` | — | `cordial.elderflower`<br>`jam.blackberry`<br>`eigengrau`<br>`jam.rosehip` |
-| `ThingSlotSeeded.3` | PhysicalSphere | `262.6, 47.01` | `79.2×33.81` | `—` | — | `flour`<br>`bowls.kitchen` |
+| `ThingSlotSeeded` | PhysicalSphere | `133.89, 85.76` | `83.14×40.59` | `—` | — | `pilchards.pickled` @ `0.6, 0`<br>`honey.cuckoo` @ `65.57, 0`<br>`honey` @ `53.85, 0`<br>`skinshuck.mead` @ `37.55, 0`<br>`pot.coffee.dawnlion.h` @ `14.97, 0`<br>`tincture.labhitic` @ `29.87, 0` |
+| `ThingSlotSeeded.1` | PhysicalSphere | `17.13, 48.11` | `44.28×40.59` | `—` | — | `pitcher.water.numa` @ `13.64, 0` |
+| `ThingSlotSeeded.2` | PhysicalSphere | `300.96, 84.53` | `63.4×48.77` | `—` | — | `cordial.elderflower` @ `1.85, 0`<br>`jam.blackberry` @ `35.6, 0`<br>`eigengrau` @ `9.7, 0`<br>`jam.rosehip` @ `50.53, 0` |
+| `ThingSlotSeeded.3` | PhysicalSphere | `262.6, 47.01` | `79.2×33.81` | `—` | — | `flour` @ `50.6, 0`<br>`bowls.kitchen` @ `6.1, 0` |
 | `WallArtSlot` | WallArtSphere | `326.26, 114.56` | `68.61×69.36` | `—` | — | — |
 
 ---
@@ -1109,13 +1111,13 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlotA` | ComfortSphere | `3.9, -0.3` | `110×70` | `—` | — | — |
 | `ComfortSlotB` | ComfortSphere | `147.5, -0.3` | `55×70` | `—` | — | — |
 | `ComfortSlotC` | ComfortSphere | `292.5, -0.3` | `55×70` | `—` | — | — |
 | `ComfortSlotD` | ComfortSphere | `207.8, -0.3` | `25×70` | `—` | — | — |
-| `ThingSlotL` | PhysicalSphere | `115.1, 41.81` | `32.4×54.71` | `—` | — | `bust.serena` |
-| `ThingSlotR` | PhysicalSphere | `244.5, 36.36` | `35×30.45` | `—` | — | `vase.gorse` |
+| `ThingSlotL` | PhysicalSphere | `115.1, 41.81` | `32.4×54.71` | `—` | — | `bust.serena` @ `0.95, 0` |
+| `ThingSlotR` | PhysicalSphere | `244.5, 36.36` | `35×30.45` | `—` | — | `vase.gorse` @ `5.03, 0` |
 | `WallArtSlot.Horns1` | WallArtSphere | `16.98, 87.17` | `63.04×28.05` | `—` | — | — |
 | `WallArtSlot.Horns2` | WallArtSphere | `16.98, 64.02` | `28.56×23.16` | `—` | — | — |
 | `WallArtSlot.Horns3` | WallArtSphere | `51.42, 64.02` | `28.56×23.16` | `—` | — | — |
@@ -1142,9 +1144,9 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 | `ComfortSlot.2` | ComfortSphere | `348.83, 0` | `51.17×143.19` | `—` | — | — |
 | `ComfortSlot.3` | ComfortSphere | `236.98, 90.01` | `92.68×53.18` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `105.8, 47.5` | `0×0` | `library.altar.glorious` | — | — |
-| `ThingSlotAltarL` | PhysicalSphere | `75.2, 41.9` | `16.59×58.1` | `—` | — | `candle.holder.snowflake` |
-| `ThingSlotAltarR` | PhysicalSphere | `119.2, 41.9` | `16.59×58.1` | `—` | — | `candle.holder.snowflake` |
-| `ThingSlotNiche` | PhysicalSphere | `268.61, 145.73` | `29.88×37.33` | `—` | — | `candle.holder.snowflake` |
+| `ThingSlotAltarL` | PhysicalSphere | `75.2, 41.9` | `16.59×58.1` | `—` | — | `candle.holder.snowflake` @ `4.05, -0.3` |
+| `ThingSlotAltarR` | PhysicalSphere | `119.2, 41.9` | `16.59×58.1` | `—` | — | `candle.holder.snowflake` @ `4.05, -0.3` |
+| `ThingSlotNiche` | PhysicalSphere | `268.61, 145.73` | `29.88×37.33` | `—` | — | `candle.holder.snowflake` @ `10.69, -0.3` |
 | `WallArtSlot` | WallArtSphere | `30.45, 121.81` | `56.53×52.83` | `—` | — | — |
 
 ---
@@ -1162,7 +1164,7 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot` | ComfortSphere | `77.43, 0.2` | `85.13×32.91` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `152.23, 0.28` | `65.55×31.16` | `—` | — | — |
 | `ComfortSlot.2` | ComfortSphere | `235.46, 0` | `50.69×33.11` | `—` | — | — |
@@ -1171,7 +1173,7 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 | `GrandAscentNiche.L1` | PhysicalSphere | `153.85, 34.26` | `49.88×57.73` | `—` | — | — |
 | `GrandAscentNiche.L2` | PhysicalSphere | `242.85, 122.85` | `49.48×58.72` | `—` | — | — |
 | `GrandAscentNiche.L3` | PhysicalSphere | `325.5, 110.21` | `39.61×51.61` | `—` | — | — |
-| `ThingSlotTable` | PhysicalSphere | `0, 28.56` | `40.6×51.13` | `—` | — | `pot.swiss` |
+| `ThingSlotTable` | PhysicalSphere | `0, 28.56` | `40.6×51.13` | `—` | — | `pot.swiss` @ `-5.1, 0` |
 
 ---
 
@@ -1188,7 +1190,7 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot` | ComfortSphere | `77.43, 0.2` | `85.13×34.45` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `235.46, 0` | `50.69×26.96` | `—` | — | — |
 | `ComfortSlot.2` | ComfortSphere | `152.23, 0.28` | `65.55×26.68` | `—` | — | — |
@@ -1197,7 +1199,7 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 | `GrandAscentNiche.L6` | PhysicalSphere | `153.85, 34.66` | `49.88×63.46` | `—` | — | — |
 | `GrandAscentNiche.L7` | PhysicalSphere | `242.66, 122.85` | `49.88×61.09` | `—` | — | — |
 | `GrandAscentNiche.L8` | PhysicalSphere | `325.5, 110.21` | `39.61×54.77` | `—` | — | — |
-| `ThingSlotTable` | PhysicalSphere | `1.41, 28.36` | `39.71×48.71` | `—` | — | `vase.lilies` |
+| `ThingSlotTable` | PhysicalSphere | `1.41, 28.36` | `39.71×48.71` | `—` | — | `vase.lilies` @ `3.35, 0` |
 
 ---
 
@@ -1214,7 +1216,7 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot` | ComfortSphere | `77.43, 0.2` | `85.13×27.61` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `235.46, 0` | `50.69×22.05` | `—` | — | — |
 | `ComfortSlot.2` | ComfortSphere | `152.23, 0.28` | `65.55×25.98` | `—` | — | — |
@@ -1223,7 +1225,7 @@ On the far side, the gate stands wide. When the bridge is repaired, I can enter 
 | `GrandAscentNiche.L12` | PhysicalSphere | `242.54, 122.85` | `50.15×60.97` | `—` | — | — |
 | `GrandAscentNiche.L13` | PhysicalSphere | `325.5, 109.97` | `39.61×60.97` | `—` | — | — |
 | `GrandAscentNiche.L9` | PhysicalSphere | `14.2, 95.89` | `49.52×60.12` | `—` | — | — |
-| `ThingSlotTable` | PhysicalSphere | `0, 28.52` | `41.35×64.02` | `—` | — | `pot.bamboo` |
+| `ThingSlotTable` | PhysicalSphere | `0, 28.52` | `41.35×64.02` | `—` | — | `pot.bamboo` @ `5.56, 0` |
 
 ---
 
@@ -1242,7 +1244,7 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot` | ComfortSphere | `81.5, 0` | `58.03×110.75` | `—` | — | — |
 | `ComfortSlotLeft` | ComfortSphere | `2.17, 0` | `51.65×60.08` | `—` | — | — |
 | `ComfortSlotRight` | ComfortSphere | `293.27, 0` | `106.72×50.76` | `—` | — | — |
@@ -1299,7 +1301,7 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlotRight` | ComfortSphere | `324.74, 0.5` | `70.48×88.22` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `247.7, 25.7` | `0×0` | `library.prospect.loggia` | — | — |
 | `SalonFitmentSlot` | FitmentWorkstationSphere | `250.3, 110.3` | `0×0` | `salon.gullscry` | — | — |
-| `ThingSlotTable` | PhysicalSphere | `211.48, 40.3` | `93.38×59.7` | `—` | — | `pot.shadowless.silk`<br>`glass.armagnac`<br>`bottle.armagnac`<br>`asimel` |
+| `ThingSlotTable` | PhysicalSphere | `211.48, 40.3` | `93.38×59.7` | `—` | — | `pot.shadowless.silk` @ `33.57, 0`<br>`glass.armagnac` @ `66.27, 0`<br>`bottle.armagnac` @ `56.79, 0`<br>`asimel` @ `26.04, 0` |
 
 ---
 
@@ -1320,7 +1322,7 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlotLeft` | ComfortSphere | `126.5, 0.1` | `40×46.7` | `—` | — | — |
 | `ComfortSlotRight` | ComfortSphere | `315.2, 0.1` | `40×95` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `94.8, 59.3` | `0×0` | `library.workbench.gullscry` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `35, 46.8` | `111.45×25` | `—` | — | `egg.gull`<br>`egg.relic`<br>`paint.red`<br>`paint.blue.pale` |
+| `ThingSlotSeeded` | PhysicalSphere | `35, 46.8` | `111.45×25` | `—` | — | `egg.gull` @ `43.93, 0`<br>`egg.relic` @ `61.83, 0`<br>`paint.red` @ `8.35, 0`<br>`paint.blue.pale` @ `90.28, 0` |
 | `WallArtSlotSeeded` | WallArtSphere | `103.49, 71.8` | `53.42×72.51` | `—` | — | — |
 | `WallArtSlotSeeded.1` | WallArtSphere | `35, 66.36` | `59.8×33.64` | `—` | — | — |
 
@@ -1366,9 +1368,9 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlot2.1` | ComfortSphere | `321.79, 0.1` | `78.21×111.73` | `—` | — | — |
 | `ComfortSlotSeeded` | ComfortSphere | `119.81, 0` | `54.78×57.44` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `139.9, 106.6` | `0×0` | `library.prospect.towertop` | — | — |
-| `ThingSlotLeft` | PhysicalSphere | `70, 13.2` | `47.07×49.78` | `—` | — | `pot.venus`<br>`bottle.dandelionwine` |
-| `ThingSlotLefter` | PhysicalSphere | `13.97, 13.2` | `28.15×86.8` | `—` | — | `slab.granite` |
-| `ThingSlotRight` | PhysicalSphere | `281.67, 13.99` | `34.67×69.85` | `—` | — | `atlantic.amber` |
+| `ThingSlotLeft` | PhysicalSphere | `70, 13.2` | `47.07×49.78` | `—` | — | `pot.venus` @ `11.93, 0`<br>`bottle.dandelionwine` @ `33.51, 0` |
+| `ThingSlotLefter` | PhysicalSphere | `13.97, 13.2` | `28.15×86.8` | `—` | — | `slab.granite` @ `-1.28, 0` |
+| `ThingSlotRight` | PhysicalSphere | `281.67, 13.99` | `34.67×69.85` | `—` | — | `atlantic.amber` @ `9.58, 0` |
 
 ---
 
@@ -1390,9 +1392,9 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlotFire` | FitmentWorkstationSphere | `356.3, 17.7` | `0×0` | `library.fireplace.mirrors` | — | — |
 | `FitmentSlotMirrors` | FitmentWorkstationSphere | `419.1, 87` | `0×0` | `library.mirrors` | — | — |
 | `SalonFitmentSlot` | FitmentWorkstationSphere | `410, 100` | `0×0` | `salon.division` | — | — |
-| `ThingSlotBlackFlowers` | PhysicalSphere | `34.24, 40.32` | `248.24×52.59` | `—` | — | `vase.amaryllis` |
-| `ThingSlotMantelpiece` | PhysicalSphere | `316.2, 62.9` | `79.67×25` | `—` | — | `weapon.hendrik` |
-| `ThingSlotWhiteFlowers` | PhysicalSphere | `424.35, 40.32` | `249.25×52.59` | `—` | — | `vase.amaryllis` |
+| `ThingSlotBlackFlowers` | PhysicalSphere | `34.24, 40.32` | `248.24×52.59` | `—` | — | `vase.amaryllis` @ `110.25, 0` |
+| `ThingSlotMantelpiece` | PhysicalSphere | `316.2, 62.9` | `79.67×25` | `—` | — | `weapon.hendrik` @ `5.21, 0` |
+| `ThingSlotWhiteFlowers` | PhysicalSphere | `424.35, 40.32` | `249.25×52.59` | `—` | — | `vase.amaryllis` @ `110.75, 0` |
 | `WallArtSlotMantelpiece` | WallArtSphere | `325.17, 73.76` | `61.14×84.05` | `—` | — | — |
 
 ---
@@ -1413,12 +1415,12 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlot` | FitmentWorkstationSphere | `303.7, 99.9` | `0×0` | `library.kitchen.hallofvoices` | — | — |
 | `SalonFitmentSlot` | FitmentWorkstationSphere | `250.3, 110.3` | `0×0` | `salon.voices` | — | — |
 | `ShelfSpaceSphereC` | ShelfSpaceSphere | `72.8, 60.21` | `38.77×36.79` | `—` | — | — |
-| `ThingSlotFireL` | PhysicalSphere | `196.89, 65.77` | `32.54×30.02` | `—` | — | `black.sapphire.wash` |
-| `ThingSlotFireR` | PhysicalSphere | `367.11, 55.3` | `25.63×25` | `—` | — | `holiest.hemolymph` |
-| `ThingSlotL` | PhysicalSphere | `38.79, 60.21` | `26.2×28.82` | `—` | — | `chalice.lambig` |
-| `ThingSlotR` | PhysicalSphere | `150.2, 60.21` | `21.48×25` | `—` | — | `mortar.pestle` |
-| `ThingSlotRC` | PhysicalSphere | `117.4, 60.21` | `25.62×31.63` | `—` | — | `candle.holderblack` |
-| `ThingSlotTabletop` | TabletopSphere | `26.29, 40.5` | `154.43×19.71` | `—` | — | `leathy.lees` |
+| `ThingSlotFireL` | PhysicalSphere | `196.89, 65.77` | `32.54×30.02` | `—` | — | `black.sapphire.wash` @ `10.39, 0` |
+| `ThingSlotFireR` | PhysicalSphere | `367.11, 55.3` | `25.63×25` | `—` | — | `holiest.hemolymph` @ `10.31, 0` |
+| `ThingSlotL` | PhysicalSphere | `38.79, 60.21` | `26.2×28.82` | `—` | — | `chalice.lambig` @ `8.6, 0` |
+| `ThingSlotR` | PhysicalSphere | `150.2, 60.21` | `21.48×25` | `—` | — | `mortar.pestle` @ `4.74, 0` |
+| `ThingSlotRC` | PhysicalSphere | `117.4, 60.21` | `25.62×31.63` | `—` | — | `candle.holderblack` @ `7.69, 0` |
+| `ThingSlotTabletop` | TabletopSphere | `26.29, 40.5` | `154.43×19.71` | `—` | — | `leathy.lees` @ `69.59, 0` |
 
 ---
 
@@ -1435,19 +1437,19 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot` | ComfortSphere | `310.33, 0` | `89.67×70` | `—` | — | — |
 | `FitmentSlotBed` | FitmentWorkstationSphere | `304.5, 72.8` | `0×0` | `library.bed.guest.hermit` | — | — |
 | `FitmentSlotFireplace` | FitmentWorkstationSphere | `41.4, 26.5` | `0×0` | `library.fireplace.hermit` | — | — |
 | `FitmentSlotWorkbench` | FitmentWorkstationSphere | `109.6, 59.9` | `0×0` | `library.workbench.hermit` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `267.4, 107.1` | `57.48×29.33` | `—` | — | — |
 | `ShelfSpaceSphereB` | ShelfSpaceSphere | `336.82, 87.5` | `37.08×26.63` | `—` | — | — |
-| `ThingSlotBedside` | PhysicalSphere | `348.9, 116.01` | `25×22.46` | `—` | — | `candle.bedside` |
-| `ThingSlotDesk` | PhysicalSphere | `46.99, 96.1` | `65.64×58.27` | `—` | — | `perhibiate`<br>`pot.bonsai`<br>`quire.paper` |
-| `ThingSlotWineLBottom` | PhysicalSphere | `216.51, 0` | `40.14×29.7` | `—` | — | `bottle.raveline`<br>`bottle.jannings`<br>`bottle.dandelionwine` |
-| `ThingSlotWineLTop` | PhysicalSphere | `209.53, 30.56` | `40.26×23.24` | `—` | — | `yewgall.ink`<br>`january.sanguinary` |
-| `ThingSlotWineR` | PhysicalSphere | `281.93, 0` | `23.73×36.47` | `—` | — | `bottle.lambig`<br>`bottle.raveline` |
-| `ThingSlotWorkbench` | PhysicalSphere | `73.79, 39.95` | `72.95×53.48` | `—` | — | `slab.granite` |
+| `ThingSlotBedside` | PhysicalSphere | `348.9, 116.01` | `25×22.46` | `—` | — | `candle.bedside` @ `6.25, 0` |
+| `ThingSlotDesk` | PhysicalSphere | `46.99, 96.1` | `65.64×58.27` | `—` | — | `perhibiate` @ `5.35, 0`<br>`pot.bonsai` @ `43.92, 0`<br>`quire.paper` @ `18.07, 0` |
+| `ThingSlotWineLBottom` | PhysicalSphere | `216.51, 0` | `40.14×29.7` | `—` | — | `bottle.raveline` @ `5.47, 0`<br>`bottle.jannings` @ `16.57, 0`<br>`bottle.dandelionwine` @ `27.24, 0` |
+| `ThingSlotWineLTop` | PhysicalSphere | `209.53, 30.56` | `40.26×23.24` | `—` | — | `yewgall.ink` @ `3.9, 0`<br>`january.sanguinary` @ `15.38, 0` |
+| `ThingSlotWineR` | PhysicalSphere | `281.93, 0` | `23.73×36.47` | `—` | — | `bottle.lambig` @ `0.04, 0`<br>`bottle.raveline` @ `12.36, 0` |
+| `ThingSlotWorkbench` | PhysicalSphere | `73.79, 39.95` | `72.95×53.48` | `—` | — | `slab.granite` @ `24.22, 0` |
 
 ---
 
@@ -1464,8 +1466,8 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `82.46, 74.07` | `35.07×51.86` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `140.7, 177.3` | `19.9×22.7` | `—` | — | `candle.beeswax` |
+| `Advent1` | PhysicalSphere | `79.66, 135.57` | `35.07×51.86` | `—` | — | — |
+| `ThingSlotSeeded` | PhysicalSphere | `140.7, 177.3` | `19.9×22.7` | `—` | — | `candle.beeswax` @ `3.82, 0` |
 
 ---
 
@@ -1490,7 +1492,7 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlot` | FitmentWorkstationSphere | `132.2, 26.9` | `0×0` | `library.table.necropsy` | — | — |
 | `ShelfSpaceSphere` | ShelfSpaceSphere | `355.91, 89.1` | `31.13×25.59` | `—` | — | — |
 | `ShelfSpaceSphere.1` | ShelfSpaceSphere | `305.4, 51.94` | `31.55×24.92` | `—` | — | — |
-| `ThingSlotTopFreezer` | PhysicalSphere | `291.33, 156.4` | `101.73×43.6` | `—` | — | `jar.heart`<br>`essential.periost`<br>`slab.serpentinite`<br>`scrapings.phosphorescent` |
+| `ThingSlotTopFreezer` | PhysicalSphere | `291.33, 156.4` | `101.73×43.6` | `—` | — | `jar.heart` @ `77.54, 1.2`<br>`essential.periost` @ `70.87, 1.2`<br>`slab.serpentinite` @ `5.52, 1.2`<br>`scrapings.phosphorescent` @ `54.27, 1.2` |
 | `WallArtSlot` | WallArtSphere | `223.74, 97.67` | `64.56×48.12` | `—` | — | — |
 | `WallArtSlot.1` | WallArtSphere | `0.82, 97.67` | `50.4×64.11` | `—` | — | — |
 
@@ -1512,10 +1514,10 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlot` | ComfortSphere | `40.9, 0` | `61.8×129.6` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `148.9, 0` | `51.1×85.21` | `—` | — | — |
 | `ComfortSlot.2` | ComfortSphere | `277.03, 0` | `61.94×85.21` | `—` | — | — |
-| `FitmentSlot.alpha` | FitmentWorkstationSphere | `202.3, 1.19` | `90×125.23` | `'library.projector.consider '` | — | — |
+| `FitmentSlot.alpha` | FitmentWorkstationSphere | `202.3, 1.18` | `90×125.23` | `'library.projector.consider '` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `350.15, 133.43` | `42.69×33.43` | `—` | — | — |
-| `ThingSlotLeft` | PhysicalSphere | `103.73, 27.8` | `43.73×40` | `—` | — | `cup.tea.assam`<br>`pot.tea.assam` |
-| `ThingSlotRight` | PhysicalSphere | `342.74, 27.8` | `51.5×25` | `—` | — | `chess.set`<br>`cup.tea.assam` |
+| `ThingSlotLeft` | PhysicalSphere | `103.73, 27.8` | `43.73×40` | `—` | — | `cup.tea.assam` @ `29.73, 0`<br>`pot.tea.assam` @ `2.99, 0` |
+| `ThingSlotRight` | PhysicalSphere | `342.74, 27.8` | `51.5×25` | `—` | — | `chess.set` @ `1.33, 0`<br>`cup.tea.assam` @ `40.45, 0` |
 
 ---
 
@@ -1542,10 +1544,10 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlotA` | FitmentWorkstationSphere | `46.92, 1.16` | `55.56×61.09` | `' library.bed.guest.infirmary '` | — | — |
 | `FitmentSlotB` | FitmentWorkstationSphere | `163.22, 1.16` | `55.56×61.09` | `' library.bed.guest.infirmary '` | — | — |
 | `FitmentSlotC` | FitmentWorkstationSphere | `265.22, 1.16` | `55.56×61.09` | `' library.bed.guest.infirmary '` | — | — |
-| `ThingSlotDrawersTop` | PhysicalSphere | `563.47, 41.53` | `79.88×55.16` | `—` | — | `pale.mommet`<br>`bust.musgrave`<br>`pitcher.water.numa` |
-| `ThingSlotSideTable1` | PhysicalSphere | `4.18, 47.6` | `37.28×39.41` | `—` | — | `basket.towels` |
-| `ThingSlotSideTable2` | PhysicalSphere | `224.79, 46.8` | `35.63×39.36` | `—` | — | `rubywise.ruin`<br>`vase.lilies` |
-| `ThingSlotTabletop` | TabletopSphere | `366.31, 36` | `86.66×25` | `—` | — | `cup.cocoa`<br>`pot.cocoa`<br>`cup.cocoa`<br>`serpentmilk` |
+| `ThingSlotDrawersTop` | PhysicalSphere | `563.47, 41.53` | `79.88×55.16` | `—` | — | `pale.mommet` @ `5.94, 0`<br>`bust.musgrave` @ `28.99, 0`<br>`pitcher.water.numa` @ `61.64, 0` |
+| `ThingSlotSideTable1` | PhysicalSphere | `4.18, 47.6` | `37.28×39.41` | `—` | — | `basket.towels` @ `-1.98, 0` |
+| `ThingSlotSideTable2` | PhysicalSphere | `224.79, 46.8` | `35.63×39.36` | `—` | — | `rubywise.ruin` @ `20.89, 0`<br>`vase.lilies` @ `-3.09, 0` |
+| `ThingSlotTabletop` | TabletopSphere | `366.31, 36` | `86.66×25` | `—` | — | `cup.cocoa` @ `8.53, 0`<br>`pot.cocoa` @ `29.48, 0`<br>`cup.cocoa` @ `74.93, 0`<br>`serpentmilk` @ `63.15, 0` |
 | `WallArtSlot1` | WallArtSphere | `46.22, 70` | `93.73×93.89` | `—` | — | — |
 | `WallArtSlot2` | WallArtSphere | `293.9, 71.8` | `91.58×92.09` | `—` | — | — |
 | `WallArtSlot3` | WallArtSphere | `436.1, 71.8` | `94.63×92.09` | `—` | — | — |
@@ -1570,9 +1572,9 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlot.1` | ComfortSphere | `365.29, 0` | `34.71×114.68` | `—` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `53.4, 25.25` | `33.05×35.38` | `—` | — | — |
 | `ShelfSpaceSphereB` | ShelfSpaceSphere | `329.95, 79.48` | `33.13×34.69` | `—` | — | — |
-| `ShelfSpaceSphereC` | ShelfSpaceSphere | `37.35, 79.06` | `32.71×35.37` | `—` | — | `casket.morbid` |
-| `ShelfSpaceSphereD` | ShelfSpaceSphere | `271.98, 79.06` | `32.93×35.1` | `—` | — | `casket.coppery` |
-| `ShelfSpaceSphereE` | ShelfSpaceSphere | `272.87, 25.25` | `32.04×34.86` | `—` | — | `casket.hive` |
+| `ShelfSpaceSphereC` | ShelfSpaceSphere | `37.35, 79.06` | `32.71×35.37` | `—` | — | `casket.morbid` @ `4.23, 0` |
+| `ShelfSpaceSphereD` | ShelfSpaceSphere | `271.98, 79.06` | `32.93×35.1` | `—` | — | `casket.coppery` @ `4.72, 0` |
+| `ShelfSpaceSphereE` | ShelfSpaceSphere | `272.87, 25.25` | `32.04×34.86` | `—` | — | `casket.hive` @ `2.4, 0` |
 | `ShelfSpaceSphereF` | ShelfSpaceSphere | `329.95, 25.25` | `33.13×34.86` | `—` | — | — |
 
 ---
@@ -1595,12 +1597,12 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlot.2` | ComfortSphere | `311.19, 0` | `31.02×96.68` | `—` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `128.38, 22.02` | `28.3×28.99` | `—` | — | — |
 | `ShelfSpaceSphereB` | ShelfSpaceSphere | `346.82, 67.38` | `28.18×29.3` | `—` | — | — |
-| `ShelfSpaceSphereC` | ShelfSpaceSphere | `23.31, 67.05` | `28.18×29.3` | `—` | — | `box.records` |
-| `ShelfSpaceSphereD` | ShelfSpaceSphere | `128.38, 67.35` | `28.3×29.3` | `—` | — | `case.attache` |
-| `ShelfSpaceSphereE` | ShelfSpaceSphere | `241.71, 67.38` | `28.18×29.3` | `—` | — | `casket.imperial` |
-| `ShelfSpaceSphereF` | ShelfSpaceSphere | `23.31, 22.05` | `28.18×29.3` | `—` | — | `casket.scaled` |
-| `ShelfSpaceSphereG` | ShelfSpaceSphere | `241.71, 21.45` | `28.18×29.3` | `—` | — | `casket.scarred` |
-| `ShelfSpaceSphereH` | ShelfSpaceSphere | `346.81, 22.05` | `28.18×29.3` | `—` | — | `casket.ironclad` |
+| `ShelfSpaceSphereC` | ShelfSpaceSphere | `23.31, 67.05` | `28.18×29.3` | `—` | — | `box.records` @ `2.59, 0` |
+| `ShelfSpaceSphereD` | ShelfSpaceSphere | `128.38, 67.35` | `28.3×29.3` | `—` | — | `case.attache` @ `5.15, 0` |
+| `ShelfSpaceSphereE` | ShelfSpaceSphere | `241.71, 67.38` | `28.18×29.3` | `—` | — | `casket.imperial` @ `2.84, 0` |
+| `ShelfSpaceSphereF` | ShelfSpaceSphere | `23.31, 22.05` | `28.18×29.3` | `—` | — | `casket.scaled` @ `5.59, 0` |
+| `ShelfSpaceSphereG` | ShelfSpaceSphere | `241.71, 21.45` | `28.18×29.3` | `—` | — | `casket.scarred` @ `-0.04, 0` |
+| `ShelfSpaceSphereH` | ShelfSpaceSphere | `346.81, 22.05` | `28.18×29.3` | `—` | — | `casket.ironclad` @ `4.46, 0` |
 | `ThingSlot4B` | PhysicalSphere | `346.9, 22.02` | `28.39×28.57` | `—` | — | — |
 
 ---
@@ -1622,9 +1624,9 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlot1.1` | ComfortSphere | `344.15, 0` | `55.85×90.6` | `—` | — | — |
 | `FitmentSlotCabinet` | FitmentWorkstationSphere | `198.4, 70.9` | `0×0` | `station.serving.kitchen` | — | — |
 | `FitmentSlotFireplace` | FitmentWorkstationSphere | `62.3, 41.1` | `0×0` | `library.kitchen.servants` | — | — |
-| `ThingSlotCookerTop` | PhysicalSphere | `280.61, 92.9` | `97.35×38.23` | `—` | — | `bottle.dandelionwine`<br>`bottle.jannings`<br>`bottle.lambig` |
-| `ThingSlotShelf` | ShelfSpaceSphere | `20.29, 87.75` | `91.53×43.38` | `—` | — | `packet.tea.assam`<br>`mushrooms.pickled`<br>`tincture.labhitic`<br>`pitcher.water.isle`<br>`grapes`<br>`egg.chicken` |
-| `ThingSlotUnit` | PhysicalSphere | `149.69, 141.11` | `113.64×39.7` | `—` | — | `honey`<br>`honey.cuckoo`<br>`honey`<br>`bowls.kitchen`<br>`honey` |
+| `ThingSlotCookerTop` | PhysicalSphere | `280.61, 92.9` | `97.35×38.23` | `—` | — | `bottle.dandelionwine` @ `29.45, 0`<br>`bottle.jannings` @ `55.17, 0`<br>`bottle.lambig` @ `42.15, 0` |
+| `ThingSlotShelf` | ShelfSpaceSphere | `20.29, 87.75` | `91.53×43.38` | `—` | — | `packet.tea.assam` @ `62.87, 0`<br>`mushrooms.pickled` @ `48.69, 0`<br>`tincture.labhitic` @ `80.27, 0`<br>`pitcher.water.isle` @ `9.29, 0`<br>`grapes` @ `22.44, 0`<br>`egg.chicken` @ `37.74, 0` |
+| `ThingSlotUnit` | PhysicalSphere | `149.69, 141.11` | `113.64×39.7` | `—` | — | `honey` @ `12.29, 0`<br>`honey.cuckoo` @ `24.92, 0`<br>`honey` @ `44.09, 0`<br>`bowls.kitchen` @ `69.92, 0`<br>`honey` @ `54.69, 0` |
 
 ---
 
@@ -1672,14 +1674,14 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlot.1` | FitmentWorkstationSphere | `276.5, 24.6` | `0×0` | `library.fireplace.librarian` | — | — |
 | `FitmentSlotBed` | FitmentWorkstationSphere | `58.1, 27.7` | `0×0` | `library.bed.guest.librarian` | — | — |
 | `ShelfSpaceBedside` | ShelfSpaceSphere | `118.3, 3.7` | `17.61×15.85` | `—` | — | — |
-| `ShelfSpaceSphere` | ShelfSpaceSphere | `193, 87.1` | `14×22` | `—` | — | — |
+| `ShelfSpaceSphere` | ShelfSpaceSphere | `202.08, 19.1` | `14×22` | `—` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `236.09, 148.29` | `80.81×40.09` | `—` | — | — |
-| `ShelfSpaceSphereB` | ShelfSpaceSphere | `321.79, 148.29` | `73.45×40.09` | `—` | — | `stone.indecipherable` |
-| `ShelfSpaceSphereC` | ShelfSpaceSphere | `321.8, 99.47` | `73.45×44.32` | `—` | — | `disc.fishes`<br>`face.faceless` |
-| `ThingSlotBedsideTable` | PhysicalSphere | `115.03, 29.47` | `24.37×48.31` | `—` | — | `lamp.fringed` |
-| `ThingSlotMantelpiece` | PhysicalSphere | `223.6, 73` | `106.49×25` | `—` | — | `bust.abra`<br>`witching.tisane`<br>`glasses.librarian`<br>`clock.librarian`<br>`candle.holdergold` |
-| `ThingSlotPlantBench` | PhysicalSphere | `52.96, 83.73` | `108.91×25` | `—` | — | `pot.bamboo`<br>`pot.venus`<br>`pot.orchid.white`<br>`pot.fern`<br>`pot.orchid.pink`<br>`pot.daisies.malachite` |
-| `ThingSlotStool` | PhysicalSphere | `167.26, 68.09` | `18.98×25` | `—` | — | `wateringcan` |
+| `ShelfSpaceSphereB` | ShelfSpaceSphere | `321.79, 148.29` | `73.45×40.09` | `—` | — | `stone.indecipherable` @ `2.3, 0` |
+| `ShelfSpaceSphereC` | ShelfSpaceSphere | `321.79, 99.47` | `73.45×44.32` | `—` | — | `disc.fishes` @ `1.58, 0`<br>`face.faceless` @ `53.48, 0` |
+| `ThingSlotBedsideTable` | PhysicalSphere | `115.03, 29.47` | `24.37×48.31` | `—` | — | `lamp.fringed` @ `2.94, 0` |
+| `ThingSlotMantelpiece` | PhysicalSphere | `223.6, 73` | `106.49×25` | `—` | — | `bust.abra` @ `3.82, 0`<br>`witching.tisane` @ `70.6, 0`<br>`glasses.librarian` @ `30.42, 0`<br>`clock.librarian` @ `45.5, 0`<br>`candle.holdergold` @ `86.42, 0` |
+| `ThingSlotPlantBench` | PhysicalSphere | `52.96, 83.73` | `108.91×25` | `—` | — | `pot.bamboo` @ `-1.87, 0`<br>`pot.venus` @ `92.16, 0`<br>`pot.orchid.white` @ `24.13, 0`<br>`pot.fern` @ `47.08, 0`<br>`pot.orchid.pink` @ `64.41, 0`<br>`pot.daisies.malachite` @ `48.33, 0` |
+| `ThingSlotStool` | PhysicalSphere | `167.26, 68.09` | `18.98×25` | `—` | — | `wateringcan` @ `-6.88, 0` |
 | `WallArtSlotMantelpiece` | WallArtSphere | `236.47, 86.04` | `80.43×56.81` | `—` | — | — |
 
 ---
@@ -1700,9 +1702,9 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlot` | ComfortSphere | `60, 0` | `32.42×102.11` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `140.29, 0` | `59.71×88.5` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `147.7, 88.5` | `0×0` | `world.sea.crane` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `94.36, 25.4` | `42.48×39.05` | `—` | — | `abandoned.luggage` |
-| `ThingSlotSeeded.1` | PhysicalSphere | `296.82, 15.27` | `41.49×37.08` | `—` | — | `box.records` |
-| `ThingSlotSeeded.2` | PhysicalSphere | `303.03, 52.36` | `62.94×54.92` | `—` | — | `crate.supplies` |
+| `ThingSlotSeeded` | PhysicalSphere | `94.36, 25.4` | `42.48×39.05` | `—` | — | `abandoned.luggage` @ `7.86, 0` |
+| `ThingSlotSeeded.1` | PhysicalSphere | `296.82, 15.27` | `41.49×37.08` | `—` | — | `box.records` @ `9.24, 0` |
+| `ThingSlotSeeded.2` | PhysicalSphere | `303.03, 52.36` | `62.94×54.92` | `—` | — | `crate.supplies` @ `11.22, 0` |
 
 ---
 
@@ -1719,19 +1721,19 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlotFireplace` | ComfortSphere | `203, -0.2` | `40×70` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `257.5, 20` | `0×0` | `station.serving.lodge` | — | — |
 | `FitmentSlot.alpha` | FitmentWorkstationSphere | `44.8, 22.8` | `0×0` | `library.bed.guest.lodge` | — | — |
 | `FitmentSlotFireplace` | FitmentWorkstationSphere | `177.6, 18.65` | `0×0` | `library.fireplace.lodge` | — | — |
 | `ShelfSpaceSphere` | ShelfSpaceSphere | `226.8, 84.05` | `70×34.77` | `—` | — | — |
-| `ThingSlotBreadBoard` | PhysicalSphere | `229.68, 39` | `34.23×27.5` | `—` | — | `bread.pillas` |
-| `ThingSlotBreadTable` | PhysicalSphere | `265.55, 39` | `22.46×15.65` | `—` | — | `packet.tea.assam` |
-| `ThingSlotMantlepiece` | PhysicalSphere | `153.25, 53.6` | `48.25×25` | `—` | — | `pot.dragon`<br>`key.hush.house` |
-| `ThingSlotShelfLeft` | ShelfSpaceSphere | `0, 73.9` | `62.85×47.13` | `—` | — | `bottle.dandelionwine`<br>`basket.linen` |
+| `ThingSlotBreadBoard` | PhysicalSphere | `229.68, 39` | `34.23×27.5` | `—` | — | `bread.pillas` @ `8.11, 0` |
+| `ThingSlotBreadTable` | PhysicalSphere | `265.55, 39` | `22.46×15.65` | `—` | — | `packet.tea.assam` @ `3.23, 0` |
+| `ThingSlotMantlepiece` | PhysicalSphere | `153.25, 53.6` | `48.25×25` | `—` | — | `pot.dragon` @ `28.1, 0`<br>`key.hush.house` @ `7.38, 0` |
+| `ThingSlotShelfLeft` | ShelfSpaceSphere | `0, 73.9` | `62.85×47.13` | `—` | — | `bottle.dandelionwine` @ `11.5, 0.3`<br>`basket.linen` @ `22.08, 0.1` |
 | `ThingSlotSideTabelRight.1` | PhysicalSphere | `324.06, 9.27` | `24.37×19.82` | `—` | — | — |
-| `ThingSlotSideTableRightA` | PhysicalSphere | `305.3, 9.27` | `18.75×12.7` | `—` | — | `pumpkin` |
-| `ThingSlotTableRight` | PhysicalSphere | `297.4, 34.5` | `64.18×25` | `—` | — | `pot.shadowless.silk`<br>`packet.coffee.dawnlion`<br>`candle.honeyscar` |
+| `ThingSlotSideTableRightA` | PhysicalSphere | `305.3, 9.27` | `18.75×12.7` | `—` | — | `pumpkin` @ `-3.75, 0` |
+| `ThingSlotTableRight` | PhysicalSphere | `297.4, 34.5` | `64.18×25` | `—` | — | `pot.shadowless.silk` @ `18.96, 0`<br>`packet.coffee.dawnlion` @ `2.99, 0.7`<br>`candle.honeyscar` @ `47.36, 0.7` |
 | `WallArtSlotMirror` | WallArtSphere | `151.64, 70.4` | `48.36×40.48` | `—` | — | — |
 | `WallArtSlotWindow` | WallArtSphere | `274.89, 46.6` | `26.82×29.4` | `—` | — | — |
 
@@ -1755,8 +1757,8 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlot.alpha` | FitmentWorkstationSphere | `196.9, 10` | `120×40` | `' library.desk.pale.consider '` | — | — |
 | `FitmentSlotFireplace` | FitmentWorkstationSphere | `126.7, 1` | `50×30.2` | `library.fireplace.long1` | — | — |
 | `ShelfSpaceSphere` | ShelfSpaceSphere | `235.47, 71.9` | `66.4×36` | `—` | — | — |
-| `ThingSlotDesk` | PhysicalSphere | `202.4, 39.2` | `110.53×29.6` | `—` | — | `candle.holderblack`<br>`whispering.sand`<br>`parchment.nivine`<br>`perinculate` |
-| `ThingSlotMantelpiece` | PhysicalSphere | `113.7, 61.5` | `73.8×25` | `—` | — | `candle.fragrant.chalice`<br>`bust.solomon`<br>`candle.holderblack` |
+| `ThingSlotDesk` | PhysicalSphere | `202.4, 39.2` | `110.53×29.6` | `—` | — | `candle.holderblack` @ `6.14, 0`<br>`whispering.sand` @ `91.51, 0`<br>`parchment.nivine` @ `60.29, 0.5`<br>`perinculate` @ `20.84, 0` |
+| `ThingSlotMantelpiece` | PhysicalSphere | `113.7, 61.5` | `73.8×25` | `—` | — | `candle.fragrant.chalice` @ `45.58, 0`<br>`bust.solomon` @ `7.3, 0`<br>`candle.holderblack` @ `54.58, 0` |
 | `WallArtSlot` | WallArtSphere | `193.72, 104.6` | `47.53×57.16` | `—` | — | — |
 
 ---
@@ -1779,8 +1781,8 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlot.alpha` | FitmentWorkstationSphere | `117.06, -2.19` | `163.47×72.99` | `library.bed.guest.solomon` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `15.82, 5.71` | `36.67×24.31` | `—` | — | — |
 | `ShelfSpaceSphereB` | ShelfSpaceSphere | `347.23, 5.71` | `36.73×24.31` | `—` | — | — |
-| `ThingSlotLeft` | PhysicalSphere | `8, 31.95` | `51.7×50.38` | `—` | — | `glass.water.isle`<br>`candle.holderblack` |
-| `ThingSlotRight` | PhysicalSphere | `338.85, 31.95` | `51.7×52.49` | `—` | — | `candle.holderblack` |
+| `ThingSlotLeft` | PhysicalSphere | `8, 31.95` | `51.7×50.38` | `—` | — | `glass.water.isle` @ `27.83, 0`<br>`candle.holderblack` @ `15.13, 0` |
+| `ThingSlotRight` | PhysicalSphere | `338.85, 31.95` | `51.7×52.49` | `—` | — | `candle.holderblack` @ `20.73, 0` |
 | `WallArtSlot` | WallArtSphere | `82.5, 47.5` | `235×125` | `—` | — | — |
 
 ---
@@ -1819,8 +1821,8 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlotChair` | ComfortSphere | `92.6, 0` | `42.64×100` | `—` | — | — |
 | `FitmentSlot.alpha` | FitmentWorkstationSphere | `162.2, 41.6` | `0×0` | `library.desk.vagabond.consider` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `330.67, 64.47` | `64.25×22.27` | `—` | — | — |
-| `ThingSlotDeskTop` | PhysicalSphere | `23.27, 36.46` | `68.1×25.24` | `—` | — | `vase.roses` |
-| `ThingSlotTableTop` | TabletopSphere | `138.5, 40.49` | `178.59×72.31` | `—` | — | `globe.lunar`<br>`catwink`<br>`parchment.anthropoderm` |
+| `ThingSlotDeskTop` | PhysicalSphere | `23.27, 36.46` | `68.1×25.24` | `—` | — | `vase.roses` @ `50.78, 0` |
+| `ThingSlotTableTop` | TabletopSphere | `138.5, 40.49` | `178.59×72.31` | `—` | — | `globe.lunar` @ `89.87, 0`<br>`catwink` @ `129.87, 2.8`<br>`parchment.anthropoderm` @ `63.62, 2.1` |
 | `WallArtSlotLeft` | WallArtSphere | `0, 43.59` | `95.28×108.27` | `—` | — | — |
 | `WallArtSlotRight` | WallArtSphere | `313.4, 65.49` | `86.6×86.37` | `—` | — | — |
 
@@ -1844,7 +1846,7 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlotDrum` | FitmentWorkstationSphere | `39.3, 29.6` | `0×0` | `library.instrument.drum` | — | — |
 | `FitmentSlotHarp` | FitmentWorkstationSphere | `327.7, 54.9` | `0×0` | `library.instrument.harp` | — | — |
 | `FitmentSlotPiano` | FitmentWorkstationSphere | `120.7, 56.6` | `0×0` | `library.instrument.piano.grand` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `196.58, 30.4` | `35.44×63.4` | `—` | — | `bust.kitty` |
+| `ThingSlotSeeded` | PhysicalSphere | `196.58, 30.4` | `35.44×63.4` | `—` | — | `bust.kitty` @ `1.84, 0` |
 
 ---
 
@@ -1871,12 +1873,12 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ShelfSpaceSphere.4` | ShelfSpaceSphere | `3.54, 128.45` | `52.4×22.16` | `—` | — | — |
 | `ShelfSpaceSphere.5` | ShelfSpaceSphere | `3.54, 155.24` | `37.6×21.48` | `—` | — | — |
 | `ShelfSpaceSphere.6` | ShelfSpaceSphere | `44.67, 155.24` | `39.06×21.48` | `—` | — | — |
-| `ThingSlotSeeded.0` | PhysicalSphere | `59, 131.87` | `25×20.43` | `—` | — | `holiest.hemolymph` |
-| `ThingSlotSeeded.1` | PhysicalSphere | `29.2, 100` | `54.2×24.2` | `—` | — | `pot.twilight`<br>`perhibiate` |
-| `ThingSlotSeeded.2` | PhysicalSphere | `58.4, 76.31` | `25×21.89` | `—` | — | `urn.ashes` |
-| `ThingSlotSeeded.3` | PhysicalSphere | `2.67, 9.64` | `40.28×30.2` | `—` | — | `vase.redlotus` |
-| `ThingSlotSideTableLeft` | PhysicalSphere | `102.1, 25.7` | `25×25` | `—` | — | `vase.rushes` |
-| `ThingSlotSideTableRight` | PhysicalSphere | `274, 26` | `25×25` | `—` | — | `bust.fraser` |
+| `ThingSlotSeeded.0` | PhysicalSphere | `59, 131.87` | `25×20.43` | `—` | — | `holiest.hemolymph` @ `10, 1.2` |
+| `ThingSlotSeeded.1` | PhysicalSphere | `29.2, 100` | `54.2×24.2` | `—` | — | `pot.twilight` @ `10.6, 0`<br>`perhibiate` @ `38.33, 0` |
+| `ThingSlotSeeded.2` | PhysicalSphere | `58.4, 76.31` | `25×21.89` | `—` | — | `urn.ashes` @ `7.9, 0` |
+| `ThingSlotSeeded.3` | PhysicalSphere | `2.67, 9.64` | `40.28×30.2` | `—` | — | `vase.redlotus` @ `12.39, 0` |
+| `ThingSlotSideTableLeft` | PhysicalSphere | `102.1, 25.7` | `25×25` | `—` | — | `vase.rushes` @ `-5.5, 0` |
+| `ThingSlotSideTableRight` | PhysicalSphere | `274, 26` | `25×25` | `—` | — | `bust.fraser` @ `-9.25, 0` |
 | `WallArtSlotSeededCentre` | WallArtSphere | `129.45, 57.83` | `140.89×121.7` | `—` | — | — |
 | `WallArtSlotSeededLeft` | WallArtSphere | `88.99, 57.83` | `94.14×121.7` | `—` | — | — |
 | `WallArtSlotSeededRight` | WallArtSphere | `246.6, 57.83` | `153.39×121.7` | `—` | — | — |
@@ -1913,13 +1915,13 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ShelfB.3` | ShelfSpaceSphere | `235.84, 103.62` | `27.95×28.43` | `—` | — | — |
 | `ShelfC` | ShelfSpaceSphere | `135.54, 70.38` | `28.26×28.26` | `—` | — | — |
 | `ShelfC.1` | ShelfSpaceSphere | `168.99, 70.38` | `28.31×28.26` | `—` | — | — |
-| `ThingSlotCabinet1` | PhysicalSphere | `25, 82.7` | `73×23.25` | `—` | — | `leathy`<br>`mortar.pestle`<br>`ichor.auroral` |
-| `ThingSlotCabinet2` | PhysicalSphere | `20.5, 59.4` | `80.3×23.3` | `—` | — | `liquid.thirza`<br>`skaptodon.fang`<br>`witchworms.desiccated`<br>`chalice.lambig` |
-| `ThingSlotCabinet3` | PhysicalSphere | `25, 37.1` | `70.9×20.8` | `—` | — | `essence.iotic`<br>`toxin.glassfinger`<br>`leathy`<br>`leathy.lees` |
-| `ThingSlotDesk` | PhysicalSphere | `138.33, 44.5` | `122.54×25` | `—` | — | `candle.holdertall`<br>`ampoule.wolfsnow`<br>`catwink`<br>`scales.spice`<br>`alembic.sly`<br>`hourglass.scale.w`<br>`glass.raveline` |
-| `ThingSlotRight1` | PhysicalSphere | `307.21, 150.2` | `65.18×48.07` | `—` | — | `salts.bitterblack`<br>`tanglebrag`<br>`january.sanguinary`<br>`jar.snootle` |
-| `ThingSlotRight2` | PhysicalSphere | `307.21, 119` | `65.17×27.94` | `—` | — | `ichor.vitreous`<br>`material.westcott` |
-| `ThingSlotRight3` | PhysicalSphere | `307.22, 87.5` | `65.17×25` | `—` | — | `shears.sisterhood`<br>`skull.x`<br>`skull`<br>`egg.viper` |
+| `ThingSlotCabinet1` | PhysicalSphere | `25, 82.7` | `73×23.25` | `—` | — | `leathy` @ `5.1, 0`<br>`mortar.pestle` @ `19.2, 0`<br>`ichor.auroral` @ `38.05, 0` |
+| `ThingSlotCabinet2` | PhysicalSphere | `20.5, 59.4` | `80.3×23.3` | `—` | — | `liquid.thirza` @ `2.87, 0`<br>`skaptodon.fang` @ `64.15, 0`<br>`witchworms.desiccated` @ `50.05, 0`<br>`chalice.lambig` @ `37.45, 0` |
+| `ThingSlotCabinet3` | PhysicalSphere | `25, 37.1` | `70.9×20.8` | `—` | — | `essence.iotic` @ `3.25, 0`<br>`toxin.glassfinger` @ `28.65, 0`<br>`leathy` @ `43.55, 0`<br>`leathy.lees` @ `48.62, 0` |
+| `ThingSlotDesk` | PhysicalSphere | `138.33, 44.5` | `122.54×25` | `—` | — | `candle.holdertall` @ `4.95, 0`<br>`ampoule.wolfsnow` @ `108.22, 0`<br>`catwink` @ `112.44, 0`<br>`scales.spice` @ `74.32, 0`<br>`alembic.sly` @ `27.84, 0`<br>`hourglass.scale.w` @ `14, 0`<br>`glass.raveline` @ `51.5, 0` |
+| `ThingSlotRight1` | PhysicalSphere | `307.21, 150.2` | `65.18×48.07` | `—` | — | `salts.bitterblack` @ `53.64, 0`<br>`tanglebrag` @ `19.34, 0`<br>`january.sanguinary` @ `46.14, 0`<br>`jar.snootle` @ `0.51, 0` |
+| `ThingSlotRight2` | PhysicalSphere | `307.21, 119` | `65.17×27.94` | `—` | — | `ichor.vitreous` @ `49.39, 0`<br>`material.westcott` @ `-0.96, 0` |
+| `ThingSlotRight3` | PhysicalSphere | `307.22, 87.5` | `65.17×25` | `—` | — | `shears.sisterhood` @ `32.89, 0`<br>`skull.x` @ `14.46, 0`<br>`skull` @ `0.76, 0`<br>`egg.viper` @ `54.46, 0` |
 | `WallArtSlotLeft` | WallArtSphere | `20.5, 114.75` | `77.8×72.29` | `—` | — | — |
 
 ---
@@ -1942,9 +1944,9 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlotBed` | FitmentWorkstationSphere | `4.73, 0.65` | `132.33×121.3` | `library.bed.guest.motley` | — | — |
 | `FitmentSlotDesk` | FitmentWorkstationSphere | `155.83, 3.39` | `85.94×64.62` | `library.desk.natan.consider` | — | — |
 | `ShelfSpaceWindow` | ShelfSpaceSphere | `337.81, 27.13` | `29.28×23.98` | `—` | — | — |
-| `ThingSlotBedsideTable` | PhysicalSphere | `0.87, 31.88` | `14.88×19.5` | `—` | — | `candle.bedside.x` |
-| `ThingSlotNatanDesk` | PhysicalSphere | `166.96, 68.9` | `61.09×25` | `—` | — | `quire.paper`<br>`menorah` |
-| `ThingSlotNiche` | PhysicalSphere | `245.51, 50.5` | `32.38×45.38` | `—` | — | `bust.medical` |
+| `ThingSlotBedsideTable` | PhysicalSphere | `0.87, 31.88` | `14.88×19.5` | `—` | — | `candle.bedside.x` @ `1.19, 0` |
+| `ThingSlotNatanDesk` | PhysicalSphere | `166.96, 68.9` | `61.09×25` | `—` | — | `quire.paper` @ `33.99, 0`<br>`menorah` @ `1.29, 0` |
+| `ThingSlotNiche` | PhysicalSphere | `245.51, 50.5` | `32.38×45.38` | `—` | — | `bust.medical` @ `6.14, 0` |
 | `WallArtSlotMirror` | WallArtSphere | `148.34, 75.5` | `60.72×61.16` | `—` | — | — |
 | `WallArtSlotPortrait1` | WallArtSphere | `215.4, 84.46` | `32.8×33.67` | `—` | — | — |
 | `WallArtSlotPortrait2` | WallArtSphere | `276.9, 84.46` | `32.8×33.67` | `—` | — | — |
@@ -1967,9 +1969,9 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlot.1` | ComfortSphere | `0, 0` | `33.33×126.85` | `—` | — | — |
 | `ComfortSlot.2` | ComfortSphere | `367.11, 0` | `32.89×130.9` | `—` | — | — |
 | `ComfortSlot.3` | ComfortSphere | `35.93, 9.07` | `46.44×126.85` | `—` | — | — |
-| `ThingSlotL` | PhysicalSphere | `84.3, 25.62` | `86.34×58.64` | `—` | — | `egg.viper`<br>`seaglass` |
-| `ThingSlotNiche` | PhysicalSphere | `94.77, 86.45` | `39.81×56.24` | `—` | — | `candle.holderblack`<br>`candle.aglaophotis` |
-| `ThingSlotR` | PhysicalSphere | `258.83, 25.62` | `60.82×74.38` | `—` | — | `atlantic.amber`<br>`evas.locks` |
+| `ThingSlotL` | PhysicalSphere | `84.3, 25.62` | `86.34×58.64` | `—` | — | `egg.viper` @ `51.14, 0`<br>`seaglass` @ `14.27, 0` |
+| `ThingSlotNiche` | PhysicalSphere | `94.77, 86.45` | `39.81×56.24` | `—` | — | `candle.holderblack` @ `9.38, 0`<br>`candle.aglaophotis` @ `20.23, 0` |
+| `ThingSlotR` | PhysicalSphere | `258.83, 25.62` | `60.82×74.38` | `—` | — | `atlantic.amber` @ `8.96, 0`<br>`evas.locks` @ `18.86, 0` |
 
 ---
 
@@ -1986,10 +1988,10 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `392.46, 184.07` | `35.07×51.86` | `—` | — | — |
-| `ComfortSlot` | ComfortSphere | `389.98, 0` | `54.21×104.91` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `389.66, 245.57` | `35.07×51.86` | `—` | — | — |
+| `ComfortSlot` | ComfortSphere | `389.98, -0.01` | `54.21×104.91` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `193.39, -0.01` | `59.92×47.8` | `—` | — | — |
-| `ComfortSlot.2` | ComfortSphere | `760.1, 0` | `59.91×104.91` | `—` | — | — |
+| `ComfortSlot.2` | ComfortSphere | `760.1, -0.01` | `59.91×104.91` | `—` | — | — |
 | `ComfortSlot.3` | ComfortSphere | `457.1, 0` | `143.93×39.12` | `—` | — | — |
 | `ComfortSlotSeeded` | ComfortSphere | `613.7, -0.2` | `40×70` | `—` | — | — |
 | `ComfortSlotSeeded.1` | ComfortSphere | `658.2, -0.2` | `40×70` | `—` | — | — |
@@ -2005,10 +2007,10 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ShelfSpaceSphereG` | ShelfSpaceSphere | `628.3, 71.6` | `33.42×58.88` | `—` | — | — |
 | `ShelfSpaceSphereH` | ShelfSpaceSphere | `668.79, 71.6` | `33.42×58.88` | `—` | — | — |
 | `ShelfSpaceSphereI` | ShelfSpaceSphere | `708.99, 71.6` | `33.42×58.88` | `—` | — | — |
-| `ThingSlotAltar` | PhysicalSphere | `253.31, 39.12` | `101.89×30.69` | `—` | — | `vase.lilies`<br>`candle.holdersmall`<br>`candle.holdersmall`<br>`candle.holdersmall`<br>`candle.holdersmall` |
-| `ThingSlotPews` | PhysicalSphere | `472.33, 42.56` | `22.55×29.03` | `—` | — | `candle.holdersmall` |
-| `ThingSlotPews.1` | PhysicalSphere | `505.23, 42.56` | `22.55×29.03` | `—` | — | `candle.holdersmall` |
-| `ThingSlotTable` | PhysicalSphere | `28.81, 24.73` | `30.09×58.84` | `—` | — | `vase.amaryllis` |
+| `ThingSlotAltar` | PhysicalSphere | `253.31, 39.12` | `101.89×30.69` | `—` | — | `vase.lilies` @ `34.45, 0`<br>`candle.holdersmall` @ `77.22, 0`<br>`candle.holdersmall` @ `17.32, 0`<br>`candle.holdersmall` @ `88.02, 0`<br>`candle.holdersmall` @ `6.52, 0` |
+| `ThingSlotPews` | PhysicalSphere | `472.33, 42.56` | `22.55×29.03` | `—` | — | `candle.holdersmall` @ `7.65, 0` |
+| `ThingSlotPews.1` | PhysicalSphere | `505.23, 42.56` | `22.55×29.03` | `—` | — | `candle.holdersmall` @ `7.65, 0` |
+| `ThingSlotTable` | PhysicalSphere | `28.81, 24.73` | `30.09×58.84` | `—` | — | `vase.amaryllis` @ `1.17, 0` |
 | `WallArtSlot` | WallArtSphere | `209.6, 104.91` | `33.2×57.44` | `—` | — | — |
 | `WallArtSlot.1` | WallArtSphere | `576.9, 104.91` | `33.2×57.44` | `—` | — | — |
 | `WallArtSlot.2` | WallArtSphere | `764.4, 104.91` | `33.2×57.44` | `—` | — | — |
@@ -2036,13 +2038,13 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlot` | ComfortSphere | `115.68, 0` | `71.09×113.91` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `256.6, 53.6` | `0×0` | `library.nocturnary` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `348.23, 10.3` | `18.37×40` | `—` | — | — |
-| `ThingSlotDeskBottom` | PhysicalSphere | `211.85, 45.05` | `92.55×22.82` | `—` | — | `liquid.gideon`<br>`arsenic` |
-| `ThingSlotDeskTop` | PhysicalSphere | `211.85, 69.67` | `58.74×24.52` | `—` | — | `candle.honeyscar`<br>`liquid.thirza` |
-| `ThingSlotSafeL1` | PhysicalSphere | `6.05, 25.43` | `14.35×18.48` | `—` | — | `leathy` |
-| `ThingSlotSafeL2` | PhysicalSphere | `6.05, 2.55` | `13.85×20.13` | `—` | — | `pearl.rose` |
-| `ThingSlotSafeLTop` | PhysicalSphere | `-0.01, 45.76` | `41.55×54.24` | `—` | — | `bust.thomas` |
-| `ThingSlotSafeR1` | PhysicalSphere | `348.23, 74.14` | `18.37×22.46` | `—` | — | `whispering.sand` |
-| `ThingSlotSafeR2` | PhysicalSphere | `348.23, 52.87` | `18.37×18.73` | `—` | — | `urn.ashes` |
+| `ThingSlotDeskBottom` | PhysicalSphere | `211.85, 45.05` | `92.55×22.82` | `—` | — | `liquid.gideon` @ `31.65, 0`<br>`arsenic` @ `19.45, 0` |
+| `ThingSlotDeskTop` | PhysicalSphere | `211.85, 69.67` | `58.74×24.52` | `—` | — | `candle.honeyscar` @ `39.44, 0`<br>`liquid.thirza` @ `3.59, 0` |
+| `ThingSlotSafeL1` | PhysicalSphere | `6.05, 25.43` | `14.35×18.48` | `—` | — | `leathy` @ `2.68, 0` |
+| `ThingSlotSafeL2` | PhysicalSphere | `6.05, 2.55` | `13.85×20.13` | `—` | — | `pearl.rose` @ `1.17, 0` |
+| `ThingSlotSafeLTop` | PhysicalSphere | `-0.01, 45.76` | `41.55×54.24` | `—` | — | `bust.thomas` @ `2.53, 0` |
+| `ThingSlotSafeR1` | PhysicalSphere | `348.22, 74.14` | `18.37×22.46` | `—` | — | `whispering.sand` @ `3.44, 0` |
+| `ThingSlotSafeR2` | PhysicalSphere | `348.23, 52.87` | `18.37×18.73` | `—` | — | `urn.ashes` @ `4.19, 0` |
 | `WallArtSlotSeeded` | WallArtSphere | `272.42, 92.88` | `45.45×50.4` | `—` | — | — |
 | `WallArtSlotSeeded.1` | WallArtSphere | `195.58, 85.25` | `49.62×60.55` | `—` | — | — |
 | `WallArtSlotSeeded.10` | WallArtSphere | `41.55, 32.86` | `55.8×52.39` | `—` | — | — |
@@ -2067,11 +2069,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2085,11 +2087,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2103,11 +2105,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2121,11 +2123,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2139,11 +2141,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2157,11 +2159,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2175,11 +2177,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2193,11 +2195,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2211,11 +2213,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2229,11 +2231,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2247,11 +2249,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2265,11 +2267,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2283,11 +2285,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2301,11 +2303,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2319,11 +2321,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2337,11 +2339,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `75, 75` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `41.2, 75.2` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2355,11 +2357,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2373,11 +2375,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2391,11 +2393,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2409,11 +2411,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2427,11 +2429,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2445,11 +2447,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `external0` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external1` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `external2` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `final` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
-| `internal` | PhysicalSphere | `83.29, 117.48` | `0×0` | `—` | — | — |
+| `external0` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external1` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `external2` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `final` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
+| `internal` | PhysicalSphere | `49.49, 117.68` | `0×0` | `—` | — | — |
 
 ---
 
@@ -2520,9 +2522,9 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ThingSlot.6` | PhysicalSphere | `535.8, 21.82` | `28×27.84` | `—` | — | — |
 | `ThingSlot.7` | PhysicalSphere | `465.4, 21.82` | `28×27.84` | `—` | — | — |
 | `ThingSlot.8` | PhysicalSphere | `328.6, 21.82` | `28×27.84` | `—` | — | — |
-| `ThingSlotGrail` | PhysicalSphere | `982.8, 26.8` | `107.85×82.6` | `—` | — | `human.hair`<br>`ambergris`<br>`candle.holderblack`<br>`mortar.pestle` |
-| `ThingSlotHornedAxe` | PhysicalSphere | `575.31, 36.03` | `89.3×63.97` | `—` | — | `candle.mothorchid`<br>`shears.sisterhood`<br>`quartz.chunk`<br>`gervinite` |
-| `ThingSlotMalachite` | PhysicalSphere | `149.7, 26.99` | `107.24×51.79` | `—` | — | `beeswax`<br>`candle.holderblack`<br>`lignum.vitae.blank` |
+| `ThingSlotGrail` | PhysicalSphere | `982.8, 26.8` | `107.85×82.6` | `—` | — | `human.hair` @ `54.97, 0`<br>`ambergris` @ `32.1, 0`<br>`candle.holderblack` @ `92.5, 0`<br>`mortar.pestle` @ `14.52, 0` |
+| `ThingSlotHornedAxe` | PhysicalSphere | `575.31, 36.03` | `89.3×63.97` | `—` | — | `candle.mothorchid` @ `58.13, 0`<br>`shears.sisterhood` @ `12.75, 0`<br>`quartz.chunk` @ `35.53, 0`<br>`gervinite` @ `73.75, 0` |
+| `ThingSlotMalachite` | PhysicalSphere | `149.7, 26.99` | `107.24×51.79` | `—` | — | `beeswax` @ `13.57, 0`<br>`candle.holderblack` @ `31.9, 0`<br>`lignum.vitae.blank` @ `62.22, 0` |
 | `WallArtSlotHornedAxe` | WallArtSphere | `569.9, 33.6` | `100×100` | `—` | — | — |
 | `WallArtSlotMalachite` | WallArtSphere | `150.3, 35.8` | `100×100` | `—` | — | — |
 | `WallArtSlotRedGrail` | WallArtSphere | `989.72, 49.95` | `94.33×101.5` | `—` | — | — |
@@ -2545,10 +2547,10 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlotSeeded` | ComfortSphere | `238.01, -0.2` | `123.29×61.25` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `88.5, 72.4` | `0×0` | `library.bed.guest.pale` | — | — |
 | `FitmentSlot.1` | FitmentWorkstationSphere | `211.3, 16.6` | `0×0` | `library.fireplace.pale` | — | — |
-| `ThingSlotCentre` | PhysicalSphere | `148.72, 33.6` | `27.36×53.9` | `—` | — | `vase.bulrushes.golden` |
-| `ThingSlotLeft` | PhysicalSphere | `1.57, 33.6` | `27.36×53.9` | `—` | — | `vase.bulrushes.golden` |
-| `ThingSlotMantelpiece` | PhysicalSphere | `176.08, 46.6` | `70.22×74.77` | `—` | — | `bottle.armagnac`<br>`clock.forge` |
-| `ThingSlotRight` | PhysicalSphere | `354.03, 33.6` | `37.03×76.01` | `—` | — | `bust.thirza` |
+| `ThingSlotCentre` | PhysicalSphere | `148.72, 33.6` | `27.36×53.9` | `—` | — | `vase.bulrushes.golden` @ `-0.2, 0` |
+| `ThingSlotLeft` | PhysicalSphere | `1.57, 33.6` | `27.36×53.9` | `—` | — | `vase.bulrushes.golden` @ `-0.2, 0` |
+| `ThingSlotMantelpiece` | PhysicalSphere | `176.08, 46.6` | `70.22×74.77` | `—` | — | `bottle.armagnac` @ `48.81, 0`<br>`clock.forge` @ `22.86, 0` |
+| `ThingSlotRight` | PhysicalSphere | `354.03, 33.6` | `37.03×76.01` | `—` | — | `bust.thirza` @ `1.52, 0` |
 | `WallArtSlot` | WallArtSphere | `179.33, 139.7` | `64.78×50.73` | `—` | — | — |
 | `WallArtSlot.1` | WallArtSphere | `108.58, 127.85` | `47.21×43.7` | `—` | — | — |
 | `WallArtSlot.2` | WallArtSphere | `17.2, 127.85` | `47.21×43.7` | `—` | — | — |
@@ -2571,18 +2573,18 @@ Still no sign of any fire. Why then was the House abandoned?
 |-----------|------|----------|------|---------|---------|-------|
 | `ComfortSlot` | ComfortSphere | `133.03, 0` | `117.57×144.14` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `254.65, 0` | `75.01×60.6` | `—` | — | — |
-| `M1` | PhysicalSphere | `254.65, 146.8` | `67.49×25` | `—` | — | `jam.rosehip`<br>`jam.blackberry`<br>`packet.coffee.dawnlion`<br>`bottle.raveline`<br>`cordial.elderflower`<br>`bottle.jannings` |
-| `M2` | PhysicalSphere | `254.65, 108.6` | `67.49×35.54` | `—` | — | `flour`<br>`packet.cocoa`<br>`eigengrau` |
-| `M3` | PhysicalSphere | `254.65, 88.5` | `67.49×19.6` | `—` | — | `packet.coffee.eveningisles`<br>`honey.cuckoo`<br>`liquid.gideon` |
-| `M4` | PhysicalSphere | `254.65, 64.9` | `67.49×22.02` | `—` | — | `packet.tea.assam`<br>`mushrooms.pickled`<br>`packet.coffee.dawnlion` |
-| `R1` | PhysicalSphere | `333.1, 99.3` | `62.06×40.29` | `—` | — | `bottle.sloegin`<br>`pilchards.pickled` |
-| `R2` | PhysicalSphere | `333.1, 75.9` | `62.06×21.49` | `—` | — | `cinnabar`<br>`veg.marrow.golden`<br>`veg.marrow.pale` |
-| `R3` | PhysicalSphere | `333.1, 49.5` | `62.06×24.3` | `—` | — | `mackerel`<br>`essential.periost`<br>`box.oddities` |
-| `R4` | PhysicalSphere | `333.1, 8.7` | `62.06×38.63` | `—` | — | `veg.basket` |
-| `ThingSlotL1` | PhysicalSphere | `61.91, 131.3` | `67.49×35.21` | `—` | — | `pearl.rose`<br>`bottle.dandelionwine`<br>`scrapings.phosphorescent`<br>`ham.canned` |
-| `ThingSlotL2` | PhysicalSphere | `61.91, 108.1` | `67.49×25` | `—` | — | `jam.blackberry`<br>`pilchards.pickled`<br>`packet.tea.lapsang` |
-| `ThingSlotL3` | PhysicalSphere | `61.91, 65.3` | `67.49×40.01` | `—` | — | `pumpkin.amber.x`<br>`pottery.scrumpy`<br>`pumpkin` |
-| `ThingSlotL4` | PhysicalSphere | `61.91, 33.76` | `67.49×29.7` | `—` | — | `beeswax`<br>`parcel.tall`<br>`contraband.jetsam` |
+| `M1` | PhysicalSphere | `254.65, 146.8` | `67.49×25` | `—` | — | `jam.rosehip` @ `40.57, 0`<br>`jam.blackberry` @ `54.05, 0`<br>`packet.coffee.dawnlion` @ `19.05, 0`<br>`bottle.raveline` @ `9.25, 0`<br>`cordial.elderflower` @ `32.9, 0`<br>`bottle.jannings` @ `3.15, 0` |
+| `M2` | PhysicalSphere | `254.65, 108.6` | `67.49×35.54` | `—` | — | `flour` @ `2.35, 0.2`<br>`packet.cocoa` @ `25.1, 0`<br>`eigengrau` @ `42.55, 0` |
+| `M3` | PhysicalSphere | `254.65, 88.5` | `67.49×19.6` | `—` | — | `packet.coffee.eveningisles` @ `21.45, 0`<br>`honey.cuckoo` @ `2.45, 0`<br>`liquid.gideon` @ `35.62, 0` |
+| `M4` | PhysicalSphere | `254.65, 64.9` | `67.49×22.02` | `—` | — | `packet.tea.assam` @ `16.95, 0`<br>`mushrooms.pickled` @ `35.67, 0`<br>`packet.coffee.dawnlion` @ `2.95, 0` |
+| `R1` | PhysicalSphere | `333.1, 99.3` | `62.06×40.29` | `—` | — | `bottle.sloegin` @ `2.33, 0`<br>`pilchards.pickled` @ `37.96, 1.1` |
+| `R2` | PhysicalSphere | `333.1, 75.9` | `62.06×21.49` | `—` | — | `cinnabar` @ `4.78, 0`<br>`veg.marrow.golden` @ `54.06, 0`<br>`veg.marrow.pale` @ `33.33, 0` |
+| `R3` | PhysicalSphere | `333.1, 49.5` | `62.06×24.3` | `—` | — | `mackerel` @ `11.51, 0`<br>`essential.periost` @ `4.23, 0`<br>`box.oddities` @ `40.83, 0` |
+| `R4` | PhysicalSphere | `333.1, 8.7` | `62.06×38.63` | `—` | — | `veg.basket` @ `0.86, 0` |
+| `ThingSlotL1` | PhysicalSphere | `61.91, 131.3` | `67.49×35.21` | `—` | — | `pearl.rose` @ `8.3, 0`<br>`bottle.dandelionwine` @ `22.92, 0`<br>`scrapings.phosphorescent` @ `35.15, 0`<br>`ham.canned` @ `51.52, 0` |
+| `ThingSlotL2` | PhysicalSphere | `61.91, 108.1` | `67.49×25` | `—` | — | `jam.blackberry` @ `35.35, 0`<br>`pilchards.pickled` @ `3.97, 0`<br>`packet.tea.lapsang` @ `18.15, 0` |
+| `ThingSlotL3` | PhysicalSphere | `61.91, 65.3` | `67.49×40.01` | `—` | — | `pumpkin.amber.x` @ `21.37, 0`<br>`pottery.scrumpy` @ `37.12, 0`<br>`pumpkin` @ `1.32, 0` |
+| `ThingSlotL4` | PhysicalSphere | `61.91, 33.76` | `67.49×29.7` | `—` | — | `beeswax` @ `46.4, 0`<br>`parcel.tall` @ `3.25, 0`<br>`contraband.jetsam` @ `21.35, 0` |
 
 ---
 
@@ -2612,7 +2614,7 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ThingSlot` | PhysicalSphere | `645.9, 21.46` | `27.12×48.94` | `—` | — | — |
 | `ThingSlot.1` | PhysicalSphere | `785.4, 21.46` | `26.49×48.94` | `—` | — | — |
 | `ThingSlot.2` | PhysicalSphere | `408.31, 18.63` | `60.79×75.98` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `675.75, 36.36` | `107.35×34.04` | `—` | — | `bottle.roscraggan`<br>`glass.roscraggan`<br>`glass.roscraggan` |
+| `ThingSlotSeeded` | PhysicalSphere | `675.75, 36.36` | `107.35×34.04` | `—` | — | `bottle.roscraggan` @ `48.8, 0`<br>`glass.roscraggan` @ `38.15, 0`<br>`glass.roscraggan` @ `61.65, 0` |
 
 ---
 
@@ -2657,10 +2659,10 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlot.2` | ComfortSphere | `0, 0` | `49.41×168.99` | `—` | — | — |
 | `ComfortSlot.3` | ComfortSphere | `73.49, 88.8` | `89.84×55.51` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `295.7, 45.5` | `0×0` | `library.altar.radiant` | — | — |
-| `ThingSlotAltarL` | PhysicalSphere | `264.5, 48.3` | `25×36.52` | `—` | — | `candle.beeswax` |
-| `ThingSlotAltarTop` | PhysicalSphere | `287.3, 74.97` | `23.97×41.83` | `—` | — | `candle.beeswax` |
-| `ThingSlotNiche` | PhysicalSphere | `102.5, 147.1` | `28.46×35.77` | `—` | — | `candle.beeswax` |
-| `WallArtSlot` | WallArtSphere | `316.32, 116.81` | `54.38×52.19` | `—` | — | — |
+| `ThingSlotAltarL` | PhysicalSphere | `264.5, 48.3` | `25×36.52` | `—` | — | `candle.beeswax` @ `6.38, 0` |
+| `ThingSlotAltarTop` | PhysicalSphere | `287.3, 74.97` | `23.97×41.83` | `—` | — | `candle.beeswax` @ `5.86, 0` |
+| `ThingSlotNiche` | PhysicalSphere | `102.5, 147.1` | `28.46×35.77` | `—` | — | `candle.beeswax` @ `8.1, 0` |
+| `WallArtSlot` | WallArtSphere | `316.32, 116.8` | `54.38×52.19` | `—` | — | — |
 
 ---
 
@@ -2697,9 +2699,9 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ShelfSpaceSphereE.4` | ShelfSpaceSphere | `298.9, 73.28` | `25.91×24.01` | `—` | — | — |
 | `ShelfSpaceSphereF` | ShelfSpaceSphere | `332.43, 135.69` | `67.57×34.4` | `—` | — | — |
 | `ShelfSpaceSphereF.1` | ShelfSpaceSphere | `332.44, 99.94` | `67.57×33.36` | `—` | — | — |
-| `ThingSlotDesktop` | PhysicalSphere | `223.5, 40.1` | `99×25` | `—` | — | `houndsgall`<br>`quire.paper` |
-| `ThingSlotMantelpiece` | PhysicalSphere | `384.5, 89.74` | `15.5×26.52` | `—` | — | `candle.holdergold` |
-| `ThingSlotSideTable` | PhysicalSphere | `111.47, 28.8` | `36×25` | `—` | — | `cup.tea.lapsang`<br>`pot.tea.lapsang` |
+| `ThingSlotDesktop` | PhysicalSphere | `223.5, 40.1` | `99×25` | `—` | — | `houndsgall` @ `7.98, -1.1`<br>`quire.paper` @ `31.45, 0.4` |
+| `ThingSlotMantelpiece` | PhysicalSphere | `384.5, 89.74` | `15.5×26.52` | `—` | — | `candle.holdergold` @ `2.63, 0` |
+| `ThingSlotSideTable` | PhysicalSphere | `111.47, 28.8` | `36×25` | `—` | — | `cup.tea.lapsang` @ `24, 0.7`<br>`pot.tea.lapsang` @ `1.7, 0.4` |
 
 ---
 
@@ -2718,9 +2720,9 @@ Still no sign of any fire. Why then was the House abandoned?
 |-----------|------|----------|------|---------|---------|-------|
 | `FitmentSlot` | FitmentWorkstationSphere | `61.3, 20.4` | `0×0` | `library.fireplace.refectory` | — | — |
 | `SalonFitmentSlot` | FitmentWorkstationSphere | `250.3, 110.3` | `0×0` | `salon.refectory` | — | — |
-| `ThingSlotMantelpiece` | PhysicalSphere | `18.6, 74.2` | `84.8×25` | `—` | — | `candle.holdertall`<br>`clock.lantern`<br>`candle.holdertall` |
-| `ThingSlotTable2` | PhysicalSphere | `176.42, 36.2` | `67.83×25` | `—` | — | `vase.lilies` |
-| `ThingSlotTable2.1` | PhysicalSphere | `253.86, 36.2` | `67.57×25` | `—` | — | `vase.lilies` |
+| `ThingSlotMantelpiece` | PhysicalSphere | `18.6, 74.2` | `84.8×25` | `—` | — | `candle.holdertall` @ `5.98, 0`<br>`clock.lantern` @ `29.15, 0`<br>`candle.holdertall` @ `69.08, 0` |
+| `ThingSlotTable2` | PhysicalSphere | `176.42, 36.2` | `67.83×25` | `—` | — | `vase.lilies` @ `17.41, 0` |
+| `ThingSlotTable2.1` | PhysicalSphere | `253.86, 36.2` | `67.57×25` | `—` | — | `vase.lilies` @ `17.28, 0` |
 | `ThingSlotTable2.2` | PhysicalSphere | `135.93, 36.2` | `31.75×25` | `—` | — | — |
 | `ThingSlotTable3.1` | PhysicalSphere | `330.33, 36.2` | `35.38×25` | `—` | — | — |
 | `WallArtSlotLeft` | WallArtSphere | `178.04, 112.61` | `95.3×56.86` | `—` | — | — |
@@ -2799,7 +2801,7 @@ Still no sign of any fire. Why then was the House abandoned?
 | `GardenX1` | FitmentWorkstationSphere | `359.66, 34.46` | `45.47×42.07` | `garden.plot.x.1` | — | — |
 | `GardenX2` | FitmentWorkstationSphere | `532.86, 40.36` | `45.47×42.07` | `garden.plot.x.2` | — | — |
 | `ThingSlot` | PhysicalSphere | `627.1, 76.54` | `58.75×83.51` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `437.37, 22.76` | `72.27×41.38` | `—` | — | `lamp.hurricane`<br>`skinshuck.mead` |
+| `ThingSlotSeeded` | PhysicalSphere | `437.37, 22.76` | `72.27×41.38` | `—` | — | `lamp.hurricane` @ `28.51, 0`<br>`skinshuck.mead` @ `45.01, 0` |
 
 ---
 
@@ -2816,7 +2818,7 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot` | ComfortSphere | `128.23, 0` | `71.77×118.06` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `200, 0` | `110.7×118.06` | `—` | — | — |
 | `ComfortSlot.2` | ComfortSphere | `312.73, 0` | `87.26×118.06` | `—` | — | — |
@@ -2855,18 +2857,18 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot1` | ComfortSphere | `297.6, -0.2` | `40×25.71` | `—` | — | — |
 | `FitmentSlotFireplace` | FitmentWorkstationSphere | `278.7, 15.2` | `0×0` | `library.fireplace.servants` | — | — |
 | `FitmentSlotLoom` | FitmentWorkstationSphere | `331.26, 0` | `68.74×73.47` | `library.loom` | — | — |
 | `FitmentSlotPiano` | FitmentWorkstationSphere | `3.8, 39.2` | `67.17×40.46` | `library.instrument.piano.servants` | — | — |
-| `ShelfSpaceSphere` | ShelfSpaceSphere | `145.4, 101.8` | `86.5×33.52` | `—` | — | `statuette.pigeon` |
-| `ThingSlotMantelpiece` | PhysicalSphere | `238.8, 56.64` | `72.7×45.16` | `—` | — | `candle.holderblack`<br>`clock.servants` |
-| `ThingSlotPigeonHole1` | PhysicalSphere | `200, 59.67` | `31.43×18.95` | `—` | — | `contraband.flotsam` |
-| `ThingSlotPigeonHole2` | PhysicalSphere | `200, 79.66` | `31.43×9.86` | `—` | — | `parcel.slim` |
-| `ThingSlotTabletop` | TabletopSphere | `72.8, 39.2` | `127.2×28.42` | `—` | — | `fruit.misshapen`<br>`yarns.warm` |
-| `ThingSlotTabletop.1` | TabletopSphere | `200, 39.2` | `40.3×17.44` | `—` | — | `knife.thirza` |
-| `ThingSlotTopPiano` | PhysicalSphere | `3.8, 78.61` | `67.17×39.88` | `—` | — | `candle.mothorchid`<br>`midnight.mark`<br>`candle.holderblack` |
+| `ShelfSpaceSphere` | ShelfSpaceSphere | `145.4, 101.8` | `86.5×33.52` | `—` | — | `statuette.pigeon` @ `17.24, 0` |
+| `ThingSlotMantelpiece` | PhysicalSphere | `238.8, 56.64` | `72.7×45.16` | `—` | — | `candle.holderblack` @ `3.33, 0`<br>`clock.servants` @ `29.05, 0` |
+| `ThingSlotPigeonHole1` | PhysicalSphere | `200, 59.67` | `31.43×18.95` | `—` | — | `contraband.flotsam` @ `3.47, 0` |
+| `ThingSlotPigeonHole2` | PhysicalSphere | `200, 79.66` | `31.43×9.86` | `—` | — | `parcel.slim` @ `1.64, 3.82` |
+| `ThingSlotTabletop` | TabletopSphere | `72.8, 39.2` | `127.2×28.42` | `—` | — | `fruit.misshapen` @ `45.98, 0`<br>`yarns.warm` @ `6.13, 0` |
+| `ThingSlotTabletop.1` | TabletopSphere | `200, 39.2` | `40.3×17.44` | `—` | — | `knife.thirza` @ `1.15, 0` |
+| `ThingSlotTopPiano` | PhysicalSphere | `3.8, 78.61` | `67.17×39.88` | `—` | — | `candle.mothorchid` @ `15.76, 0`<br>`midnight.mark` @ `38.03, 0`<br>`candle.holderblack` @ `7.26, 0` |
 | `WallArtSlot` | WallArtSphere | `256.6, 121.6` | `43.34×69.77` | `—` | — | — |
 
 ---
@@ -2890,9 +2892,9 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlotLM` | FitmentWorkstationSphere | `157.6, 18.6` | `0×0` | `library.bed.guest.servants2` | — | — |
 | `FitmentSlotR` | FitmentWorkstationSphere | `308.4, 18.5` | `0×0` | `library.bed.guest.servants2` | — | — |
 | `FitmentSlotRM` | FitmentWorkstationSphere | `243.3, 18.5` | `0×0` | `library.bed.guest.servants3` | — | — |
-| `ThingSlotBedsideTable` | PhysicalSphere | `188.9, 28.8` | `25×39.53` | `—` | — | `candle.holderblack` |
-| `ThingSlotWardrobeL` | PhysicalSphere | `0, 107.7` | `62.34×25` | `—` | — | `basket.linen` |
-| `ThingSlotWardrobeR` | PhysicalSphere | `337.62, 107.7` | `45.58×34.68` | `—` | — | `contraband.jetsam`<br>`parcel.slim` |
+| `ThingSlotBedsideTable` | PhysicalSphere | `188.9, 28.8` | `25×39.53` | `—` | — | `candle.holderblack` @ `7.38, 0` |
+| `ThingSlotWardrobeL` | PhysicalSphere | `0, 107.7` | `62.34×25` | `—` | — | `basket.linen` @ `11.42, 0` |
+| `ThingSlotWardrobeR` | PhysicalSphere | `337.62, 107.7` | `45.58×34.68` | `—` | — | `contraband.jetsam` @ `21.59, 0`<br>`parcel.slim` @ `2.41, 0` |
 
 ---
 
@@ -2916,11 +2918,11 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlot.1` | FitmentWorkstationSphere | `365.1, 18.4` | `0×0` | `library.bed.guest.servants4` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `5.5, 78.71` | `64.91×37.49` | `—` | — | — |
 | `ShelfSpaceSphereB` | ShelfSpaceSphere | `327.44, 78.71` | `64.91×37.49` | `—` | — | — |
-| `ThingSlotBedsideL` | PhysicalSphere | `63.6, 28.89` | `20.4×41.01` | `—` | — | `candle.bedside.x` |
-| `ThingSlotBedsideR` | PhysicalSphere | `316.3, 28.89` | `20.4×41.01` | `—` | — | `candle.bedside` |
-| `ThingSlotDeskL` | PhysicalSphere | `84, 39.5` | `68.84×30.4` | `—` | — | `candle.holderblack`<br>`glass.water.isle` |
-| `ThingSlotDeskR` | PhysicalSphere | `240.68, 39.5` | `68.84×40.7` | `—` | — | `candle.holderblack`<br>`cup.coffee.dawnlion` |
-| `ThingSlotWardrobeTop` | PhysicalSphere | `168.51, 107.8` | `63.47×47.83` | `—` | — | `suitcase.sb`<br>`bolt.linen` |
+| `ThingSlotBedsideL` | PhysicalSphere | `63.6, 28.89` | `20.4×41.01` | `—` | — | `candle.bedside.x` @ `3.95, 0` |
+| `ThingSlotBedsideR` | PhysicalSphere | `316.3, 28.89` | `20.4×41.01` | `—` | — | `candle.bedside` @ `3.95, 0` |
+| `ThingSlotDeskL` | PhysicalSphere | `84, 39.5` | `68.84×30.4` | `—` | — | `candle.holderblack` @ `55.4, 0`<br>`glass.water.isle` @ `49.5, 0` |
+| `ThingSlotDeskR` | PhysicalSphere | `240.68, 39.5` | `68.84×40.7` | `—` | — | `candle.holderblack` @ `2.2, 0`<br>`cup.coffee.dawnlion` @ `8.75, 0` |
+| `ThingSlotWardrobeTop` | PhysicalSphere | `168.51, 107.8` | `63.47×47.83` | `—` | — | `suitcase.sb` @ `25.09, 0`<br>`bolt.linen` @ `4.84, 0` |
 | `WallArtSlot` | WallArtSphere | `86.32, 126.66` | `81.45×45.93` | `—` | — | — |
 | `WallArtSlot.1` | WallArtSphere | `232.27, 126.66` | `81.45×45.93` | `—` | — | — |
 | `WallArtSlotLeft` | WallArtSphere | `133.9, 50.35` | `34.61×76.3` | `—` | — | — |
@@ -2950,9 +2952,9 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ShelfSpaceLTop` | ShelfSpaceSphere | `13.54, 113.24` | `90.88×37.01` | `—` | — | — |
 | `ShelfSpaceRBottom` | ShelfSpaceSphere | `293.36, 81.81` | `90.88×28.02` | `—` | — | — |
 | `ShelfSpaceRTop` | ShelfSpaceSphere | `293.36, 113.24` | `90.88×37.01` | `—` | — | — |
-| `ThingSlotBedsideL` | PhysicalSphere | `107.9, 34.19` | `26.11×26.01` | `—` | — | `lamp.fringed`<br>`cup.tea.lapsang` |
-| `ThingSlotBedsideR` | PhysicalSphere | `261.75, 34.19` | `26.11×26.01` | `—` | — | `lamp.fringed`<br>`ashartine` |
-| `ThingSlotTableTop` | TabletopSphere | `28.95, 34.19` | `59.93×46.27` | `—` | — | `bust.abduction.salvation`<br>`candle.bedside`<br>`candle.mothorchid` |
+| `ThingSlotBedsideL` | PhysicalSphere | `107.9, 34.19` | `26.11×26.01` | `—` | — | `lamp.fringed` @ `-0.3, 0`<br>`cup.tea.lapsang` @ `15.25, 0` |
+| `ThingSlotBedsideR` | PhysicalSphere | `261.75, 34.19` | `26.11×26.01` | `—` | — | `lamp.fringed` @ `9.8, 0`<br>`ashartine` @ `5.55, 0` |
+| `ThingSlotTableTop` | TabletopSphere | `28.95, 34.19` | `59.93×46.27` | `—` | — | `bust.abduction.salvation` @ `17.84, 0`<br>`candle.bedside` @ `1.92, 0.3`<br>`candle.mothorchid` @ `13.44, 0` |
 
 ---
 
@@ -2994,10 +2996,10 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlot.1` | ComfortSphere | `249.33, 0` | `57.33×118.7` | `—` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `136.86, 109.6` | `40.88×36` | `—` | — | — |
 | `ShelfSpaceSphereB` | ShelfSpaceSphere | `308.7, 109.6` | `40.88×36` | `—` | — | — |
-| `ShelfSpaceSphereC` | ShelfSpaceSphere | `136.86, 67.1` | `40.88×36` | `—` | — | `casket.mottled` |
-| `ShelfSpaceSphereD` | ShelfSpaceSphere | `308.7, 67.7` | `40.87×35.4` | `—` | — | `casket.ambered` |
+| `ShelfSpaceSphereC` | ShelfSpaceSphere | `136.86, 67.1` | `40.88×36` | `—` | — | `casket.mottled` @ `11.07, 0` |
+| `ShelfSpaceSphereD` | ShelfSpaceSphere | `308.7, 67.7` | `40.87×35.4` | `—` | — | `casket.ambered` @ `13.81, 0` |
 | `ShelfSpaceSphereE` | ShelfSpaceSphere | `136.86, 25.05` | `40.88×36.35` | `—` | — | — |
-| `ShelfSpaceSphereF` | ShelfSpaceSphere | `308.7, 25.6` | `40.87×35.39` | `—` | — | `casket.royal` |
+| `ShelfSpaceSphereF` | ShelfSpaceSphere | `308.7, 25.6` | `40.87×35.39` | `—` | — | `casket.royal` @ `9.19, 0` |
 
 ---
 
@@ -3016,11 +3018,11 @@ Still no sign of any fire. Why then was the House abandoned?
 |-----------|------|----------|------|---------|---------|-------|
 | `ComfortSlot` | ComfortSphere | `12.6, 0.56` | `82.52×97.28` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `285.32, 0` | `68.04×39.7` | `—` | — | — |
-| `ThingSlotBarrel` | PhysicalSphere | `372.85, 83.9` | `18.45×52.89` | `—` | — | `lamp.hurricane` |
-| `ThingSlotNicheBottom` | PhysicalSphere | `177.41, 70.56` | `64.35×79.46` | `—` | — | `packages.forsaken`<br>`candle.bottle` |
-| `ThingSlotNicheTop` | PhysicalSphere | `128.9, 97.85` | `44.87×52.18` | `—` | — | `crate.supplies` |
-| `ThingSlotShelf1` | ShelfSpaceSphere | `308.57, 77.1` | `60.29×58.69` | `—` | — | `bottle.jannings`<br>`bottle.dandelionwine`<br>`bottle.jannings` |
-| `ThingSlotShelf2` | ShelfSpaceSphere | `310.44, 44.03` | `45.36×29.65` | `—` | — | `bottle.raveline`<br>`bottle.lambig`<br>`bottle.raveline` |
+| `ThingSlotBarrel` | PhysicalSphere | `372.85, 83.9` | `18.45×52.89` | `—` | — | `lamp.hurricane` @ `1.6, 0` |
+| `ThingSlotNicheBottom` | PhysicalSphere | `177.41, 70.56` | `64.35×79.46` | `—` | — | `packages.forsaken` @ `21.85, 0`<br>`candle.bottle` @ `8.97, 0` |
+| `ThingSlotNicheTop` | PhysicalSphere | `128.9, 97.85` | `44.87×52.18` | `—` | — | `crate.supplies` @ `2.19, 0` |
+| `ThingSlotShelf1` | ShelfSpaceSphere | `308.57, 77.1` | `60.29×58.69` | `—` | — | `bottle.jannings` @ `49.25, 0`<br>`bottle.dandelionwine` @ `20.12, 0`<br>`bottle.jannings` @ `34.05, 0` |
+| `ThingSlotShelf2` | ShelfSpaceSphere | `310.44, 44.03` | `45.36×29.65` | `—` | — | `bottle.raveline` @ `4.38, 0`<br>`bottle.lambig` @ `34.95, 0`<br>`bottle.raveline` @ `19.18, 0` |
 
 ---
 
@@ -3042,12 +3044,12 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlotSeeded.3` | ComfortSphere | `361.6, 0` | `38.4×100` | `—` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `14.69, 70.5` | `84.01×46.3` | `—` | — | — |
 | `ShelfSpaceSphereC` | ShelfSpaceSphere | `273.33, 35.41` | `90.9×34.59` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `39.6, 24.2` | `23.12×40.53` | `—` | — | `clock.moon` |
-| `ThingSlotSideTable.1` | PhysicalSphere | `163.22, 61.08` | `70.25×65.68` | `—` | — | `bust.willem` |
-| `ThingSlotUnit` | PhysicalSphere | `178.53, 27.6` | `55.18×33.47` | `—` | — | `awakened.feather`<br>`bisclavrets.knot` |
-| `ThingSlotUnitArmL` | PhysicalSphere | `135.4, 54.5` | `31.05×55.97` | `—` | — | `pot.snake`<br>`pot.orchid.pink` |
-| `ThingSlotUnitArmR` | PhysicalSphere | `233.47, 54.5` | `31.05×53.9` | `—` | — | `pot.bamboo` |
-| `ThingSlotWindow` | PhysicalSphere | `304.19, 72.42` | `39.46×69.64` | `—` | — | `candle.holdertall`<br>`candle.holdertall` |
+| `ThingSlotSeeded` | PhysicalSphere | `39.6, 24.2` | `23.12×40.53` | `—` | — | `clock.moon` @ `1.43, 0` |
+| `ThingSlotSideTable.1` | PhysicalSphere | `163.22, 61.08` | `70.25×65.68` | `—` | — | `bust.willem` @ `7.77, 0` |
+| `ThingSlotUnit` | PhysicalSphere | `178.53, 27.6` | `55.18×33.47` | `—` | — | `awakened.feather` @ `34.74, 0`<br>`bisclavrets.knot` @ `12.34, 0` |
+| `ThingSlotUnitArmL` | PhysicalSphere | `135.4, 54.5` | `31.05×55.97` | `—` | — | `pot.snake` @ `16.58, 0`<br>`pot.orchid.pink` @ `-4.72, 0` |
+| `ThingSlotUnitArmR` | PhysicalSphere | `233.47, 54.5` | `31.05×53.9` | `—` | — | `pot.bamboo` @ `1.9, 0` |
+| `ThingSlotWindow` | PhysicalSphere | `304.19, 72.42` | `39.46×69.64` | `—` | — | `candle.holdertall` @ `10.11, 0`<br>`candle.holdertall` @ `20.01, 0` |
 | `WallArtSlot` | WallArtSphere | `351.46, 104.29` | `48.54×91.84` | `—` | — | — |
 | `WallArtSlot.1` | WallArtSphere | `106.56, 113.33` | `45.31×82.79` | `—` | — | — |
 | `WallArtSlot.2` | WallArtSphere | `2.55, 119.8` | `45.31×76.33` | `—` | — | — |
@@ -3069,15 +3071,15 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot` | ComfortSphere | `258.65, 0` | `46.51×123.46` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `350.93, 0` | `49.06×146.31` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `200, 26.1` | `0×0` | `library.prospect.spire` | — | — |
 | `ThingSlot` | PhysicalSphere | `52.1, 57.65` | `25×58.99` | `—` | — | — |
 | `ThingSlot.1` | PhysicalSphere | `204.09, 57.65` | `46.15×47.63` | `—` | — | — |
-| `ThingSlotDeskL` | PhysicalSphere | `142.4, 43.5` | `39.95×51.71` | `—` | — | `pot.coffee.eveningisles`<br>`cup.coffee.eveningisles` |
-| `ThingSlotDeskR` | PhysicalSphere | `217.03, 43.5` | `39.95×51.7` | `—` | — | `houndsgall` |
-| `ThingSlotWindowR` | PhysicalSphere | `305.17, 38.42` | `48.26×89.27` | `—` | — | `bust.brian` |
+| `ThingSlotDeskL` | PhysicalSphere | `142.4, 43.5` | `39.95×51.71` | `—` | — | `pot.coffee.eveningisles` @ `0.75, 0`<br>`cup.coffee.eveningisles` @ `25.52, 0` |
+| `ThingSlotDeskR` | PhysicalSphere | `217.03, 43.5` | `39.95×51.7` | `—` | — | `houndsgall` @ `4.95, 0` |
+| `ThingSlotWindowR` | PhysicalSphere | `305.17, 38.42` | `48.26×89.27` | `—` | — | `bust.brian` @ `4.26, 0` |
 
 ---
 
@@ -3094,14 +3096,14 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `182.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `179.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot` | ComfortSphere | `0, 0` | `53.41×112.31` | `—` | — | — |
 | `ComfortSlotSeeded` | ComfortSphere | `152.25, 0.2` | `52.83×65.3` | `—` | — | — |
 | `ComfortSlotSeeded.1` | ComfortSphere | `325.63, 0.2` | `74.37×70` | `—` | — | — |
 | `ComfortSlotSeeded.2` | ComfortSphere | `210.86, 0.2` | `80.88×31.7` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `80.7, 28.2` | `0×0` | `library.fireplace.staffroom` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `205.08, 40.18` | `83.78×43.37` | `—` | — | `cup.coffee.dawnlion`<br>`pot.bonsai`<br>`cup.coffee.dawnlion` |
-| `ThingSlotSeeded.1` | PhysicalSphere | `56.31, 52.22` | `21.17×19.84` | `—` | — | `pot.coffee.dawnlion` |
+| `ThingSlotSeeded` | PhysicalSphere | `205.08, 40.18` | `83.78×43.37` | `—` | — | `cup.coffee.dawnlion` @ `54.21, 0`<br>`pot.bonsai` @ `32.39, 0`<br>`cup.coffee.dawnlion` @ `68.81, 0` |
+| `ThingSlotSeeded.1` | PhysicalSphere | `56.31, 52.22` | `21.17×19.84` | `—` | — | `pot.coffee.dawnlion` @ `0.96, 0` |
 | `WallArtSlot` | WallArtSphere | `134.84, 141.57` | `134.52×54.03` | `—` | — | — |
 | `WallArtSlot.1` | WallArtSphere | `253.04, 72.05` | `79.31×40.26` | `—` | — | — |
 | `WallArtSlot.2` | WallArtSphere | `316.64, 155.34` | `79.31×40.26` | `—` | — | — |
@@ -3124,11 +3126,11 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `82.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `79.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot` | ComfortSphere | `73.01, 0` | `74.49×143.48` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `0, 0` | `73.01×82.98` | `—` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `2.4, 91.08` | `66.44×47.57` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `150.3, 33.8` | `40.64×49.18` | `—` | — | `statuette.velvet` |
+| `ThingSlotSeeded` | PhysicalSphere | `150.3, 33.8` | `40.64×49.18` | `—` | — | `statuette.velvet` @ `4.94, 0` |
 
 ---
 
@@ -3147,13 +3149,13 @@ Still no sign of any fire. Why then was the House abandoned?
 |-----------|------|----------|------|---------|---------|-------|
 | `ComfortSlot` | ComfortSphere | `0, 0` | `49.99×132.86` | `—` | — | — |
 | `ComfortSlotStool` | ComfortSphere | `202.79, 0` | `64.08×39.56` | `—` | — | — |
-| `ThingSlotShelvesL1` | PhysicalSphere | `52.45, 89.4` | `120.9×25` | `—` | — | `saw`<br>`jerry.paraffin`<br>`bolt.silk`<br>`jerry.kerosene`<br>`lamp.hurricane` |
-| `ThingSlotShelvesL2` | PhysicalSphere | `52.45, 58.8` | `120.9×27.74` | `—` | — | `contraband.jetsam`<br>`wire.steel`<br>`oil.forge`<br>`spanners.x`<br>`parcel.slim`<br>`glue` |
-| `ThingSlotShelvesL3` | PhysicalSphere | `52.45, 30.7` | `120.9×25` | `—` | — | `paint.bosk`<br>`paint.pink`<br>`paint.green`<br>`paint.blue.dark`<br>`paint.yellow` |
-| `ThingSlotShelvesR1` | PhysicalSphere | `224.95, 135.48` | `67.11×24.52` | `—` | — | `candle.bottle`<br>`bottle.jannings`<br>`packet.cocoa`<br>`burette.cucurbit` |
-| `ThingSlotShelvesR2` | PhysicalSphere | `224.95, 111.94` | `67.11×20.91` | `—` | — | `box.rarities`<br>`skinshuck.mead`<br>`box.rarities` |
-| `ThingSlotShelvesR3` | PhysicalSphere | `224.95, 69.1` | `67.11×40.59` | `—` | — | `basket.towels`<br>`bolt.velvet` |
-| `ThingSlotShelvesR4` | PhysicalSphere | `224.95, 37.14` | `67.11×29.67` | `—` | — | `pitcher.water.isle`<br>`eigengrau`<br>`paint.blue.pale` |
+| `ThingSlotShelvesL1` | PhysicalSphere | `52.45, 89.4` | `120.9×25` | `—` | — | `saw` @ `43.95, 0`<br>`jerry.paraffin` @ `24.33, 0`<br>`bolt.silk` @ `86.05, 0`<br>`jerry.kerosene` @ `1.05, 0`<br>`lamp.hurricane` @ `105.13, 0` |
+| `ThingSlotShelvesL2` | PhysicalSphere | `52.45, 58.8` | `120.9×27.74` | `—` | — | `contraband.jetsam` @ `65.75, 0`<br>`wire.steel` @ `18.33, 0`<br>`oil.forge` @ `52.85, 0`<br>`spanners.x` @ `35.1, 0`<br>`parcel.slim` @ `103.68, 0`<br>`glue` @ `90.38, 0` |
+| `ThingSlotShelvesL3` | PhysicalSphere | `52.45, 30.7` | `120.9×25` | `—` | — | `paint.bosk` @ `52.88, 0`<br>`paint.pink` @ `25.08, 0`<br>`paint.green` @ `77.5, 0`<br>`paint.blue.dark` @ `96.08, 0`<br>`paint.yellow` @ `0.5, 0` |
+| `ThingSlotShelvesR1` | PhysicalSphere | `224.95, 135.48` | `67.11×24.52` | `—` | — | `candle.bottle` @ `55.45, 0`<br>`bottle.jannings` @ `37.05, 0`<br>`packet.cocoa` @ `45.5, 0`<br>`burette.cucurbit` @ `10.55, 0` |
+| `ThingSlotShelvesR2` | PhysicalSphere | `224.95, 111.94` | `67.11×20.91` | `—` | — | `box.rarities` @ `24.18, 0`<br>`skinshuck.mead` @ `9.43, 0`<br>`box.rarities` @ `45.28, 0` |
+| `ThingSlotShelvesR3` | PhysicalSphere | `224.95, 69.1` | `67.11×40.59` | `—` | — | `basket.towels` @ `3.13, 0`<br>`bolt.velvet` @ `46.35, 0` |
+| `ThingSlotShelvesR4` | PhysicalSphere | `224.95, 37.14` | `67.11×29.67` | `—` | — | `pitcher.water.isle` @ `2.58, 0`<br>`eigengrau` @ `45.25, 0`<br>`paint.blue.pale` @ `21, 0.46` |
 | `WallArtSlot` | WallArtSphere | `341.11, 129.36` | `56.93×67.7` | `—` | — | — |
 | `WallArtSlot.1` | WallArtSphere | `132.44, 129.36` | `56.93×67.7` | `—` | — | — |
 
@@ -3205,7 +3207,7 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ShelfSpaceR5` | ShelfSpaceSphere | `285.52, 22.61` | `17.76×30.3` | `—` | — | — |
 | `ShelfSpaceR6` | ShelfSpaceSphere | `269.81, 26.49` | `14.79×29.45` | `—` | — | — |
 | `ShelfSpaceR7` | ShelfSpaceSphere | `262.55, 30.07` | `6.3×27.87` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `147.1, 72.6` | `105.83×49.18` | `—` | — | `urn.ashes`<br>`yeartally`<br>`vase.gorse`<br>`vase.gorse` |
+| `ThingSlotSeeded` | PhysicalSphere | `147.1, 72.6` | `105.83×49.18` | `—` | — | `urn.ashes` @ `57.21, 0`<br>`yeartally` @ `37.26, 0`<br>`vase.gorse` @ `8.39, 0`<br>`vase.gorse` @ `74.69, 0` |
 
 ---
 
@@ -3227,8 +3229,8 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlotRight` | ComfortSphere | `275.36, 0.2` | `123.87×70` | `—` | — | — |
 | `ComfortSlotWindow` | ComfortSphere | `182.28, 0.2` | `42.24×63.6` | `—` | — | — |
 | `FitmentSlot` | FitmentWorkstationSphere | `53.8, 91.2` | `0×0` | `library.bed.guest.violet` | — | — |
-| `ThingSlotBedside` | PhysicalSphere | `0, 32.6` | `29.53×51.1` | `—` | — | `candle.bedside` |
-| `ThingSlotDesk` | PhysicalSphere | `117.24, 35.24` | `55.3×28.56` | `—` | — | `candle.holdergold`<br>`glass.strathcoyne`<br>`bottle.strathcoyne` |
+| `ThingSlotBedside` | PhysicalSphere | `0, 32.6` | `29.53×51.1` | `—` | — | `candle.bedside` @ `8.51, 0` |
+| `ThingSlotDesk` | PhysicalSphere | `117.24, 35.24` | `55.3×28.56` | `—` | — | `candle.holdergold` @ `2.93, 0`<br>`glass.strathcoyne` @ `35.13, 0`<br>`bottle.strathcoyne` @ `42.8, 0` |
 | `WallArtSlotL` | WallArtSphere | `103.65, 61.47` | `80.28×92.94` | `—` | — | — |
 | `WallArtSlotR` | WallArtSphere | `316.83, 53.21` | `74.19×104.86` | `—` | — | — |
 
@@ -3255,10 +3257,10 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ShelfSpaceDeskMid` | ShelfSpaceSphere | `28.53, 63.66` | `40.52×30.12` | `—` | — | — |
 | `ShelfSpaceSphereWindow1` | ShelfSpaceSphere | `228.06, 32.16` | `44.55×30` | `—` | — | — |
 | `ShelfSpaceSphereWindow2` | ShelfSpaceSphere | `283.6, 32.16` | `44.9×30` | `—` | — | — |
-| `ThingSlotDesk` | PhysicalSphere | `84.1, 44` | `67.47×61.47` | `—` | — | `yewgall.ink`<br>`mirrorscope` |
-| `ThingSlotDesktopL` | PhysicalSphere | `26.49, 128.2` | `40.02×43.44` | `—` | — | `quire.paper` |
-| `ThingSlotDesktopR` | PhysicalSphere | `141.7, 128.2` | `40.02×43.44` | `—` | — | `bust.walter` |
-| `ThingSlotSeeded` | PhysicalSphere | `191, 89` | `18×22` | `—` | — | `gervinite` |
+| `ThingSlotDesk` | PhysicalSphere | `84.1, 44` | `67.47×61.47` | `—` | — | `yewgall.ink` @ `54.41, 0`<br>`mirrorscope` @ `1.21, 0` |
+| `ThingSlotDesktopL` | PhysicalSphere | `26.49, 128.2` | `40.02×43.44` | `—` | — | `quire.paper` @ `6.76, 0` |
+| `ThingSlotDesktopR` | PhysicalSphere | `141.7, 128.2` | `40.02×43.44` | `—` | — | `bust.walter` @ `3.51, 0` |
+| `ThingSlotSeeded` | PhysicalSphere | `270.4, 1` | `18×22` | `—` | — | `gervinite` @ `4, 0` |
 | `WallArtSlot` | WallArtSphere | `351.7, 68.6` | `40×42` | `—` | — | — |
 
 ---
@@ -3280,7 +3282,7 @@ Still no sign of any fire. Why then was the House abandoned?
 | `FitmentSlot` | FitmentWorkstationSphere | `182.8, 115.9` | `0×0` | `library.telescope` | — | — |
 | `ShelfSpaceSphereA` | ShelfSpaceSphere | `4.05, 66.94` | `34.36×29.92` | `—` | — | — |
 | `ShelfSpaceSphereB` | ShelfSpaceSphere | `361.09, 66.94` | `35.04×29.93` | `—` | — | — |
-| `ThingSlotChairTable` | PhysicalSphere | `266.1, 23.7` | `17×25` | `—` | — | `glass.water.numa` |
+| `ThingSlotChairTable` | PhysicalSphere | `266.1, 23.7` | `17×25` | `—` | — | `glass.water.numa` @ `4.88, 0` |
 
 ---
 
@@ -3318,8 +3320,8 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `ThingSlotBottom` | PhysicalSphere | `94.2, 68.6` | `55.69×31.4` | `—` | — | `animal.bones`<br>`shears.sisterhood` |
-| `ThingSlotTop` | PhysicalSphere | `112.72, 100` | `14.28×25` | `—` | — | `candle.aglaophotis` |
+| `ThingSlotBottom` | PhysicalSphere | `94.2, 68.6` | `55.69×31.4` | `—` | — | `animal.bones` @ `33.67, 0`<br>`shears.sisterhood` @ `8.15, 0` |
+| `ThingSlotTop` | PhysicalSphere | `112.72, 100` | `14.28×25` | `—` | — | `candle.aglaophotis` @ `0.76, 0` |
 
 ---
 
@@ -3350,13 +3352,13 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ShelfSpaceSphereB` | ShelfSpaceSphere | `42.95, 64.68` | `77.74×27.14` | `—` | — | — |
 | `ShelfSpaceSphereC` | ShelfSpaceSphere | `42.95, 37.8` | `62.22×24.32` | `—` | — | — |
 | `ShelfSpaceSphereD` | ShelfSpaceSphere | `281.2, 93.32` | `76.47×26.09` | `—` | — | — |
-| `ShelfSpaceSphereE` | ShelfSpaceSphere | `281.2, 63.77` | `76.46×27.36` | `—` | — | `ashartine`<br>`quire.paper` |
+| `ShelfSpaceSphereE` | ShelfSpaceSphere | `281.2, 63.77` | `76.46×27.36` | `—` | — | `ashartine` @ `56.43, 0.6`<br>`quire.paper` @ `24.98, 0` |
 | `ShelfSpaceSphereF` | ShelfSpaceSphere | `281.19, 37.54` | `77.92×24.92` | `—` | — | — |
-| `ThingSlotL` | PhysicalSphere | `5.81, 27.71` | `33.61×59.77` | `—` | — | `bust.ambrose` |
-| `ThingSlotMantelpiece` | PhysicalSphere | `154.1, 63` | `91.99×25` | `—` | — | `candle.holdertall`<br>`skull`<br>`lamp.table.grail`<br>`candle.holdersmall` |
-| `ThingSlotSeeded` | PhysicalSphere | `190, 90` | `20×20` | `—` | — | `bottle.blackdove` |
-| `ThingSlotSideDesk` | PhysicalSphere | `358.78, 36.95` | `33.51×25.51` | `—` | — | `vase.carnations`<br>`lamp.table.edge` |
-| `ThingSlotSideTable` | PhysicalSphere | `88.02, 23.9` | `21.68×25` | `—` | — | `candle.holdersmall`<br>`glass.raveline` |
+| `ThingSlotL` | PhysicalSphere | `5.81, 27.71` | `33.61×59.77` | `—` | — | `bust.ambrose` @ `2.91, 0` |
+| `ThingSlotMantelpiece` | PhysicalSphere | `154.1, 63` | `91.99×25` | `—` | — | `candle.holdertall` @ `14.57, 0`<br>`skull` @ `70.97, 0`<br>`lamp.table.grail` @ `-1.03, 0`<br>`candle.holdersmall` @ `25.07, 0` |
+| `ThingSlotSeeded` | PhysicalSphere | `16.6, 98` | `20×20` | `—` | — | `bottle.blackdove` @ `6.63, 0` |
+| `ThingSlotSideDesk` | PhysicalSphere | `358.78, 36.95` | `33.51×25.51` | `—` | — | `vase.carnations` @ `12.05, 0`<br>`lamp.table.edge` @ `-1.57, 0` |
+| `ThingSlotSideTable` | PhysicalSphere | `88.02, 23.9` | `21.68×25` | `—` | — | `candle.holdersmall` @ `2.92, 0`<br>`glass.raveline` @ `11.77, 0` |
 | `WallArtSlotHeraldry` | WallArtSphere | `99.1, 140.3` | `200×60` | `—` | — | — |
 | `WallArtSlotMantelpiece` | WallArtSphere | `150, 66` | `100×60` | `—` | — | — |
 
@@ -3375,8 +3377,8 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `82.46, 74.07` | `35.07×51.86` | `—` | — | — |
-| `ThingSlotSeeded` | PhysicalSphere | `43.2, 33.1` | `25×43.41` | `—` | — | `candle.holderblack` |
+| `Advent1` | PhysicalSphere | `79.66, 135.57` | `35.07×51.86` | `—` | — | — |
+| `ThingSlotSeeded` | PhysicalSphere | `43.2, 33.1` | `25×43.41` | `—` | — | `candle.holderblack` @ `7.38, 0` |
 
 ---
 
@@ -3393,7 +3395,7 @@ Still no sign of any fire. Why then was the House abandoned?
 
 | Sphere ID | Type | Pos (BL) | Size | Verb ID | Aspects | Seeds |
 |-----------|------|----------|------|---------|---------|-------|
-| `Advent1` | PhysicalSphere | `812.46, 74.07` | `35.07×51.86` | `—` | — | — |
+| `Advent1` | PhysicalSphere | `809.66, 135.57` | `35.07×51.86` | `—` | — | — |
 | `ComfortSlot` | ComfortSphere | `0, 0` | `70.62×49.52` | `—` | — | — |
 | `ComfortSlot.1` | ComfortSphere | `230.19, 0` | `180.33×49.52` | `—` | — | — |
 | `ComfortSlot.2` | ComfortSphere | `589.75, 0` | `166.62×89.47` | `—` | — | — |
@@ -3407,18 +3409,18 @@ Still no sign of any fire. Why then was the House abandoned?
 | `HangingSlotShip` | PhysicalSphere | `135.83, 96.57` | `113.75×103.65` | `—` | — | — |
 | `ShelfSpaceLWindow.1` | ShelfSpaceSphere | `46.8, 53.3` | `61×65` | `—` | — | — |
 | `ShelfSpaceLWindow.2` | ShelfSpaceSphere | `296.1, 51.9` | `61×65` | `—` | — | — |
-| `ShelfSpaceLWindow.3` | ShelfSpaceSphere | `417.3, 53.3` | `61×65` | `—` | — | `curious.seashell`<br>`yew.blank` |
-| `ShelfSpaceRWindow.1` | ShelfSpaceSphere | `1184.25, 52.5` | `61×65` | `—` | — | `evas.locks` |
+| `ShelfSpaceLWindow.3` | ShelfSpaceSphere | `417.3, 53.3` | `61×65` | `—` | — | `curious.seashell` @ `34.77, 0`<br>`yew.blank` @ `15.75, 0` |
+| `ShelfSpaceRWindow.1` | ShelfSpaceSphere | `1184.25, 52.5` | `61×65` | `—` | — | `evas.locks` @ `10.25, 0` |
 | `ShelfSpaceRWindow.2` | ShelfSpaceSphere | `1312.5, 52.2` | `49×65` | `—` | — | — |
 | `ThingSlot.1` | PhysicalSphere | `729.28, 109.2` | `73.99×59.53` | `—` | — | — |
 | `ThingSlot.2` | PhysicalSphere | `857.01, 109.2` | `73.99×59.53` | `—` | — | — |
 | `ThingSlot.3` | PhysicalSphere | `941.7, 109.2` | `69.56×59.53` | `—` | — | — |
 | `ThingSlot.4` | PhysicalSphere | `653.09, 109.2` | `65.72×59.53` | `—` | — | — |
-| `ThingSlotBench` | PhysicalSphere | `138.44, 11.3` | `72.11×25.8` | `—` | — | `crate.supplies`<br>`spanners`<br>`oil.moth` |
-| `ThingSlotChest` | PhysicalSphere | `1554.72, 29.39` | `60.8×23.6` | `—` | — | `driftwood.fragment` |
-| `ThingSlotChest.1` | PhysicalSphere | `1554.72, 52.99` | `60.8×78.73` | `—` | — | `bust.gideon` |
-| `ThingSlotNicheL` | PhysicalSphere | `627.75, 134.2` | `21.2×33.01` | `—` | — | `candle.beeswax` |
-| `ThingSlotNicheR` | PhysicalSphere | `1013.9, 134.2` | `21.2×33.01` | `—` | — | `candle.beeswax` |
+| `ThingSlotBench` | PhysicalSphere | `138.44, 11.3` | `72.11×25.8` | `—` | — | `crate.supplies` @ `30.41, 0`<br>`spanners` @ `2.91, 0`<br>`oil.moth` @ `19.16, 0` |
+| `ThingSlotChest` | PhysicalSphere | `1554.72, 29.39` | `60.8×23.6` | `—` | — | `driftwood.fragment` @ `3.9, 0` |
+| `ThingSlotChest.1` | PhysicalSphere | `1554.72, 52.99` | `60.8×78.73` | `—` | — | `bust.gideon` @ `24.8, 0` |
+| `ThingSlotNicheL` | PhysicalSphere | `627.75, 134.2` | `21.2×33.01` | `—` | — | `candle.beeswax` @ `4.48, 0` |
+| `ThingSlotNicheR` | PhysicalSphere | `1013.9, 134.2` | `21.2×33.01` | `—` | — | `candle.beeswax` @ `4.48, 0` |
 | `WallArtSlot` | WallArtSphere | `1104.2, 89.47` | `79.9×77.74` | `—` | — | — |
 | `WallArtSlot.1` | WallArtSphere | `1465.21, 151.23` | `75.38×39.3` | `—` | — | — |
 | `WallArtSlot.2` | WallArtSphere | `515.55, 87.93` | `48.25×54.38` | `—` | — | — |
@@ -3444,11 +3446,11 @@ Still no sign of any fire. Why then was the House abandoned?
 | `ComfortSlot.1` | ComfortSphere | `349.66, 0` | `50.35×141.54` | `—` | — | — |
 | `ComfortSlotBarrels` | ComfortSphere | `112.08, 0` | `51.04×49.41` | `—` | — | — |
 | `ComfortSlotLeft` | ComfortSphere | `26.2, 0` | `44.01×51.43` | `—` | — | — |
-| `ThingSlotBarrel` | PhysicalSphere | `170.49, 53` | `31.02×40` | `—` | — | `bottle.roscraggan`<br>`glass.roscraggan` |
-| `ThingSlotNiche` | PhysicalSphere | `123.8, 100` | `22.42×41.54` | `—` | — | `candle.holderblack` |
-| `ThingSlotShelfA` | ShelfSpaceSphere | `253.27, 92.9` | `55.63×27.52` | `—` | — | `bottle.raveline`<br>`bottle.jannings` |
-| `ThingSlotShelfB` | ShelfSpaceSphere | `253.27, 62.94` | `55.63×27.52` | `—` | — | `bottle.dandelionwine`<br>`bottle.lambig`<br>`bottle.dandelionwine`<br>`bottle.dandelionwine`<br>`bottle.lambig`<br>`bottle.lambig` |
-| `ThingSlotTable` | PhysicalSphere | `271.59, 40.09` | `78.07×21.07` | `—` | — | `packages.lost` |
+| `ThingSlotBarrel` | PhysicalSphere | `170.49, 53` | `31.02×40` | `—` | — | `bottle.roscraggan` @ `16.94, 0`<br>`glass.roscraggan` @ `9.89, 0` |
+| `ThingSlotNiche` | PhysicalSphere | `123.8, 100` | `22.42×41.54` | `—` | — | `candle.holderblack` @ `6.08, 0` |
+| `ThingSlotShelfA` | ShelfSpaceSphere | `253.27, 92.9` | `55.63×27.52` | `—` | — | `bottle.raveline` @ `2.31, 0`<br>`bottle.jannings` @ `29.51, 0` |
+| `ThingSlotShelfB` | ShelfSpaceSphere | `253.27, 62.94` | `55.63×27.52` | `—` | — | `bottle.dandelionwine` @ `1.39, 0`<br>`bottle.lambig` @ `47.19, 0`<br>`bottle.dandelionwine` @ `19.69, 0`<br>`bottle.dandelionwine` @ `10.79, 0`<br>`bottle.lambig` @ `37.99, 0`<br>`bottle.lambig` @ `28.69, 0` |
+| `ThingSlotTable` | PhysicalSphere | `271.59, 40.09` | `78.07×21.07` | `—` | — | `packages.lost` @ `36.26, 0` |
 | `WallArtSlot` | WallArtSphere | `60.85, 100` | `58.51×46.59` | `—` | — | — |
 
 ---
