@@ -37,7 +37,7 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
                 continue;
             }
 
-            var pos = ResolvePosition(def, rt);
+            var pos = ResolvePosition(def, rt, out var applyCentreOffset);
             var location = new TokenLocation(pos, sphere);
 
             var element = compendium.GetEntityById<Element>(elementId);
@@ -48,6 +48,22 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
                 .WithLocation(location)
                 .Execute(new Context(Context.ActionSource.Eden), sphere);
             token.Understate();
+
+            // Tokens are positioned by their center, but an explicit posx/posy
+            // is the seed's bottom-left corner. Shift based on rendered size
+            if (applyCentreOffset)
+            {
+                var tokenRect = token.TokenRectTransform;
+                if (tokenRect != null)
+                {
+                    var size = tokenRect.rect.size;
+                    tokenRect.localPosition = new Vector3(
+                        pos.x + size.x * 0.5f,
+                        pos.y + size.y * 0.5f,
+                        0f);
+                }
+            }
+
             if (isFixed)
                 token.gameObject.AddComponent<NoDragMarker>();
         }
@@ -55,7 +71,7 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
         return true;
     }
 
-    private static Vector3 ResolvePosition(SeedEntry def, RectTransform rt)
+    private static Vector3 ResolvePosition(SeedEntry def, RectTransform rt, out bool applyCentreOffset)
     {
         var hasX = def.PosX.HasValue;
         var hasY = def.PosY.HasValue;
@@ -74,23 +90,27 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
             // vertically unless an explicit (bottom-left origin) Y is supplied.
             x = def.Side == "left" ? 10f : width - 10f;
             y = hasY ? def.PosY.Value : height * 0.5f;
+            applyCentreOffset = false;
         }
         else if (hasX && hasY)
         {
             x = def.PosX.Value;
             y = def.PosY.Value;
+            applyCentreOffset = true;
         }
         else if (hasX)
         {
             // Only X given: Y defaults to the bottom edge.
             x = def.PosX.Value;
             y = 0f;
+            applyCentreOffset = true;
         }
         else
         {
             // No position specified — center of the sphere.
             x = width * 0.5f;
             y = height * 0.5f;
+            applyCentreOffset = false;
         }
 
         // Convert bottom-left-origin coords to local space (origin at the pivot, the sphere's centre).
