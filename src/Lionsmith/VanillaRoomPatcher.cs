@@ -228,6 +228,7 @@ internal class VanillaRoomPatcher
         var go = Object.Instantiate(archetype, dominion.transform, false);
         go.SetActive(false);
         go.name = "workstation_" + def.Id;
+        go.AddComponent<WorkstationArtworkMarker>();
 
         var oldSpec = go.GetComponent<PermanentSphereSpec>();
         if (oldSpec != null)

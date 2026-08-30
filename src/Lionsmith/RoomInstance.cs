@@ -197,6 +197,7 @@ internal class RoomInstance(GameObject root, CustomTerrainDefinition def)
         var go = UnityEngine.Object.Instantiate(_workstationArchetype, dominion.transform, false);
         go.SetActive(true);
         go.name = "workstation_" + def1.Id;
+        go.AddComponent<WorkstationArtworkMarker>();
 
         AssignPositionAndSize(go, def1.PosX ?? 0f, def1.PosY ?? 0f, def1.Width ?? 120f, def1.Height ?? 120f);
         ConfigureCanvasGroup(go);

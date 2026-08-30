@@ -95,4 +95,5 @@ public class SeedEntry : AbstractEntity<SeedEntry>
     [WheelFucineNullable] public float? PosX { get; set; }
     [WheelFucineNullable] public float? PosY { get; set; }
     [FucineValue] public string Side { get; set; }
+    [FucineValue] public string Anchor { get; set; }
 }

@@ -191,6 +191,9 @@ Seed entries support:
   increasing to the right and upward. If both are omitted, the item spawns
   at the centre of the sphere.
 - "side": "left" or "right" (positions at the edge, for shelves)
+- "anchor": which point of the item the "posx"/"posy" coordinates refer to.
+  Defaults to "bottomleft" (the item's bottom-left corner). Other values:
+  "center" (or "centre"), "bottomright", "topleft", "topright".
 
 Example (replacing the seeds on ThingSlotNatanDesk in motleytower3):
 
@@ -308,6 +311,13 @@ Add a workstation (FitmentWorkstationSphere) to an existing room.
 
 - "verb" is the verb ID to seed this workstation with. The sprite is
   resolved from the verb, as described in CustomRoomCreation.txt.
+- To customize the workstation's image, install the Dappled Mask mod and
+  place the image in `images/fitments/{verbId}.png` (the image name must
+  match the verb ID).
+- The workstation's image is pinned to the bottom-left corner of the sphere
+  and scaled until it hits the sphere's edge, preserving its aspect ratio.
+  As such, for custom images, it is recommended to make the sphere the same
+  aspect ratio as the base image to make sizing easier.
 
 
 COMPLETE EXAMPLE

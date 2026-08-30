@@ -92,6 +92,28 @@
         "description": "You'll have to squat down.",
         "aspects": { "rose": 1 },
         "warmup": 30
+      },
+      "contents": {
+        "workstations": [
+          {
+            "id": "modded.hallway.natan",
+            "label": "Natan's Desk",
+            "verb": "library.desk.natan.consider",
+            "posx": 20,
+            "posy": 0,
+            "width": 200,
+            "height": 100
+          },
+          {
+            "id": "modded.hallway.pink",
+            "label": "Hallway Desk",
+            "verb": "modded.hallway.consider",
+            "posx": 480,
+            "posy": 0,
+            "width": 100,
+            "height": 100
+          }
+        ]
       }
     },
     {
@@ -134,10 +156,10 @@
             "label": "Spire Wall Art",
             "description": "The bare walls of the spire, waiting to be adorned.",
             "seeds": [
-              {"id": "painting.annointing", "posx": 50, "posy": 360},
-              {"id": "painting.annointing", "posx": 350, "posy": 360},
-              {"id": "painting.annointing", "posx": 50, "posy": 60},
-              {"id": "painting.annointing", "posx": 350, "posy": 60},
+              {"id": "painting.annointing", "posx": 50, "posy": 360, "anchor":  "center"},
+              {"id": "painting.annointing", "posx": 350, "posy": 360, "anchor":  "center"},
+              {"id": "painting.annointing", "posx": 50, "posy": 60, "anchor":  "centre"},
+              {"id": "painting.annointing", "posx": 350, "posy": 60, "anchor":  "centre"},
               {"id": "window.meniscate"}
             ],
             "posx": 0,

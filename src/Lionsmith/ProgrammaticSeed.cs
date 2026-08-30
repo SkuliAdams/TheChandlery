@@ -4,12 +4,22 @@ using SecretHistories.Commands;
 using SecretHistories.Entities;
 using SecretHistories.Spheres;
 using SecretHistories.UI;
+using TheHouse.Wheel;
 using UnityEngine;
 
 namespace TheHouse;
 
 internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
 {
+    private enum SeedAnchor
+    {
+        BottomLeft,
+        Center,
+        BottomRight,
+        TopLeft,
+        TopRight,
+    }
+
     public List<SeedEntry> SeedDefs;
 
     public bool EdenSetup(bool withLogging)
@@ -37,7 +47,8 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
                 continue;
             }
 
-            var pos = ResolvePosition(def, rt, out var applyCentreOffset);
+            var anchor = ResolveAnchor(def);
+            var pos = ResolvePosition(def, rt);
             var location = new TokenLocation(pos, sphere);
 
             var element = compendium.GetEntityById<Element>(elementId);
@@ -49,19 +60,16 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
                 .Execute(new Context(Context.ActionSource.Eden), sphere);
             token.Understate();
 
-            // Tokens are positioned by their center, but an explicit posx/posy
-            // is the seed's bottom-left corner. Shift based on rendered size
-            if (applyCentreOffset)
+            // Tokens are positioned by their center, but posx/posy is the seed's
+            // anchor point. Shift based on rendered size so the anchor lands there.
+            var tokenRect = token.TokenRectTransform;
+            if (tokenRect != null)
             {
-                var tokenRect = token.TokenRectTransform;
-                if (tokenRect != null)
-                {
-                    var size = tokenRect.rect.size;
-                    tokenRect.localPosition = new Vector3(
-                        pos.x + size.x * 0.5f,
-                        pos.y + size.y * 0.5f,
-                        0f);
-                }
+                var offset = AnchorOffset(anchor, tokenRect.rect.size);
+                tokenRect.localPosition = new Vector3(
+                    pos.x + offset.x,
+                    pos.y + offset.y,
+                    0f);
             }
 
             if (isFixed)
@@ -71,7 +79,48 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
         return true;
     }
 
-    private static Vector3 ResolvePosition(SeedEntry def, RectTransform rt, out bool applyCentreOffset)
+    private static SeedAnchor ResolveAnchor(SeedEntry def)
+    {
+        if (def.WasPropertySpecified("anchor"))
+        {
+            switch ((def.Anchor ?? "").Trim().ToLowerInvariant())
+            {
+                case "center":
+                case "centre": // appease the brits
+                    return SeedAnchor.Center;
+                case "bottomright":
+                    return SeedAnchor.BottomRight;
+                case "topleft":
+                    return SeedAnchor.TopLeft;
+                case "topright":
+                    return SeedAnchor.TopRight;
+                case "bottomleft":
+                default:
+                    return SeedAnchor.BottomLeft;
+            }
+        }
+
+        if (!string.IsNullOrEmpty(def.Side) || (!def.PosX.HasValue && !def.PosY.HasValue))
+            return SeedAnchor.Center;
+        return SeedAnchor.BottomLeft;
+    }
+
+    private static Vector3 AnchorOffset(SeedAnchor anchor, Vector2 size)
+    {
+        var halfW = size.x * 0.5f;
+        var halfH = size.y * 0.5f;
+
+        return anchor switch
+        {
+            SeedAnchor.BottomLeft => new Vector3(halfW, halfH, 0f),
+            SeedAnchor.BottomRight => new Vector3(-halfW, halfH, 0f),
+            SeedAnchor.TopLeft => new Vector3(halfW, -halfH, 0f),
+            SeedAnchor.TopRight => new Vector3(-halfW, -halfH, 0f),
+            _ => Vector3.zero,
+        };
+    }
+
+    private static Vector3 ResolvePosition(SeedEntry def, RectTransform rt)
     {
         var hasX = def.PosX.HasValue;
         var hasY = def.PosY.HasValue;
@@ -90,27 +139,23 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
             // vertically unless an explicit (bottom-left origin) Y is supplied.
             x = def.Side == "left" ? 10f : width - 10f;
             y = hasY ? def.PosY.Value : height * 0.5f;
-            applyCentreOffset = false;
         }
         else if (hasX && hasY)
         {
             x = def.PosX.Value;
             y = def.PosY.Value;
-            applyCentreOffset = true;
         }
         else if (hasX)
         {
             // Only X given: Y defaults to the bottom edge.
             x = def.PosX.Value;
             y = 0f;
-            applyCentreOffset = true;
         }
         else
         {
             // No position specified — center of the sphere.
             x = width * 0.5f;
             y = height * 0.5f;
-            applyCentreOffset = false;
         }
 
         // Convert bottom-left-origin coords to local space (origin at the pivot, the sphere's centre).

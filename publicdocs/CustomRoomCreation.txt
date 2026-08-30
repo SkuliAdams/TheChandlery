@@ -221,6 +221,14 @@ player perform actions.
   The sprite for the workstation is determined by the verb — it loads
   from `Resources/prefabs/workstations/{verbId}` (the same visual used
   by that verb's workstation in the base game).
+- To customize the workstation's image, install the Dappled Mask mod and
+  place the image in `images/fitments/{verbId}.png` (the image name must
+  match the verb ID). For example, a workstation seeded with verb
+  `library.desk.natan.consider` uses `images/fitments/library.desk.natan.consider.png`.
+- The workstation's image is pinned to the bottom-left corner of the sphere
+  and scaled until it hits the sphere's edge, preserving its aspect ratio.
+  As such, it is recommended to make the sphere the same aspect ratio as 
+  the base image to make sizing easier.
 
 8c. Seed Entries
 ----------------
@@ -242,6 +250,12 @@ Seeds define items that spawn in a sphere when the room is first loaded.
   If both are omitted, the item spawns at the centre of the sphere.
 - "side": "left" or "right" — positions the item at the left or right
   edge of the sphere for bookshelf spheres.
+- "anchor": which point of the item the "posx"/"posy" coordinates refer to.
+  Defaults to "bottomleft" (the item's bottom-left corner, growing up and
+  right from there). Other values: "center" (or "centre") places the item's
+  centre exactly at the coordinates, "bottomright", "topleft", and "topright"
+  anchor the corresponding corner. Useful for centring an item on a spot or
+  hanging it from a corner.
 
 If an element has the "fixed" aspect in its definition, the spawned
 item will be immovable (cannot be dragged).
