@@ -236,8 +236,8 @@ player perform actions.
 Seeds define items that spawn in a sphere when the room is first loaded.
 
     "seeds": [
-      { "id": "elementid1", "posx": 0, "posy": 0 },
-      { "id": "elementid1", "posx": 15, "posy": 10 },
+      { "id": "elementid1", "posx": 0, "posy": 0, "anchor": "bottomleft" },
+      { "id": "elementid1", "posx": 15, "posy": 10, "anchor": "center" },
       { "id": "elementid2", "side": "left" },
       { "id": "elementid3", "side": "right" }
     ]
@@ -251,11 +251,8 @@ Seeds define items that spawn in a sphere when the room is first loaded.
 - "side": "left" or "right" — positions the item at the left or right
   edge of the sphere for bookshelf spheres.
 - "anchor": which point of the item the "posx"/"posy" coordinates refer to.
-  Defaults to "bottomleft" (the item's bottom-left corner, growing up and
-  right from there). Other values: "center" (or "centre") places the item's
-  centre exactly at the coordinates, "bottomright", "topleft", and "topright"
-  anchor the corresponding corner. Useful for centring an item on a spot or
-  hanging it from a corner.
+  Defaults to "bottomleft" (the item's bottom-left corner). Other values:
+  "center" (or "centre"), "bottomright", "topleft", "topright".
 
 If an element has the "fixed" aspect in its definition, the spawned
 item will be immovable (cannot be dragged).
