@@ -160,7 +160,7 @@
               {"id": "painting.annointing", "posx": 350, "posy": 360, "anchor":  "center"},
               {"id": "painting.annointing", "posx": 50, "posy": 60, "anchor":  "centre"},
               {"id": "painting.annointing", "posx": 350, "posy": 60, "anchor":  "centre"},
-              {"id": "window.meniscate"}
+              {"id": "window.meniscate", "anchor":  "center"}
             ],
             "posx": 0,
             "posy": 0,
