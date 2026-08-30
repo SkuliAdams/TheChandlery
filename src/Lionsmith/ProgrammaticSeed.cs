@@ -3,8 +3,8 @@ using SecretHistories.Abstract;
 using SecretHistories.Commands;
 using SecretHistories.Entities;
 using SecretHistories.Spheres;
+using SecretHistories.Spheres.Choreographers;
 using SecretHistories.UI;
-using TheHouse.Wheel;
 using UnityEngine;
 
 namespace TheHouse;
@@ -63,13 +63,26 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
             // Tokens are positioned by their center, but posx/posy is the seed's
             // anchor point. Shift based on rendered size so the anchor lands there.
             var tokenRect = token.TokenRectTransform;
+            var tokenSize = tokenRect != null ? tokenRect.rect.size : Vector2.zero;
+            var offset = AnchorOffset(anchor, tokenSize);
+
+            var isWallArt = sphere.GetComponent<AbstractChoreographer>() is WallChoreographer;
             if (tokenRect != null)
             {
-                var offset = AnchorOffset(anchor, tokenRect.rect.size);
-                tokenRect.localPosition = new Vector3(
-                    pos.x + offset.x,
-                    pos.y + offset.y,
-                    0f);
+                // Let the sphere's choreographer place the token (clamping it to
+                // the sphere and resolving overlaps), then nudge the rendered
+                // token so the anchor point lands on the intended posx/posy.
+                var placed = tokenRect.localPosition;
+                if (isWallArt)
+                {
+                    // Wall-art spheres: the anchor applies on both axes.
+                    tokenRect.localPosition = new Vector3(placed.x + offset.x, placed.y + offset.y, placed.z);
+                }
+                else if (!string.IsNullOrEmpty(def.Anchor) && string.IsNullOrEmpty(def.Side))
+                {
+                    // Non-wall spheres: Only apply on x axis, since item forced to bottom edge.
+                    tokenRect.localPosition = new Vector3(placed.x + offset.x, placed.y, placed.z);
+                }
             }
 
             if (isFixed)
@@ -81,9 +94,9 @@ internal class ProgrammaticSeed : MonoBehaviour, ILazyEdenable
 
     private static SeedAnchor ResolveAnchor(SeedEntry def)
     {
-        if (def.WasPropertySpecified("anchor"))
+        if (!string.IsNullOrEmpty(def.Anchor))
         {
-            switch ((def.Anchor ?? "").Trim().ToLowerInvariant())
+            switch (def.Anchor.Trim().ToLowerInvariant())
             {
                 case "center":
                 case "centre": // appease the brits

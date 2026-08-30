@@ -187,7 +187,7 @@ The "id" must match the sphere's spec ID from VanillaRoomReference.md exactly.
 The "seeds" array fully replaces all existing seeds on that sphere.
 
 Seed entries support:
-- "posx", "posy": position relative to the sphere's bottom-left corner,
+- "posx", "posy": position relative to the sphere's anchor point,
   increasing to the right and upward. If both are omitted, the item spawns
   at the centre of the sphere.
 - "side": "left" or "right" (positions at the edge, for shelves)

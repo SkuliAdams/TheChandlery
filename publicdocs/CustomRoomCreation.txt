@@ -244,7 +244,7 @@ Seeds define items that spawn in a sphere when the room is first loaded.
 
 - "id": the element ID (e.g. "candle.holderthree", "typewriter",
   "uncatbook.baronial", "window.meniscate", "painting.annointing")
-- "posx", "posy": position relative to the sphere's bottom-left corner,
+- "posx", "posy": position relative to the sphere's anchor point,
   increasing to the right and upward. For non-wall-art spheres, only posx
   matters, as the vertical position is forced to the sphere's bottom edge.
   If both are omitted, the item spawns at the centre of the sphere.
