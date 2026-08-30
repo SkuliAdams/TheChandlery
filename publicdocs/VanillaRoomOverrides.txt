@@ -12,8 +12,8 @@ room, see:
     publicdocs/VanillaRoomReference.md
 
 Each room entry lists the Room ID, Terrain Recipe, sphere IDs, types,
-positions, sizes, verb IDs, aspect requirements, and seeds. Use those IDs
-directly in your override definitions.
+positions, sizes, the verb each workstation seeds, aspect requirements, and
+seeds. Use those IDs directly in your override definitions.
 
 
 BASIC STRUCTURE
@@ -318,6 +318,14 @@ Add a workstation (FitmentWorkstationSphere) to an existing room.
   and scaled until it hits the sphere's edge, preserving its aspect ratio.
   As such, for custom images, it is recommended to make the sphere the same
   aspect ratio as the base image to make sizing easier.
+
+Note: the "verb" field is only applied when the workstation is newly added
+to the room — the verb of an existing vanilla workstation cannot be changed
+in place. To swap a workstation's verb, remove the vanilla workstation with
+"remove_spheres" (section 6) and add a new one at the same position with the
+desired verb. A hidden workstation's verb token does not spawn, so the
+replacement takes over cleanly. Give the replacement a new "id" that does
+not match the removed workstation's spec ID.
 
 
 COMPLETE EXAMPLE
